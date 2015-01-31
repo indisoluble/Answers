@@ -1,4 +1,7 @@
 platform :ios, '8.1'
 
+# CDTDatastore
+pod "CDTDatastore"
+
 # UIAlertView-Blocks
 pod 'UIAlertView-Blocks'
