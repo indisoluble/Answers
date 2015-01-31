@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 
+#import <UIAlertView-Blocks/UIAlertView+Blocks.h>
+
 #import "IAWControllerQuestionsTVC.h"
 
 
@@ -63,5 +65,34 @@
     return cell;
 }
 */
+
+
+#pragma mark - Actions
+- (IBAction)addQuestionButtonPressed:(id)sender
+{
+    __block UIAlertView *alertView = nil;
+    __weak IAWControllerQuestionsTVC *weakSelf = self;
+    
+    void (^addQuestionAction)(void) = ^(void)
+    {
+        __strong IAWControllerQuestionsTVC *strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            NSLog(@"Text: %@", textField.text);
+        }
+    };
+    
+    RIButtonItem *createItem = [RIButtonItem itemWithLabel:NSLocalizedString(@"Add", @"Add") action:addQuestionAction];
+    RIButtonItem *cancelItem = [RIButtonItem itemWithLabel:NSLocalizedString(@"Cancel", @"Cancel")];
+    
+    alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Add new question", @"Add new question")
+                                           message:NSLocalizedString(@"Type a question", @"Type a question")
+                                  cancelButtonItem:cancelItem
+                                  otherButtonItems:createItem, nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    [alertView show];
+}
 
 @end

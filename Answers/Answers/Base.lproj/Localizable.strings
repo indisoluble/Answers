@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  Answers
+
+  Created by Enrique de la Torre (dev) on 31/01/2015.
+  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
+*/
+
+"Add" = "Add";
+"Cancel" = "Cancel";
+
+"Add new question" = "Add new question";
+"Type a question" = "Type a question";

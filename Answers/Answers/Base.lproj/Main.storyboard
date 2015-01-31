@@ -26,7 +26,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Questions" id="yJa-CJ-NOb">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="XzL-se-OeT"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="XzL-se-OeT">
+                            <connections>
+                                <action selector="addQuestionButtonPressed:" destination="7lh-64-jlX" id="1th-yc-xGK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQW-Eo-t2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
