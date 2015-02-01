@@ -10,6 +10,8 @@
 
 #import "IAWControllerQuestionsTVC.h"
 
+#import "IAWPersistence.h"
+
 
 
 @interface IAWControllerQuestionsTVC ()
@@ -79,7 +81,8 @@
         if (strongSelf)
         {
             UITextField *textField = [alertView textFieldAtIndex:0];
-            NSLog(@"Text: %@", textField.text);
+            
+            [strongSelf addQuestionWithText:textField.text];
         }
     };
     
@@ -93,6 +96,27 @@
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alertView show];
+}
+
+
+#pragma mark - Private methods
+- (void)addQuestionWithText:(NSString *)questionText
+{
+    IAWModelQuestion *oneQuestion = [[IAWModelQuestion alloc] initWithQuestionText:questionText];
+    if (!oneQuestion)
+    {
+        NSLog(@"Question instance not created");
+        
+        return;
+    }
+    
+    id<IAWPersistenceDatastoreProtocol> datastore = [IAWPersistenceDatastoreFactory datastore];
+    
+    NSError *error = nil;
+    if (![datastore createDocument:oneQuestion error:&error])
+    {
+        NSLog(@"Error: %@", error);
+    }
 }
 
 @end
