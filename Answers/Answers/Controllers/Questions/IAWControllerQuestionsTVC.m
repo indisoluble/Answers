@@ -15,12 +15,29 @@
 
 
 @interface IAWControllerQuestionsTVC ()
+{
+    IAWPersistenceDatastoreDecorator *_datastore;
+}
+
+@property (strong, nonatomic, readonly) IAWPersistenceDatastoreDecorator *datastore;
 
 @end
 
 
 
 @implementation IAWControllerQuestionsTVC
+
+#pragma mark - Synthesize properties
+- (IAWPersistenceDatastoreDecorator *)datastore
+{
+    if (!_datastore)
+    {
+        _datastore = [IAWPersistenceDatastoreDecorator datastore];
+    }
+    
+    return _datastore;
+}
+
 
 #pragma mark - Memory management
 - (void)didReceiveMemoryWarning
@@ -35,12 +52,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self addDatastoreObservers];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self removeDatastoreObservers];
 }
 
 
@@ -100,6 +125,24 @@
 
 
 #pragma mark - Private methods
+- (void)addDatastoreObservers
+{
+    [self.datastore.notificationCenter addDidChangeNotificationObserver:self
+                                                               selector:@selector(manageDidChangeNotification:)
+                                                                 sender:self.datastore];
+}
+
+- (void)removeDatastoreObservers
+{
+    [self.datastore.notificationCenter removeDidChangeNotificationObserver:self
+                                                                    sender:self.datastore];
+}
+
+- (void)manageDidChangeNotification:(NSNotification *)notification
+{
+    NSLog(@"Notification: %@", notification);
+}
+
 - (void)addQuestionWithText:(NSString *)questionText
 {
     IAWModelQuestion *oneQuestion = [[IAWModelQuestion alloc] initWithQuestionText:questionText];
@@ -110,10 +153,8 @@
         return;
     }
     
-    id<IAWPersistenceDatastoreProtocol> datastore = [IAWPersistenceDatastoreFactory datastore];
-    
     NSError *error = nil;
-    if (![datastore createDocument:oneQuestion error:&error])
+    if (![self.datastore createDocument:oneQuestion error:&error])
     {
         NSLog(@"Error: %@", error);
     }

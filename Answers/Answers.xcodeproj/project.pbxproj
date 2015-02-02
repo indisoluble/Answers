@@ -12,14 +12,16 @@
 		FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF383D311A7D6B3200415B52 /* Localizable.strings */; };
 		FF4931FD1A7E9F9A004E0800 /* IAWModelQuestionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FC1A7E9F9A004E0800 /* IAWModelQuestionTests.m */; };
 		FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FF1A7E9FF0004E0800 /* IAWModelQuestion.m */; };
-		FF49320F1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF49320E1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */; };
-		FF4932131A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4932121A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */; };
-		FF4932171A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4932161A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.m */; };
 		FFD78B541A7995350059CB68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B531A7995350059CB68 /* main.m */; };
 		FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B561A7995350059CB68 /* AppDelegate.m */; };
 		FFD78B5D1A7995350059CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5B1A7995350059CB68 /* Main.storyboard */; };
 		FFD78B5F1A7995350059CB68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5E1A7995350059CB68 /* Images.xcassets */; };
 		FFD78B621A7995350059CB68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B601A7995350059CB68 /* LaunchScreen.xib */; };
+		FFED55F31A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F21A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */; };
+		FFED55F91A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */; };
+		FFED55FA1A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */; };
+		FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */; };
+		FFED56031A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED56021A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,15 +47,7 @@
 		FF4931FC1A7E9F9A004E0800 /* IAWModelQuestionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelQuestionTests.m; sourceTree = "<group>"; };
 		FF4931FE1A7E9FF0004E0800 /* IAWModelQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelQuestion.h; sourceTree = "<group>"; };
 		FF4931FF1A7E9FF0004E0800 /* IAWModelQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelQuestion.m; sourceTree = "<group>"; };
-		FF49320B1A7EBBB1004E0800 /* IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreProtocol.h; sourceTree = "<group>"; };
-		FF49320C1A7EBBFC004E0800 /* IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDocumentProtocol.h; sourceTree = "<group>"; };
-		FF49320D1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.h"; sourceTree = "<group>"; };
-		FF49320E1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.m"; sourceTree = "<group>"; };
-		FF4932111A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.h"; sourceTree = "<group>"; };
-		FF4932121A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.m"; sourceTree = "<group>"; };
 		FF4932141A7EC7BC004E0800 /* IAWPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistence.h; sourceTree = "<group>"; };
-		FF4932151A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreFactory.h; sourceTree = "<group>"; };
-		FF4932161A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreFactory.m; sourceTree = "<group>"; };
 		FFD78B4E1A7995350059CB68 /* Answers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Answers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B521A7995350059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFD78B531A7995350059CB68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -64,6 +58,18 @@
 		FFD78B611A7995350059CB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FFD78B671A7995360059CB68 /* AnswersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnswersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B6C1A7995360059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFED55F11A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.h"; sourceTree = "<group>"; };
+		FFED55F21A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.m"; sourceTree = "<group>"; };
+		FFED55F51A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.h"; sourceTree = "<group>"; };
+		FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.m"; sourceTree = "<group>"; };
+		FFED55F71A80259800F96AA1 /* IAWPersistenceDatastoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreFactory.h; sourceTree = "<group>"; };
+		FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreFactory.m; sourceTree = "<group>"; };
+		FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreNotificationCenter.h; sourceTree = "<group>"; };
+		FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreNotificationCenter.m; sourceTree = "<group>"; };
+		FFED56011A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDecorator.h; sourceTree = "<group>"; };
+		FFED56021A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreDecorator.m; sourceTree = "<group>"; };
+		FFED56041A8036E200F96AA1 /* IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreProtocol.h; sourceTree = "<group>"; };
+		FFED56051A8036F700F96AA1 /* IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDocumentProtocol.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,25 +137,11 @@
 		FF4932011A7EAF5E004E0800 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				FF4932101A7EC5EE004E0800 /* Model */,
-				FF49320D1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */,
-				FF49320E1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */,
+				FFED55F41A80250600F96AA1 /* Datastore */,
+				FFED55F01A80240900F96AA1 /* Documents */,
 				FF4932141A7EC7BC004E0800 /* IAWPersistence.h */,
-				FF4932151A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.h */,
-				FF4932161A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.m */,
-				FF49320B1A7EBBB1004E0800 /* IAWPersistenceDatastoreProtocol.h */,
-				FF49320C1A7EBBFC004E0800 /* IAWPersistenceDocumentProtocol.h */,
 			);
 			path = Persistence;
-			sourceTree = "<group>";
-		};
-		FF4932101A7EC5EE004E0800 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FF4932111A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.h */,
-				FF4932121A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		FFB270F71A7C23A00066B81F /* Controllers */ = {
@@ -221,6 +213,32 @@
 				FFD78B6C1A7995360059CB68 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FFED55F01A80240900F96AA1 /* Documents */ = {
+			isa = PBXGroup;
+			children = (
+				FFED55F11A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.h */,
+				FFED55F21A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */,
+				FFED56051A8036F700F96AA1 /* IAWPersistenceDocumentProtocol.h */,
+			);
+			path = Documents;
+			sourceTree = "<group>";
+		};
+		FFED55F41A80250600F96AA1 /* Datastore */ = {
+			isa = PBXGroup;
+			children = (
+				FFED55F51A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */,
+				FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */,
+				FFED56011A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.h */,
+				FFED56021A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m */,
+				FFED55F71A80259800F96AA1 /* IAWPersistenceDatastoreFactory.h */,
+				FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */,
+				FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */,
+				FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */,
+				FFED56041A8036E200F96AA1 /* IAWPersistenceDatastoreProtocol.h */,
+			);
+			path = Datastore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,13 +378,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF4932171A7ECE75004E0800 /* IAWPersistenceDatastoreFactory.m in Sources */,
 				FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */,
-				FF49320F1A7EBEDD004E0800 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
+				FFED55FA1A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m in Sources */,
+				FFED55F91A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
+				FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,
 				FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */,
-				FF4932131A7EC626004E0800 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */,
+				FFED55F31A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */,
+				FFED56031A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
