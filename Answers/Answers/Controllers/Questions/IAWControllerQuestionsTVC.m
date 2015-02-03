@@ -14,12 +14,18 @@
 
 
 
+NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
+
+
+
 @interface IAWControllerQuestionsTVC ()
 {
     IAWPersistenceDatastoreDecorator *_datastore;
+    NSArray *_allQuestions;
 }
 
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreDecorator *datastore;
+@property (strong, nonatomic, readonly) NSArray *allQuestions;
 
 @end
 
@@ -36,6 +42,16 @@
     }
     
     return _datastore;
+}
+
+- (NSArray *)allQuestions
+{
+    if (!_allQuestions)
+    {
+        _allQuestions = [IAWControllerQuestionsTVC allQuestionsInDatastore:self.datastore];
+    }
+    
+    return _allQuestions;
 }
 
 
@@ -80,18 +96,19 @@
 #pragma mark - UITableViewDataSource methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.allQuestions count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kIAWControllerQuestionsTVCCellID
+                                                            forIndexPath:indexPath];
     
-    // Configure the cell...
+    IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
+    cell.textLabel.text = oneQuestion.questionText;
     
     return cell;
 }
-*/
 
 
 #pragma mark - Actions
@@ -140,7 +157,9 @@
 
 - (void)manageDidChangeNotification:(NSNotification *)notification
 {
-    NSLog(@"Notification: %@", notification);
+    [self releaseAllQuestions];
+    
+    [self.tableView reloadData];
 }
 
 - (void)addQuestionWithText:(NSString *)questionText
@@ -158,6 +177,26 @@
     {
         NSLog(@"Error: %@", error);
     }
+}
+
+- (void)releaseAllQuestions
+{
+    _allQuestions = nil;
+}
+
+
+#pragma mark - Private class methods
++ (NSArray *)allQuestionsInDatastore:(IAWPersistenceDatastoreDecorator *)datastore
+{
+    NSArray *allDocuments = [datastore allDocuments];
+    
+    NSMutableArray *allQuestions = [NSMutableArray arrayWithCapacity:[allDocuments count]];
+    for (id<IAWPersistenceDocumentProtocol> oneDocument in allDocuments)
+    {
+        [allQuestions addObject:[IAWModelQuestion questionWithDictionary:[oneDocument dictionary]]];
+    }
+    
+    return allQuestions;
 }
 
 @end

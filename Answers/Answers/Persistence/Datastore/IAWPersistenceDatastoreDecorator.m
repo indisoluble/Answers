@@ -59,6 +59,11 @@
     return success;
 }
 
+- (NSArray *)allDocuments
+{
+    return [self.datastore allDocuments];
+}
+
 
 #pragma mark - Public class methods
 + (instancetype)datastore

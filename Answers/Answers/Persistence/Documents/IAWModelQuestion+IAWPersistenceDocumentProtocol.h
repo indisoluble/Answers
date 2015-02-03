@@ -14,4 +14,6 @@
 
 @interface IAWModelQuestion (IAWPersistenceDocumentProtocol) <IAWPersistenceDocumentProtocol>
 
++ (instancetype)questionWithDictionary:(NSDictionary *)dictionary;
+
 @end

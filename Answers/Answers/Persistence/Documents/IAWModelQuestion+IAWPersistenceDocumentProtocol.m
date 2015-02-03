@@ -22,4 +22,15 @@ NSString * const kIAWModelQuestionPersistenceDocumentKeyQuestionText = @"questio
     return @{kIAWModelQuestionPersistenceDocumentKeyQuestionText: self.questionText};
 }
 
+
+#pragma mark - Public class methods
++ (instancetype)questionWithDictionary:(NSDictionary *)dictionary
+{
+    NSString *txt = (dictionary ?
+                     dictionary[kIAWModelQuestionPersistenceDocumentKeyQuestionText] :
+                     nil);
+    
+    return [[[self class] alloc] initWithQuestionText:txt];
+}
+
 @end

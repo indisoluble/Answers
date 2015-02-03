@@ -17,4 +17,6 @@
 - (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document
                  error:(NSError **)error;
 
+- (NSArray *)allDocuments;
+
 @end

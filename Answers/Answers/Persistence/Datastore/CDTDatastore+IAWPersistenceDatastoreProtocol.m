@@ -10,6 +10,8 @@
 
 #import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
+#import "CDTDocumentRevision+IAWPersistenceDocumentProtocol.h"
+
 
 
 @implementation CDTDatastore (IAWPersistenceDatastoreProtocol)
@@ -23,13 +25,12 @@
     
     CDTDocumentRevision *nextRevision = [self createDocumentFromRevision:revision error:error];
     
-    BOOL success = (nextRevision != nil);
-    if (success)
-    {
-        NSLog(@"Revision: %@", nextRevision);
-    }
-    
-    return success;
+    return (nextRevision != nil);
+}
+
+- (NSArray *)allDocuments
+{
+    return [self getAllDocuments];
 }
 
 @end
