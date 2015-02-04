@@ -13,6 +13,7 @@
 		FF4931FD1A7E9F9A004E0800 /* IAWModelQuestionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FC1A7E9F9A004E0800 /* IAWModelQuestionTests.m */; };
 		FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FF1A7E9FF0004E0800 /* IAWModelQuestion.m */; };
 		FF550D0E1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF550D0D1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */; };
+		FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */; };
 		FFD78B541A7995350059CB68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B531A7995350059CB68 /* main.m */; };
 		FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B561A7995350059CB68 /* AppDelegate.m */; };
 		FFD78B5D1A7995350059CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5B1A7995350059CB68 /* Main.storyboard */; };
@@ -51,6 +52,9 @@
 		FF550D0B1A8168B1004346B9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF550D0C1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDocumentRevision+IAWPersistenceDocumentProtocol.h"; sourceTree = "<group>"; };
 		FF550D0D1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDocumentRevision+IAWPersistenceDocumentProtocol.m"; sourceTree = "<group>"; };
+		FFC080F01A82AD9500C02FDE /* IAWLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAWLog.h; sourceTree = "<group>"; };
+		FFC080F11A82B94000C02FDE /* IAWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWLogFormatter.h; sourceTree = "<group>"; };
+		FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWLogFormatter.m; sourceTree = "<group>"; };
 		FFD78B4E1A7995350059CB68 /* Answers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Answers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B521A7995350059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFD78B531A7995350059CB68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -156,6 +160,16 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		FFC080EF1A82AD3900C02FDE /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				FFC080F01A82AD9500C02FDE /* IAWLog.h */,
+				FFC080F11A82B94000C02FDE /* IAWLogFormatter.h */,
+				FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
 		FFD78B451A7995350059CB68 = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +195,7 @@
 			children = (
 				FFB270F71A7C23A00066B81F /* Controllers */,
 				FF4931FA1A7E97C6004E0800 /* Model */,
+				FFC080EF1A82AD3900C02FDE /* Log */,
 				FF4932011A7EAF5E004E0800 /* Persistence */,
 				FFD78B511A7995350059CB68 /* Supporting Files */,
 				FFD78B5E1A7995350059CB68 /* Images.xcassets */,
@@ -386,6 +401,7 @@
 				FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */,
 				FFED55FA1A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m in Sources */,
 				FFED55F91A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
+				FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */,
 				FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,

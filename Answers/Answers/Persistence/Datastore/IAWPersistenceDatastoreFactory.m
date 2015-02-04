@@ -10,6 +10,8 @@
 
 #import "IAWPersistenceDatastoreFactory.h"
 
+#import "IAWLog.h"
+
 #import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
 
@@ -39,7 +41,7 @@
         datastore = [manager datastoreNamed:IAWPERSISTENCEDATASTOREFACTORY_DATASTORENAME error:&error];
         if (!datastore)
         {
-            NSLog(@"Error: %@", error);
+            IAWLogError(@"Datastore not created: %@", error);
         }
     }
     
@@ -62,7 +64,7 @@
     CDTDatastoreManager *manager = [[CDTDatastoreManager alloc] initWithDirectory:managerPath error:&error];
     if (!manager)
     {
-        NSLog(@"Error: %@", error);
+        IAWLogError(@"Datastore manager not created: %@", error);
     }
     
     return manager;

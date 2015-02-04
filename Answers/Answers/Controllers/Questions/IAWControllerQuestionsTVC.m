@@ -12,6 +12,8 @@
 
 #import "IAWPersistence.h"
 
+#import "IAWLog.h"
+
 
 
 NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
@@ -167,7 +169,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     IAWModelQuestion *oneQuestion = [[IAWModelQuestion alloc] initWithQuestionText:questionText];
     if (!oneQuestion)
     {
-        NSLog(@"Question instance not created");
+        IAWLogDebug(@"Question instance not created");
         
         return;
     }
@@ -175,7 +177,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     NSError *error = nil;
     if (![self.datastore createDocument:oneQuestion error:&error])
     {
-        NSLog(@"Error: %@", error);
+        IAWLogError(@"Error: %@", error);
     }
 }
 
