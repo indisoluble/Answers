@@ -6,29 +6,25 @@
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 
-#import <CloudantSync.h>
-
 #import "IAWPersistenceDatastore.h"
 
-#import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
+#import "IAWCloudantSyncDatabaseURL.h"
+#import "IAWCloudantSyncDatastoreFactory.h"
+#import "IAWCloudantSyncReplicatorFactory.h"
 
 #import "IAWLog.h"
 
-
-
-#define IAWPERSISTENCEDATASTORE_MANAGERDIRECTORY    @"cloudant-sync-datastore"
-#define IAWPERSISTENCEDATASTORE_DATASTORENAME       @"answers"
-
-#define IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_NAME    @"cloudantAnswersDatabaseURL"
-#define IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_EXT     @"plist"
-#define IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_URLKEY  @"url"
+#import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
 
 
 @interface IAWPersistenceDatastore () <CDTReplicatorDelegate>
 
+@property (strong, nonatomic, readonly) CDTDatastoreManager *cloudantManager;
 @property (strong, nonatomic, readonly) CDTDatastore *cloudantDatastore;
-@property (strong, nonatomic, readonly) CDTReplicator *pushReplicatorOrNil;
+@property (strong, nonatomic, readonly) NSURL *cloudantURLOrNil;
+
+@property (strong, nonatomic) NSMutableArray *replicators;
 
 @end
 
@@ -42,22 +38,12 @@
     self = [super init];
     if (self)
     {
-        CDTDatastoreManager *manager = [IAWPersistenceDatastore datastoreManager];
+        _cloudantManager = [IAWCloudantSyncDatastoreFactory datastoreManager];
+        _cloudantDatastore = [IAWCloudantSyncDatastoreFactory datastoreWithManager:_cloudantManager];
         
-        _cloudantDatastore = [IAWPersistenceDatastore datastoreWithManager:manager];
+        _cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
         
-        NSURL *cloudantDatabaseURL = [IAWPersistenceDatastore cloudantDatabaseURL];
-        if (cloudantDatabaseURL)
-        {
-            _pushReplicatorOrNil = [IAWPersistenceDatastore pushReplicatorWithManager:manager
-                                                                               source:_cloudantDatastore
-                                                                               target:cloudantDatabaseURL];
-            _pushReplicatorOrNil.delegate = self;
-        }
-        else
-        {
-            IAWLogWarn(@"URL for Cloudant database not informed. Data won't be replicated");
-        }
+        _replicators = [NSMutableArray array];
     }
     
     return self;
@@ -65,24 +51,36 @@
 
 
 #pragma mark - CDTReplicatorDelegate methods
-- (void)replicatorDidChangeState:(CDTReplicator *)replicator
-{
-    IAWLogDebug(@"Replicator: %@", replicator);
-}
-
-- (void)replicatorDidChangeProgress:(CDTReplicator *)replicator
-{
-    IAWLogDebug(@"Replicator: %@", replicator);
-}
-
 - (void)replicatorDidComplete:(CDTReplicator *)replicator
 {
     IAWLogDebug(@"Replicator: %@", replicator);
+    
+    replicator.delegate = nil;
+    
+    __weak IAWPersistenceDatastore *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong IAWPersistenceDatastore *strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf.replicators removeObject:replicator];
+        }
+    });
 }
 
 - (void)replicatorDidError:(CDTReplicator *)replicator info:(NSError *)info
 {
     IAWLogDebug(@"Replicator: %@. Info: %@", replicator, info);
+    
+    replicator.delegate = nil;
+    
+    __weak IAWPersistenceDatastore *weakSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __strong IAWPersistenceDatastore *strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf.replicators removeObject:replicator];
+        }
+    });
 }
 
 
@@ -91,13 +89,9 @@
                  error:(NSError **)error
 {
     BOOL success = [self.cloudantDatastore createDocument:document error:error];
-    if (success && self.pushReplicatorOrNil)
+    if (success)
     {
-        NSError *replicatorError = nil;
-        if (![self.pushReplicatorOrNil startWithError:&replicatorError])
-        {
-            IAWLogWarn(@"Replication not started: %@", replicatorError);
-        }
+        [self pushChangesToCloudantDatabase];
     }
     
     return success;
@@ -109,94 +103,37 @@
 }
 
 
+#pragma mark - Private methods
+- (void)pushChangesToCloudantDatabase
+{
+    if (!self.cloudantURLOrNil)
+    {
+        IAWLogWarn(@"URL for Cloudant database not informed. Data can not replicated");
+        
+        return;
+    }
+    
+    CDTReplicator *replicator = [IAWCloudantSyncReplicatorFactory pushReplicatorWithManager:self.cloudantManager
+                                                                                     source:self.cloudantDatastore
+                                                                                     target:self.cloudantURLOrNil];
+    replicator.delegate = self;
+    
+    NSError *error = nil;
+    if ([replicator startWithError:&error])
+    {
+        [self.replicators addObject:replicator];
+    }
+    else
+    {
+        IAWLogWarn(@"Replication not started: %@", error);
+    }
+}
+
+
 #pragma mark - Public class methods
 + (instancetype)datastore
 {
     return [[[self class] alloc] init];
-}
-
-
-#pragma mark - Private class methods
-+ (CDTDatastoreManager *)datastoreManager
-{
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    
-    NSArray *allURLs = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    NSURL *documentsURL = [allURLs lastObject];
-    
-    NSURL *managerURL = [documentsURL URLByAppendingPathComponent:IAWPERSISTENCEDATASTORE_MANAGERDIRECTORY];
-    NSString *managerPath = [managerURL path];
-    
-    NSError *error = nil;
-    CDTDatastoreManager *manager = [[CDTDatastoreManager alloc] initWithDirectory:managerPath error:&error];
-    NSAssert(manager, @"Datastore manager not created: %@", error);
-    
-    return manager;
-}
-
-+ (CDTDatastore *)datastoreWithManager:(CDTDatastoreManager *)manager
-{
-    NSError *error = nil;
-    CDTDatastore *datastore = [manager datastoreNamed:IAWPERSISTENCEDATASTORE_DATASTORENAME error:&error];
-    NSAssert(datastore, @"Datastore not created: %@", error);
-    
-    return datastore;
-}
-
-+ (NSURL *)cloudantDatabaseURL
-{
-    NSString *path = [[NSBundle mainBundle] pathForResource:IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_NAME
-                                                     ofType:IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_EXT];
-    if (!path)
-    {
-        IAWLogWarn(@"File %@.%@ not found",
-                   IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_NAME, IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_EXT);
-        
-        return nil;
-    }
-    
-    NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
-    if (!dic)
-    {
-        IAWLogWarn(@"File %@.%@ can not be parsed to a dictionary",
-                   IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_NAME, IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_EXT);
-        
-        return nil;
-    }
-    
-    NSString *value = [dic valueForKey:IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_URLKEY];
-    if (!value)
-    {
-        IAWLogWarn(@"Key %@ not found in dictionary %@", IAWPERSISTENCEDATASTORE_CLOUDANTURLFILE_URLKEY, dic);
-        
-        return nil;
-    }
-    
-    NSURL *url = [NSURL URLWithString:value];
-    if (!url)
-    {
-        IAWLogWarn(@"%@ is not a valid URL", value);
-        
-        return nil;
-    }
-    
-    return url;
-}
-
-+ (CDTReplicator *)pushReplicatorWithManager:(CDTDatastoreManager *)manager
-                                      source:(CDTDatastore *)datastore
-                                      target:(NSURL *)remoteDatabaseURL
-{
-    CDTReplicatorFactory *replicatorFactory = [[CDTReplicatorFactory alloc] initWithDatastoreManager:manager];
-    
-    CDTPushReplication *pushReplication = [CDTPushReplication replicationWithSource:datastore
-                                                                             target:remoteDatabaseURL];
-    
-    NSError *error = nil;
-    CDTReplicator *replicator = [replicatorFactory oneWay:pushReplication error:&error];
-    NSAssert(replicator, @"Replicator not created");
-    
-    return replicator;
 }
 
 @end
