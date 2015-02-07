@@ -13,6 +13,9 @@
 		FF4931FD1A7E9F9A004E0800 /* IAWModelQuestionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FC1A7E9F9A004E0800 /* IAWModelQuestionTests.m */; };
 		FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = FF4931FF1A7E9FF0004E0800 /* IAWModelQuestion.m */; };
 		FF550D0E1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF550D0D1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */; };
+		FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */ = {isa = PBXBuildFile; fileRef = FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */; };
+		FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */; };
+		FF89B7871A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF89B7861A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */; };
 		FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */; };
 		FFD78B541A7995350059CB68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B531A7995350059CB68 /* main.m */; };
 		FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B561A7995350059CB68 /* AppDelegate.m */; };
@@ -20,8 +23,6 @@
 		FFD78B5F1A7995350059CB68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5E1A7995350059CB68 /* Images.xcassets */; };
 		FFD78B621A7995350059CB68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B601A7995350059CB68 /* LaunchScreen.xib */; };
 		FFED55F31A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F21A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */; };
-		FFED55F91A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */; };
-		FFED55FA1A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */; };
 		FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */; };
 		FFED56031A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED56021A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,11 @@
 		FF550D0B1A8168B1004346B9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF550D0C1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDocumentRevision+IAWPersistenceDocumentProtocol.h"; sourceTree = "<group>"; };
 		FF550D0D1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDocumentRevision+IAWPersistenceDocumentProtocol.m"; sourceTree = "<group>"; };
+		FF89B7801A856E050007248A /* IAWPersistenceDatastore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastore.h; sourceTree = "<group>"; };
+		FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastore.m; sourceTree = "<group>"; };
+		FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = cloudantAnswersDatabaseURL.plist; path = ../../../cloudantAnswersDatabaseURL.plist; sourceTree = "<group>"; };
+		FF89B7851A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.h"; sourceTree = "<group>"; };
+		FF89B7861A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.m"; sourceTree = "<group>"; };
 		FFC080F01A82AD9500C02FDE /* IAWLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAWLog.h; sourceTree = "<group>"; };
 		FFC080F11A82B94000C02FDE /* IAWLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWLogFormatter.h; sourceTree = "<group>"; };
 		FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWLogFormatter.m; sourceTree = "<group>"; };
@@ -67,10 +73,6 @@
 		FFD78B6C1A7995360059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFED55F11A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.h"; sourceTree = "<group>"; };
 		FFED55F21A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWModelQuestion+IAWPersistenceDocumentProtocol.m"; sourceTree = "<group>"; };
-		FFED55F51A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.h"; sourceTree = "<group>"; };
-		FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDatastore+IAWPersistenceDatastoreProtocol.m"; sourceTree = "<group>"; };
-		FFED55F71A80259800F96AA1 /* IAWPersistenceDatastoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreFactory.h; sourceTree = "<group>"; };
-		FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreFactory.m; sourceTree = "<group>"; };
 		FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreNotificationCenter.h; sourceTree = "<group>"; };
 		FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreNotificationCenter.m; sourceTree = "<group>"; };
 		FFED56011A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDecorator.h; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			children = (
 				FFD78B551A7995350059CB68 /* AppDelegate.h */,
 				FFD78B561A7995350059CB68 /* AppDelegate.m */,
+				FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */,
 				FFD78B521A7995350059CB68 /* Info.plist */,
 				FFD78B601A7995350059CB68 /* LaunchScreen.xib */,
 				FF383D311A7D6B3200415B52 /* Localizable.strings */,
@@ -246,14 +249,14 @@
 		FFED55F41A80250600F96AA1 /* Datastore */ = {
 			isa = PBXGroup;
 			children = (
-				FFED55F51A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */,
-				FFED55F61A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */,
+				FF89B7851A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.h */,
+				FF89B7861A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.m */,
 				FF550D0C1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.h */,
 				FF550D0D1A816C63004346B9 /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */,
+				FF89B7801A856E050007248A /* IAWPersistenceDatastore.h */,
+				FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */,
 				FFED56011A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.h */,
 				FFED56021A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m */,
-				FFED55F71A80259800F96AA1 /* IAWPersistenceDatastoreFactory.h */,
-				FFED55F81A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m */,
 				FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */,
 				FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */,
 				FFED56041A8036E200F96AA1 /* IAWPersistenceDatastoreProtocol.h */,
@@ -344,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */,
 				FFD78B5D1A7995350059CB68 /* Main.storyboard in Resources */,
 				FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */,
 				FFD78B621A7995350059CB68 /* LaunchScreen.xib in Resources */,
@@ -399,10 +403,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */,
-				FFED55FA1A80259800F96AA1 /* IAWPersistenceDatastoreFactory.m in Sources */,
-				FFED55F91A80259800F96AA1 /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
+				FF89B7871A8595900007248A /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
 				FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */,
 				FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */,
+				FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,
 				FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */,

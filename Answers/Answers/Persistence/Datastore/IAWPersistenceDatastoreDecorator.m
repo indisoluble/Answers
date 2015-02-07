@@ -8,7 +8,7 @@
 
 #import "IAWPersistenceDatastoreDecorator.h"
 
-#import "IAWPersistenceDatastoreFactory.h"
+#import "IAWPersistenceDatastore.h"
 
 
 
@@ -36,7 +36,7 @@
     {
         _datastore = (datastoreOrNil ?
                       datastoreOrNil :
-                      [IAWPersistenceDatastoreFactory datastore]);
+                      [IAWPersistenceDatastore datastore]);
         _notificationCenter = (notificationCenterOrNil ?
                                notificationCenterOrNil :
                                [IAWPersistenceDatastoreNotificationCenter notificationCenter]);
