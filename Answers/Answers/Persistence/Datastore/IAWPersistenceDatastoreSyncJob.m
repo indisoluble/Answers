@@ -61,7 +61,7 @@
 {
     IAWLogDebug(@"Synchronization completed");
     
-    [self notifySynchronizationFinishedOnMainThread];
+    [self dispatchCompletionHandlerToMainThread:self.completionHandler];
 }
 
 - (void)datastoreReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator
@@ -69,7 +69,7 @@
 {
     IAWLogError(@"Synchronization failed: %@", error);
     
-    [self notifySynchronizationFinishedOnMainThread];
+    [self dispatchCompletionHandlerToMainThread:self.completionHandler];
 }
 
 #pragma mark - IAWPersistenceDatastoreSyncJobProtocol methods
@@ -79,7 +79,7 @@
     {
         IAWLogError(@"A replicator can not be re-used");
         
-        [self notifySynchronizationFinishedOnMainThread];
+        [self dispatchCompletionHandlerToMainThread:completionHandler];
         
         return;
     }
@@ -97,12 +97,10 @@
 
 
 #pragma mark - Private methods
-- (void)notifySynchronizationFinishedOnMainThread
+- (void)dispatchCompletionHandlerToMainThread:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
 {
-    iawPersistenceDatastoreSyncJobCompletionHandlerBlockType thisCompletionHandler = self.completionHandler;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        thisCompletionHandler();
+        completionHandler();
     });
 }
 
