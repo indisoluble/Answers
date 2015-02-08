@@ -9,14 +9,13 @@
 #import "IAWPersistenceDatastore.h"
 
 #import "IAWPersistenceDatastoreSyncManager.h"
+#import "IAWPersistenceDatastoreSyncJob+PushReplicator.h"
 
 #import "IAWCloudantSyncDatabaseURL.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
-#import "IAWCloudantSyncReplicatorPush.h"
+#import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
 #import "IAWLog.h"
-
-#import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
 
 
@@ -82,11 +81,11 @@
         return;
     }
     
-    IAWCloudantSyncReplicatorPush *replicator = [IAWCloudantSyncReplicatorPush replicatorWithManager:self.cloudantManager
+    IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithWithManager:self.cloudantManager
                                                                                               source:self.cloudantDatastore
                                                                                               target:self.cloudantURLOrNil];
     
-    [self.syncManager queueSynchronizationJob:replicator];
+    [self.syncManager queueSynchronizationJob:syncJob];
 }
 
 

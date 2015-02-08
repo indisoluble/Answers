@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 
-#import <CloudantSync.h>
-
 #import "IAWCloudantSyncReplicatorPush.h"
 
 #import "IAWLog.h"
@@ -18,15 +16,15 @@
 
 @property (strong, nonatomic, readonly) CDTReplicator *replicator;
 
-@property (assign, nonatomic) BOOL alreadyStarted;
-
-@property (copy, nonatomic) iawPersistenceDatastoreSyncJobCompletionHandlerBlockType completionHandler;
-
 @end
 
 
 
 @implementation IAWCloudantSyncReplicatorPush
+
+#pragma mark - Synthesize properties
+@synthesize delegate = _delegate;
+
 
 #pragma mark - Init object
 - (id)init
@@ -41,7 +39,7 @@
     self = [super init];
     if (self)
     {
-        CDTReplicator *thisReplicator = [IAWCloudantSyncReplicatorPush puchReplicatorWithManager:manager
+        CDTReplicator *thisReplicator = [IAWCloudantSyncReplicatorPush pushReplicatorWithManager:manager
                                                                                           source:datastore
                                                                                           target:remoteDatabaseURL];
         if (!thisReplicator)
@@ -52,10 +50,6 @@
         {
             _replicator = thisReplicator;
             _replicator.delegate = self;
-            
-            _alreadyStarted = NO;
-            
-            _completionHandler = nil;
         }
     }
     
@@ -68,49 +62,27 @@
 {
     IAWLogDebug(@"Replication completed");
     
-    [self notifyReplicationFinishedOnMainThread];
+    if (self.delegate)
+    {
+        [self.delegate datastoreReplicatorDidComplete:self];
+    }
 }
 
 - (void)replicatorDidError:(CDTReplicator *)replicator info:(NSError *)info
 {
     IAWLogError(@"Replication failed: %@", info);
     
-    [self notifyReplicationFinishedOnMainThread];
-}
-
-
-#pragma mark - IAWPersistenceDatastoreSyncJobProtocol methods
-- (void)startWithCompletionHandler:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
-{
-    if (self.alreadyStarted)
+    if (self.delegate)
     {
-        IAWLogError(@"A replicator can not be re-used");
-        
-        [self notifyReplicationFinishedOnMainThread];
-        
-        return;
-    }
-    
-    self.alreadyStarted = YES;
-    
-    self.completionHandler = completionHandler;
-    
-    NSError *error = nil;
-    if (![self.replicator startWithError:&error])
-    {
-        [self replicatorDidError:self.replicator info:error];
+        [self.delegate datastoreReplicator:self didFailWithError:info];
     }
 }
 
 
-#pragma mark - Private methods
-- (void)notifyReplicationFinishedOnMainThread
+#pragma mark - IAWPersistenceDatastoreReplicatorProtocol methods
+- (BOOL)startWithError:(NSError **)error
 {
-    iawPersistenceDatastoreSyncJobCompletionHandlerBlockType thisCompletionHandler = self.completionHandler;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        thisCompletionHandler();
-    });
+    return [self.replicator startWithError:error];
 }
 
 
@@ -124,7 +96,7 @@
 
 
 #pragma mark - Private class methods
-+ (CDTReplicator *)puchReplicatorWithManager:(CDTDatastoreManager *)manager
++ (CDTReplicator *)pushReplicatorWithManager:(CDTDatastoreManager *)manager
                                       source:(CDTDatastore *)datastore
                                       target:(NSURL *)remoteDatabaseURL
 {
