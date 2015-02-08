@@ -8,9 +8,11 @@
 
 #import "IAWPersistenceDatastore.h"
 
+#import "IAWPersistenceDatastoreReplicatorManager.h"
+
 #import "IAWCloudantSyncDatabaseURL.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
-#import "IAWCloudantSyncReplicatorFactory.h"
+#import "IAWCloudantSyncReplicatorPush.h"
 
 #import "IAWLog.h"
 
@@ -18,13 +20,14 @@
 
 
 
-@interface IAWPersistenceDatastore () <CDTReplicatorDelegate>
+@interface IAWPersistenceDatastore ()
 
 @property (strong, nonatomic, readonly) CDTDatastoreManager *cloudantManager;
 @property (strong, nonatomic, readonly) CDTDatastore *cloudantDatastore;
+
 @property (strong, nonatomic, readonly) NSURL *cloudantURLOrNil;
 
-@property (strong, nonatomic) NSMutableArray *replicators;
+@property (strong, nonatomic, readonly) IAWPersistenceDatastoreReplicatorManager *replicatorManager;
 
 @end
 
@@ -43,44 +46,10 @@
         
         _cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
         
-        _replicators = [NSMutableArray array];
+        _replicatorManager = [IAWPersistenceDatastoreReplicatorManager replicatorManager];
     }
     
     return self;
-}
-
-
-#pragma mark - CDTReplicatorDelegate methods
-- (void)replicatorDidComplete:(CDTReplicator *)replicator
-{
-    IAWLogDebug(@"Replicator: %@", replicator);
-    
-    replicator.delegate = nil;
-    
-    __weak IAWPersistenceDatastore *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        __strong IAWPersistenceDatastore *strongSelf = weakSelf;
-        if (strongSelf)
-        {
-            [strongSelf.replicators removeObject:replicator];
-        }
-    });
-}
-
-- (void)replicatorDidError:(CDTReplicator *)replicator info:(NSError *)info
-{
-    IAWLogDebug(@"Replicator: %@. Info: %@", replicator, info);
-    
-    replicator.delegate = nil;
-    
-    __weak IAWPersistenceDatastore *weakSelf = self;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        __strong IAWPersistenceDatastore *strongSelf = weakSelf;
-        if (strongSelf)
-        {
-            [strongSelf.replicators removeObject:replicator];
-        }
-    });
 }
 
 
@@ -113,20 +82,11 @@
         return;
     }
     
-    CDTReplicator *replicator = [IAWCloudantSyncReplicatorFactory pushReplicatorWithManager:self.cloudantManager
-                                                                                     source:self.cloudantDatastore
-                                                                                     target:self.cloudantURLOrNil];
-    replicator.delegate = self;
+    IAWCloudantSyncReplicatorPush *replicator = [IAWCloudantSyncReplicatorPush replicatorWithManager:self.cloudantManager
+                                                                                              source:self.cloudantDatastore
+                                                                                              target:self.cloudantURLOrNil];
     
-    NSError *error = nil;
-    if ([replicator startWithError:&error])
-    {
-        [self.replicators addObject:replicator];
-    }
-    else
-    {
-        IAWLogWarn(@"Replication not started: %@", error);
-    }
+    [self.replicatorManager queueReplicator:replicator];
 }
 
 

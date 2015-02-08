@@ -16,7 +16,8 @@
 		FF88D57B1A86ABE10057EEFB /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D5791A86ABE10057EEFB /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m */; };
 		FF88D57E1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */; };
 		FF88D5811A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D5801A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m */; };
-		FF88D5841A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D5831A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.m */; };
+		FF88D5871A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D5861A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.m */; };
+		FF88D58E1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.m in Sources */ = {isa = PBXBuildFile; fileRef = FF88D58D1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.m */; };
 		FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */ = {isa = PBXBuildFile; fileRef = FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */; };
 		FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */; };
 		FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */; };
@@ -62,8 +63,11 @@
 		FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncDatastoreFactory.m; sourceTree = "<group>"; };
 		FF88D57F1A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncDatabaseURL.h; sourceTree = "<group>"; };
 		FF88D5801A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncDatabaseURL.m; sourceTree = "<group>"; };
-		FF88D5821A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorFactory.h; sourceTree = "<group>"; };
-		FF88D5831A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorFactory.m; sourceTree = "<group>"; };
+		FF88D5851A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreReplicatorManager.h; sourceTree = "<group>"; };
+		FF88D5861A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreReplicatorManager.m; sourceTree = "<group>"; };
+		FF88D58B1A86C7560057EEFB /* IAWPersistenceDatastoreReplicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreReplicatorProtocol.h; sourceTree = "<group>"; };
+		FF88D58C1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPush.h; sourceTree = "<group>"; };
+		FF88D58D1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPush.m; sourceTree = "<group>"; };
 		FF89B7801A856E050007248A /* IAWPersistenceDatastore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastore.h; sourceTree = "<group>"; };
 		FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastore.m; sourceTree = "<group>"; };
 		FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = cloudantAnswersDatabaseURL.plist; path = ../../../cloudantAnswersDatabaseURL.plist; sourceTree = "<group>"; };
@@ -173,8 +177,8 @@
 				FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */,
 				FF88D57F1A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.h */,
 				FF88D5801A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m */,
-				FF88D5821A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.h */,
-				FF88D5831A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.m */,
+				FF88D58C1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.h */,
+				FF88D58D1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.m */,
 			);
 			path = CloudantSync;
 			sourceTree = "<group>";
@@ -283,6 +287,9 @@
 				FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */,
 				FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */,
 				FFED56041A8036E200F96AA1 /* IAWPersistenceDatastoreProtocol.h */,
+				FF88D5851A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.h */,
+				FF88D5861A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.m */,
+				FF88D58B1A86C7560057EEFB /* IAWPersistenceDatastoreReplicatorProtocol.h */,
 			);
 			path = Datastore;
 			sourceTree = "<group>";
@@ -432,10 +439,11 @@
 				FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FF88D57E1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m in Sources */,
+				FF88D58E1A86D3420057EEFB /* IAWCloudantSyncReplicatorPush.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,
 				FF4932001A7E9FF0004E0800 /* IAWModelQuestion.m in Sources */,
 				FF88D57A1A86ABE10057EEFB /* CDTDatastore+IAWPersistenceDatastoreProtocol.m in Sources */,
-				FF88D5841A86B7440057EEFB /* IAWCloudantSyncReplicatorFactory.m in Sources */,
+				FF88D5871A86C6340057EEFB /* IAWPersistenceDatastoreReplicatorManager.m in Sources */,
 				FFED55F31A8024AB00F96AA1 /* IAWModelQuestion+IAWPersistenceDocumentProtocol.m in Sources */,
 				FF88D57B1A86ABE10057EEFB /* CDTDocumentRevision+IAWPersistenceDocumentProtocol.m in Sources */,
 				FFED56031A80321600F96AA1 /* IAWPersistenceDatastoreDecorator.m in Sources */,
