@@ -20,7 +20,7 @@
 
 @property (assign, nonatomic) BOOL alreadyStarted;
 
-@property (copy, nonatomic) iawPersistenceDatastoreReplicatorCompletionHandlerBlockType completionHandler;
+@property (copy, nonatomic) iawPersistenceDatastoreSyncJobCompletionHandlerBlockType completionHandler;
 
 @end
 
@@ -79,8 +79,8 @@
 }
 
 
-#pragma mark - IAWPersistenceDatastoreReplicatorProtocol methods
-- (void)startWithCompletionHandler:(iawPersistenceDatastoreReplicatorCompletionHandlerBlockType)completionHandler
+#pragma mark - IAWPersistenceDatastoreSyncJobProtocol methods
+- (void)startWithCompletionHandler:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
 {
     if (self.alreadyStarted)
     {
@@ -106,7 +106,7 @@
 #pragma mark - Private methods
 - (void)notifyReplicationFinishedOnMainThread
 {
-    iawPersistenceDatastoreReplicatorCompletionHandlerBlockType thisCompletionHandler = self.completionHandler;
+    iawPersistenceDatastoreSyncJobCompletionHandlerBlockType thisCompletionHandler = self.completionHandler;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         thisCompletionHandler();

@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreReplicatorProtocol.h"
+#import "IAWPersistenceDatastoreSyncJobProtocol.h"
 
 
 
-@interface IAWCloudantSyncReplicatorPush : NSObject <IAWPersistenceDatastoreReplicatorProtocol>
+@interface IAWCloudantSyncReplicatorPush : NSObject <IAWPersistenceDatastoreSyncJobProtocol>
 
 - (id)initWithManager:(CDTDatastoreManager *)manager
                source:(CDTDatastore *)datastore

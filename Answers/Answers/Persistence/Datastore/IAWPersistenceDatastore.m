@@ -8,7 +8,7 @@
 
 #import "IAWPersistenceDatastore.h"
 
-#import "IAWPersistenceDatastoreReplicatorManager.h"
+#import "IAWPersistenceDatastoreSyncManager.h"
 
 #import "IAWCloudantSyncDatabaseURL.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
@@ -27,7 +27,7 @@
 
 @property (strong, nonatomic, readonly) NSURL *cloudantURLOrNil;
 
-@property (strong, nonatomic, readonly) IAWPersistenceDatastoreReplicatorManager *replicatorManager;
+@property (strong, nonatomic, readonly) IAWPersistenceDatastoreSyncManager *syncManager;
 
 @end
 
@@ -46,7 +46,7 @@
         
         _cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
         
-        _replicatorManager = [IAWPersistenceDatastoreReplicatorManager replicatorManager];
+        _syncManager = [IAWPersistenceDatastoreSyncManager synchronizationManager];
     }
     
     return self;
@@ -86,7 +86,7 @@
                                                                                               source:self.cloudantDatastore
                                                                                               target:self.cloudantURLOrNil];
     
-    [self.replicatorManager queueReplicator:replicator];
+    [self.syncManager queueSynchronizationJob:replicator];
 }
 
 
