@@ -33,7 +33,6 @@
     // Put setup code here. This method is called before the invocation of each test method in the class.
     self.mockReplicator = [[IAWMockPersistenceDatastoreReplicator alloc] init];
     self.mockReplicator.resultStart = YES;
-    self.mockReplicator.resultReplication = YES;
     
     self.syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithReplicator:self.mockReplicator];
 }
@@ -71,7 +70,7 @@
     [self waitForExpectationsWithTimeout:1.0f handler:nil];
 }
 
-- (void)testCompletionHandlerIsCalledIfReplicationSucceeds
+- (void)testCompletionHandlerIsCalledAfterReplicationFinishes
 {
     XCTestExpectation *completionHandlerCalledExpectation = [self expectationWithDescription:@"Completion Handler called"];
     
@@ -82,20 +81,7 @@
     [self waitForExpectationsWithTimeout:1.0f handler:nil];
 }
 
-- (void)testCompletionHandlerIsCalledIfReplicationFails
-{
-    self.mockReplicator.resultReplication = NO;
-    
-    XCTestExpectation *completionHandlerCalledExpectation = [self expectationWithDescription:@"Completion Handler called"];
-    
-    [self.syncJob startWithCompletionHandler:^{
-        [completionHandlerCalledExpectation fulfill];
-    }];
-    
-    [self waitForExpectationsWithTimeout:1.0f handler:nil];
-}
-
-- (void)testCompletionHandlerIsCallIfJobIsStartedTwice
+- (void)testCompletionHandlerIsCalledIfJobIsStartedTwice
 {
     [self.syncJob startWithCompletionHandler:^{
         // Do nothing

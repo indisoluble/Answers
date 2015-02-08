@@ -50,4 +50,9 @@
     return datastore;
 }
 
++ (CDTReplicatorFactory *)replicatorFactoryWithManager:(CDTDatastoreManager *)manager
+{
+    return [[CDTReplicatorFactory alloc] initWithDatastoreManager:manager];
+}
+
 @end

@@ -57,20 +57,13 @@
 
 
 #pragma mark - IAWPersistenceDatastoreReplicatorDelegate methods
-- (void)datastoreReplicatorDidComplete:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator
+- (void)datastoreReplicatorDidFinish:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator
 {
-    IAWLogDebug(@"Synchronization completed");
+    IAWLogDebug(@"Synchronization finished");
     
     [self dispatchCompletionHandlerToMainThread:self.completionHandler];
 }
 
-- (void)datastoreReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator
-           didFailWithError:(NSError *)error
-{
-    IAWLogError(@"Synchronization failed: %@", error);
-    
-    [self dispatchCompletionHandlerToMainThread:self.completionHandler];
-}
 
 #pragma mark - IAWPersistenceDatastoreSyncJobProtocol methods
 - (void)startWithCompletionHandler:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
@@ -91,7 +84,7 @@
     NSError *error = nil;
     if (![self.replicator startWithError:&error])
     {
-        [self datastoreReplicator:self.replicator didFailWithError:error];
+        [self datastoreReplicatorDidFinish:self.replicator];
     }
 }
 

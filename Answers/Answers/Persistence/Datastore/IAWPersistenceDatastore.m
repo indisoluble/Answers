@@ -8,10 +8,11 @@
 
 #import "IAWPersistenceDatastore.h"
 
+#import "IAWPersistenceDatastoreSyncJob.h"
 #import "IAWPersistenceDatastoreSyncManager.h"
-#import "IAWPersistenceDatastoreSyncJob+PushReplicator.h"
 
 #import "IAWCloudantSyncDatabaseURL.h"
+#import "IAWCloudantSyncReplicatorPush.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
 #import "CDTDatastore+IAWPersistenceDatastoreProtocol.h"
 
@@ -21,9 +22,8 @@
 
 @interface IAWPersistenceDatastore ()
 
-@property (strong, nonatomic, readonly) CDTDatastoreManager *cloudantManager;
 @property (strong, nonatomic, readonly) CDTDatastore *cloudantDatastore;
-
+@property (strong, nonatomic, readonly) CDTReplicatorFactory *cloudantReplicatorFactory;
 @property (strong, nonatomic, readonly) NSURL *cloudantURLOrNil;
 
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreSyncManager *syncManager;
@@ -40,9 +40,10 @@
     self = [super init];
     if (self)
     {
-        _cloudantManager = [IAWCloudantSyncDatastoreFactory datastoreManager];
-        _cloudantDatastore = [IAWCloudantSyncDatastoreFactory datastoreWithManager:_cloudantManager];
+        CDTDatastoreManager *manager = [IAWCloudantSyncDatastoreFactory datastoreManager];
         
+        _cloudantDatastore = [IAWCloudantSyncDatastoreFactory datastoreWithManager:manager];
+        _cloudantReplicatorFactory = [IAWCloudantSyncDatastoreFactory replicatorFactoryWithManager:manager];
         _cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
         
         _syncManager = [IAWPersistenceDatastoreSyncManager synchronizationManager];
@@ -81,9 +82,11 @@
         return;
     }
     
-    IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithWithManager:self.cloudantManager
+    IAWCloudantSyncReplicatorPush *replicator = [IAWCloudantSyncReplicatorPush replicatorWithFactory:self.cloudantReplicatorFactory
                                                                                               source:self.cloudantDatastore
                                                                                               target:self.cloudantURLOrNil];
+    
+    IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithReplicator:replicator];
     
     [self.syncManager queueSynchronizationJob:syncJob];
 }

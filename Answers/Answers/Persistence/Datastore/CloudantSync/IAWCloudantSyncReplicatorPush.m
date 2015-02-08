@@ -29,17 +29,17 @@
 #pragma mark - Init object
 - (id)init
 {
-    return [self initWithManager:nil source:nil target:nil];
+    return [self initWithFactory:nil source:nil target:nil];
 }
 
-- (id)initWithManager:(CDTDatastoreManager *)manager
+- (id)initWithFactory:(CDTReplicatorFactory *)replicatorFactory
                source:(CDTDatastore *)datastore
                target:(NSURL *)remoteDatabaseURL
 {
     self = [super init];
     if (self)
     {
-        CDTReplicator *thisReplicator = [IAWCloudantSyncReplicatorPush pushReplicatorWithManager:manager
+        CDTReplicator *thisReplicator = [IAWCloudantSyncReplicatorPush pushReplicatorWithFactory:replicatorFactory
                                                                                           source:datastore
                                                                                           target:remoteDatabaseURL];
         if (!thisReplicator)
@@ -64,7 +64,7 @@
     
     if (self.delegate)
     {
-        [self.delegate datastoreReplicatorDidComplete:self];
+        [self.delegate datastoreReplicatorDidFinish:self];
     }
 }
 
@@ -74,7 +74,7 @@
     
     if (self.delegate)
     {
-        [self.delegate datastoreReplicator:self didFailWithError:info];
+        [self.delegate datastoreReplicatorDidFinish:self];
     }
 }
 
@@ -87,27 +87,25 @@
 
 
 #pragma mark - Public class methods
-+ (instancetype)replicatorWithManager:(CDTDatastoreManager *)manager
++ (instancetype)replicatorWithFactory:(CDTReplicatorFactory *)replicatorFactory
                                source:(CDTDatastore *)datastore
                                target:(NSURL *)remoteDatabaseURL
 {
-    return [[[self class] alloc] initWithManager:manager source:datastore target:remoteDatabaseURL];
+    return [[[self class] alloc] initWithFactory:replicatorFactory source:datastore target:remoteDatabaseURL];
 }
 
 
 #pragma mark - Private class methods
-+ (CDTReplicator *)pushReplicatorWithManager:(CDTDatastoreManager *)manager
++ (CDTReplicator *)pushReplicatorWithFactory:(CDTReplicatorFactory *)replicatorFactory
                                       source:(CDTDatastore *)datastore
                                       target:(NSURL *)remoteDatabaseURL
 {
-    if (!manager || !datastore || !remoteDatabaseURL)
+    if (!replicatorFactory || !datastore || !remoteDatabaseURL)
     {
         IAWLogError(@"All parameters are mandatory");
         
         return nil;
     }
-    
-    CDTReplicatorFactory *replicatorFactory = [[CDTReplicatorFactory alloc] initWithDatastoreManager:manager];
     
     CDTPushReplication *pushReplication = [CDTPushReplication replicationWithSource:datastore
                                                                              target:remoteDatabaseURL];

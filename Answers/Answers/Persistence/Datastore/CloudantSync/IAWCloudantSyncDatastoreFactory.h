@@ -14,5 +14,6 @@
 
 + (CDTDatastoreManager *)datastoreManager;
 + (CDTDatastore *)datastoreWithManager:(CDTDatastoreManager *)manager;
++ (CDTReplicatorFactory *)replicatorFactoryWithManager:(CDTDatastoreManager *)manager;
 
 @end

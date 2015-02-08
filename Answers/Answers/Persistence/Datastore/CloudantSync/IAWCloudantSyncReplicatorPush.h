@@ -15,11 +15,11 @@
 
 @interface IAWCloudantSyncReplicatorPush : NSObject <IAWPersistenceDatastoreReplicatorProtocol>
 
-- (id)initWithManager:(CDTDatastoreManager *)manager
+- (id)initWithFactory:(CDTReplicatorFactory *)replicatorFactory
                source:(CDTDatastore *)datastore
                target:(NSURL *)remoteDatabaseURL;
 
-+ (instancetype)replicatorWithManager:(CDTDatastoreManager *)manager
++ (instancetype)replicatorWithFactory:(CDTReplicatorFactory *)replicatorFactory
                                source:(CDTDatastore *)datastore
                                target:(NSURL *)remoteDatabaseURL;
 

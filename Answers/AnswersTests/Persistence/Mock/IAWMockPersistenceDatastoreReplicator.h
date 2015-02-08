@@ -17,7 +17,4 @@
 @property (assign, nonatomic) BOOL resultStart;
 @property (strong, nonatomic) NSError *resultStartError;
 
-@property (assign, nonatomic) BOOL resultReplication;
-@property (strong, nonatomic) NSError *resultReplicationError;
-
 @end

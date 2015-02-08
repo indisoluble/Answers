@@ -46,14 +46,7 @@
         __strong IAWMockPersistenceDatastoreReplicator *strongSelf = weakSelf;
         if (strongSelf && strongSelf.delegate)
         {
-            if (strongSelf.resultReplication)
-            {
-                [strongSelf.delegate datastoreReplicatorDidComplete:strongSelf];
-            }
-            else
-            {
-                [strongSelf.delegate datastoreReplicator:strongSelf didFailWithError:strongSelf.resultReplicationError];
-            }
+            [strongSelf.delegate datastoreReplicatorDidFinish:strongSelf];
         }
     });
 }

@@ -26,8 +26,6 @@
 
 @protocol IAWPersistenceDatastoreReplicatorDelegate <NSObject>
 
-- (void)datastoreReplicatorDidComplete:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator;
-- (void)datastoreReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator
-           didFailWithError:(NSError *)error;
+- (void)datastoreReplicatorDidFinish:(id<IAWPersistenceDatastoreReplicatorProtocol>)repicator;
 
 @end
