@@ -70,6 +70,8 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self addRefreshControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -144,17 +146,32 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 
 #pragma mark - Private methods
+- (void)addRefreshControl
+{
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self.datastore
+                       action:@selector(refreshDocuments)
+             forControlEvents:UIControlEventValueChanged];
+    
+    self.refreshControl = refreshControl;
+}
+
 - (void)addDatastoreObservers
 {
     [self.datastore.notificationCenter addDidCreateDocumentNotificationObserver:self
                                                                        selector:@selector(manageDidCreateDocumentNotification:)
                                                                          sender:self.datastore];
+    [self.datastore.notificationCenter addDidRefreshDocumentsNotificationObserver:self
+                                                                         selector:@selector(manageDidRefreshDocumentsNotification:)
+                                                                           sender:self.datastore];
 }
 
 - (void)removeDatastoreObservers
 {
     [self.datastore.notificationCenter removeDidCreateDocumentNotificationObserver:self
                                                                             sender:self.datastore];
+    [self.datastore.notificationCenter removeDidRefreshDocumentsNotificationObserver:self
+                                                                              sender:self.datastore];
 }
 
 - (void)manageDidCreateDocumentNotification:(NSNotification *)notification
@@ -162,6 +179,13 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     [self releaseAllQuestions];
     
     [self.tableView reloadData];
+}
+
+- (void)manageDidRefreshDocumentsNotification:(NSNotification *)notification
+{
+    [self manageDidCreateDocumentNotification:nil];
+    
+    [self.refreshControl endRefreshing];
 }
 
 - (void)addQuestionWithText:(NSString *)questionText
