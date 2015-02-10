@@ -10,7 +10,8 @@
 
 
 
-NSString * const kIAWPersistenceDatastoreNotificationCenterDidChangeNotification = @"kIAWPersistenceDatastoreNotificationCenterDidChangeNotification";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification = @"kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification";
 
 
 
@@ -43,24 +44,45 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidChangeNotification
 
 
 #pragma mark - Public methods
-- (void)addDidChangeNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
+- (void)addDidCreateDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
 {
     [self.notificationCenter addObserver:observer
                                 selector:aSelector
-                                    name:kIAWPersistenceDatastoreNotificationCenterDidChangeNotification
+                                    name:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
                                   object:sender];
 }
 
-- (void)removeDidChangeNotificationObserver:(id)observer sender:(id)sender
+- (void)removeDidCreateDocumentNotificationObserver:(id)observer sender:(id)sender
 {
     [self.notificationCenter removeObserver:observer
-                                       name:kIAWPersistenceDatastoreNotificationCenterDidChangeNotification
+                                       name:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
                                      object:sender];
 }
 
-- (void)postDidChangeNotificationWithSender:(id)sender
+- (void)postDidCreateDocumentNotificationWithSender:(id)sender
 {
-    [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidChangeNotification
+    [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
+                                           object:sender];
+}
+
+- (void)addDidRefreshDocumentsNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
+{
+    [self.notificationCenter addObserver:observer
+                                selector:aSelector
+                                    name:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
+                                  object:sender];
+}
+
+- (void)removeDidRefreshDocumentsNotificationObserver:(id)observer sender:(id)sender
+{
+    [self.notificationCenter removeObserver:observer
+                                       name:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
+                                     object:sender];
+}
+
+- (void)postDidRefreshDocumentsNotificationWithSender:(id)sender
+{
+    [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
                                            object:sender];
 }
 

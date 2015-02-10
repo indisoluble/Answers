@@ -22,11 +22,11 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 @interface IAWControllerQuestionsTVC ()
 {
-    IAWPersistenceDatastoreDecorator *_datastore;
+    IAWPersistenceDatastore *_datastore;
     NSArray *_allQuestions;
 }
 
-@property (strong, nonatomic, readonly) IAWPersistenceDatastoreDecorator *datastore;
+@property (strong, nonatomic, readonly) IAWPersistenceDatastore *datastore;
 @property (strong, nonatomic, readonly) NSArray *allQuestions;
 
 @end
@@ -36,11 +36,11 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 @implementation IAWControllerQuestionsTVC
 
 #pragma mark - Synthesize properties
-- (IAWPersistenceDatastoreDecorator *)datastore
+- (IAWPersistenceDatastore *)datastore
 {
     if (!_datastore)
     {
-        _datastore = [IAWPersistenceDatastoreDecorator datastore];
+        _datastore = [IAWPersistenceDatastore datastore];
     }
     
     return _datastore;
@@ -146,18 +146,18 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 #pragma mark - Private methods
 - (void)addDatastoreObservers
 {
-    [self.datastore.notificationCenter addDidChangeNotificationObserver:self
-                                                               selector:@selector(manageDidChangeNotification:)
-                                                                 sender:self.datastore];
+    [self.datastore.notificationCenter addDidCreateDocumentNotificationObserver:self
+                                                                       selector:@selector(manageDidCreateDocumentNotification:)
+                                                                         sender:self.datastore];
 }
 
 - (void)removeDatastoreObservers
 {
-    [self.datastore.notificationCenter removeDidChangeNotificationObserver:self
-                                                                    sender:self.datastore];
+    [self.datastore.notificationCenter removeDidCreateDocumentNotificationObserver:self
+                                                                            sender:self.datastore];
 }
 
-- (void)manageDidChangeNotification:(NSNotification *)notification
+- (void)manageDidCreateDocumentNotification:(NSNotification *)notification
 {
     [self releaseAllQuestions];
     
@@ -188,7 +188,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 
 #pragma mark - Private class methods
-+ (NSArray *)allQuestionsInDatastore:(IAWPersistenceDatastoreDecorator *)datastore
++ (NSArray *)allQuestionsInDatastore:(IAWPersistenceDatastore *)datastore
 {
     NSArray *allDocuments = [datastore allDocuments];
     

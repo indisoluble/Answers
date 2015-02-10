@@ -9,7 +9,7 @@
 #ifndef Answers_IAWPersistence_h
 #define Answers_IAWPersistence_h
 
-#import "IAWPersistenceDatastoreDecorator.h"
+#import "IAWPersistenceDatastore.h"
 
 #import "IAWModelQuestion+IAWPersistenceDocumentProtocol.h"
 

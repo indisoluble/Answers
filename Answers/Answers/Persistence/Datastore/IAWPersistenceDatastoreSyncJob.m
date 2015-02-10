@@ -61,7 +61,9 @@
 {
     IAWLogDebug(@"Synchronization finished");
     
-    [self dispatchCompletionHandlerToMainThread:self.completionHandler];
+    self.completionHandler();
+    
+    self.completionHandler = nil;
 }
 
 
@@ -72,7 +74,9 @@
     {
         IAWLogError(@"A replicator can not be re-used");
         
-        [self dispatchCompletionHandlerToMainThread:completionHandler];
+        [IAWPersistenceDatastoreSyncJob dispatchBlockToMainThread:^{
+            completionHandler();
+        }];
         
         return;
     }
@@ -84,17 +88,14 @@
     NSError *error = nil;
     if (![self.replicator startWithError:&error])
     {
-        [self datastoreReplicatorDidFinish:self.replicator];
+        IAWLogError(@"Replicator could not be started: %@", error);
+        
+        self.completionHandler = nil;
+        
+        [IAWPersistenceDatastoreSyncJob dispatchBlockToMainThread:^{
+            completionHandler();
+        }];
     }
-}
-
-
-#pragma mark - Private methods
-- (void)dispatchCompletionHandlerToMainThread:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        completionHandler();
-    });
 }
 
 
@@ -102,6 +103,13 @@
 + (instancetype)syncJobWithReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)replicator
 {
     return [[[self class] alloc] initWithReplicator:replicator];
+}
+
+
+#pragma mark - Private class methods
++ (void)dispatchBlockToMainThread:(void(^)(void))block
+{
+    dispatch_async(dispatch_get_main_queue(), block);
 }
 
 @end

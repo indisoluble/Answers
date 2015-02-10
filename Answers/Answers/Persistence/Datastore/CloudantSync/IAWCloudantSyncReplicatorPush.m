@@ -62,20 +62,14 @@
 {
     IAWLogDebug(@"Replication completed");
     
-    if (self.delegate)
-    {
-        [self.delegate datastoreReplicatorDidFinish:self];
-    }
+    [self notifyOnMainThreadReplicatorDidFinish];
 }
 
 - (void)replicatorDidError:(CDTReplicator *)replicator info:(NSError *)info
 {
     IAWLogError(@"Replication failed: %@", info);
     
-    if (self.delegate)
-    {
-        [self.delegate datastoreReplicatorDidFinish:self];
-    }
+    [self notifyOnMainThreadReplicatorDidFinish];
 }
 
 
@@ -83,6 +77,28 @@
 - (BOOL)startWithError:(NSError **)error
 {
     return [self.replicator startWithError:error];
+}
+
+
+#pragma mark - Private methods
+- (void)notifyOnMainThreadReplicatorDidFinish
+{
+    __weak IAWCloudantSyncReplicatorPush *weakSelf = self;
+    [IAWCloudantSyncReplicatorPush dispatchBlockToMainThread:^{
+        __strong IAWCloudantSyncReplicatorPush *strongSelf = weakSelf;
+        if (strongSelf)
+        {
+            [strongSelf notifyReplicatorDidFinish];
+        }
+    }];
+}
+
+- (void)notifyReplicatorDidFinish
+{
+    if (self.delegate)
+    {
+        [self.delegate datastoreReplicatorDidFinish:self];
+    }
 }
 
 
@@ -118,6 +134,11 @@
     }
     
     return replicator;
+}
+
++ (void)dispatchBlockToMainThread:(void(^)(void))block
+{
+    dispatch_async(dispatch_get_main_queue(), block);
 }
 
 @end

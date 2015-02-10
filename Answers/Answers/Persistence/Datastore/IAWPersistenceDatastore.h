@@ -8,11 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreProtocol.h"
+#import "IAWPersistenceDatastoreNotificationCenter.h"
+
+#import "IAWPersistenceDocumentProtocol.h"
 
 
 
-@interface IAWPersistenceDatastore : NSObject <IAWPersistenceDatastoreProtocol>
+@interface IAWPersistenceDatastore : NSObject
+
+@property (strong, nonatomic, readonly) IAWPersistenceDatastoreNotificationCenter *notificationCenter;
+
+- (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document error:(NSError **)error;
+- (BOOL)refreshDocuments;
+- (NSArray *)allDocuments;
 
 + (instancetype)datastore;
 
