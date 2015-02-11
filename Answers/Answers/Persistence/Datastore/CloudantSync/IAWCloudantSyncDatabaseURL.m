@@ -33,8 +33,8 @@
                                                      ofType:IAWCLOUDANTSYNCDATABASEURL_FILE_EXT];
     if (!path)
     {
-        IAWLogWarn(@"File %@.%@ not found",
-                   IAWCLOUDANTSYNCDATABASEURL_FILE_NAME, IAWCLOUDANTSYNCDATABASEURL_FILE_EXT);
+        IAWLogError(@"File %@.%@ not found",
+                    IAWCLOUDANTSYNCDATABASEURL_FILE_NAME, IAWCLOUDANTSYNCDATABASEURL_FILE_EXT);
         
         return nil;
     }
@@ -42,8 +42,8 @@
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     if (!dic)
     {
-        IAWLogWarn(@"File %@.%@ can not be parsed to a dictionary",
-                   IAWCLOUDANTSYNCDATABASEURL_FILE_NAME, IAWCLOUDANTSYNCDATABASEURL_FILE_EXT);
+        IAWLogError(@"File %@.%@ can not be parsed to a dictionary",
+                    IAWCLOUDANTSYNCDATABASEURL_FILE_NAME, IAWCLOUDANTSYNCDATABASEURL_FILE_EXT);
         
         return nil;
     }
@@ -51,7 +51,7 @@
     NSString *value = [dic valueForKey:IAWCLOUDANTSYNCDATABASEURL_FILE_URLKEY];
     if (!value)
     {
-        IAWLogWarn(@"Key %@ not found in dictionary %@", IAWCLOUDANTSYNCDATABASEURL_FILE_URLKEY, dic);
+        IAWLogError(@"Key %@ not found in dictionary %@", IAWCLOUDANTSYNCDATABASEURL_FILE_URLKEY, dic);
         
         return nil;
     }
@@ -59,7 +59,7 @@
     NSURL *url = [NSURL URLWithString:value];
     if (!url)
     {
-        IAWLogWarn(@"%@ is not a valid URL", value);
+        IAWLogError(@"%@ is not a valid URL", value);
         
         return nil;
     }

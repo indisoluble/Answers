@@ -53,11 +53,11 @@ NSString * const kIAWLogFormatterLogLevelVerbose = @"V";
     NSString *logLevel = [IAWLogFormatter logLevelForFlag:logMessage.flag];
     NSString *dateAndTime = [self.threadUnsafeDateFormatter stringFromDate:(logMessage.timestamp)];
     
-    NSString *msg = [NSString stringWithFormat:@"<%@> %@ %@ (%lu) # %@",
-                     logLevel,
+    NSString *msg = [NSString stringWithFormat:@"%@ %@ (%lu) <%@> # %@",
                      dateAndTime,
                      logMessage.function,
                      (unsigned long)logMessage.line,
+                     logLevel,
                      logMessage.message];
     
     return msg;

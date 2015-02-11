@@ -12,16 +12,19 @@
 
 
 
-#define IAWPERSISTENCEDATASTOREREPLICATORDUMMY_ERRORCODE    1
+typedef void (^iawPersistenceDatastoreReplicatorDummyCompletionHandlerType)(BOOL success, NSError *error);
 
 
 
 extern NSString * const kIAWPersistenceDatastoreReplicatorDummyErrorDomain;
+extern NSInteger const kIAWPersistenceDatastoreReplicatorDummyErrorCode;
 
 
 
 @interface IAWPersistenceDatastoreReplicatorDummy : NSObject <IAWPersistenceDatastoreReplicatorProtocol>
 
-+ (instancetype)replicator;
+- (id)initWithCompletionHandler:(iawPersistenceDatastoreReplicatorDummyCompletionHandlerType)blockOrNil;
+
++ (instancetype)replicatorWithCompletionHandler:(iawPersistenceDatastoreReplicatorDummyCompletionHandlerType)blockOrNil;
 
 @end

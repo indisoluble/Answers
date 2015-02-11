@@ -23,12 +23,14 @@
 #pragma mark - IAWPersistenceDatastoreReplicatorFactoryProtocol methods
 - (id<IAWPersistenceDatastoreReplicatorProtocol>)pushReplicator
 {
-    return [IAWPersistenceDatastoreReplicatorDummy replicator];
+    return [IAWPersistenceDatastoreReplicatorDummy replicatorWithCompletionHandler:nil];
 }
 
 - (id<IAWPersistenceDatastoreReplicatorProtocol>)pullReplicatorWithCompletionHandler:(iawPersistenceDatastoreReplicatorCompletionHandlerType)block
 {
-    return [IAWPersistenceDatastoreReplicatorDummy replicator];
+    return [IAWPersistenceDatastoreReplicatorDummy replicatorWithCompletionHandler:^(BOOL success, NSError *error) {
+        block(success, error);
+    }];
 }
 
 

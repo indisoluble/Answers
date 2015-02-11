@@ -128,7 +128,7 @@
     iawPersistenceDatastoreReplicatorCompletionHandlerType block= ^(BOOL success, NSError *error)
     {
         __strong IAWPersistenceDatastore *strongSelf = weakSelf;
-        if (strongSelf && success)
+        if (strongSelf)
         {
             [strongSelf.notificationCenter postDidRefreshDocumentsNotificationWithSender:strongSelf];
         }

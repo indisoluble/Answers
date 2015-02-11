@@ -13,10 +13,13 @@
 
 
 NSString * const kIAWPersistenceDatastoreReplicatorDummyErrorDomain = @"kIAWPersistenceDatastoreReplicatorDummyErrorDomain";
+NSInteger const kIAWPersistenceDatastoreReplicatorDummyErrorCode = 1;
 
 
 
 @interface IAWPersistenceDatastoreReplicatorDummy ()
+
+@property (copy, nonatomic, readonly) iawPersistenceDatastoreReplicatorDummyCompletionHandlerType blockOrNil;
 
 @end
 
@@ -28,16 +31,44 @@ NSString * const kIAWPersistenceDatastoreReplicatorDummyErrorDomain = @"kIAWPers
 @synthesize delegate = _delegate;
 
 
+#pragma mark - Init object
+- (id)init
+{
+    return [self initWithCompletionHandler:nil];
+}
+
+- (id)initWithCompletionHandler:(iawPersistenceDatastoreReplicatorDummyCompletionHandlerType)blockOrNil
+{
+    self = [super init];
+    if (self)
+    {
+        _blockOrNil = (blockOrNil ? [blockOrNil copy] : nil);
+    }
+    
+    return self;
+}
+
+
 #pragma mark - IAWPersistenceDatastoreReplicatorProtocol methods
 - (BOOL)startWithError:(NSError **)error
 {
     IAWLogError(@"This is a dummy replicator. It will always return error");
     
+    NSError *thisError = [NSError errorWithDomain:kIAWPersistenceDatastoreReplicatorDummyErrorDomain
+                                             code:kIAWPersistenceDatastoreReplicatorDummyErrorCode
+                                         userInfo:nil];
+    
+    if (self.blockOrNil)
+    {
+        iawPersistenceDatastoreReplicatorDummyCompletionHandlerType completionHandler = self.blockOrNil;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(NO, thisError);
+        });
+    }
+    
     if (error)
     {
-        *error = [NSError errorWithDomain:kIAWPersistenceDatastoreReplicatorDummyErrorDomain
-                                     code:IAWPERSISTENCEDATASTOREREPLICATORDUMMY_ERRORCODE
-                                 userInfo:nil];
+        *error = thisError;
     }
     
     return NO;
@@ -45,9 +76,9 @@ NSString * const kIAWPersistenceDatastoreReplicatorDummyErrorDomain = @"kIAWPers
 
 
 #pragma mark - Public class methods
-+ (instancetype)replicator
++ (instancetype)replicatorWithCompletionHandler:(iawPersistenceDatastoreReplicatorDummyCompletionHandlerType)blockOrNil
 {
-    return [[[self class] alloc] init];
+    return [[[self class] alloc] initWithCompletionHandler:blockOrNil];
 }
 
 @end
