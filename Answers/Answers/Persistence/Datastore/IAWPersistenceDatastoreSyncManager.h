@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreSyncJobProtocol.h"
+#import "IAWPersistenceDatastoreSyncJob.h"
 
 
 
 @interface IAWPersistenceDatastoreSyncManager : NSObject
 
-- (void)queueSynchronizationJob:(id<IAWPersistenceDatastoreSyncJobProtocol>)syncJob;
+- (void)queueSynchronizationJob:(IAWPersistenceDatastoreSyncJob *)syncJob;
 
 + (instancetype)synchronizationManager;
 

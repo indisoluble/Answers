@@ -10,6 +10,8 @@
 
 #import "IAWControllerQuestionsTVC.h"
 
+#import "IAWModelQuestion+NSDictionary.h"
+
 #import "IAWPersistence.h"
 
 #import "IAWLog.h"
@@ -199,7 +201,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     }
     
     NSError *error = nil;
-    if (![self.datastore createDocument:oneQuestion error:&error])
+    if (![self.datastore createDocumentWithDictionary:[oneQuestion dictionary] error:&error])
     {
         IAWLogError(@"Error: %@", error);
     }
@@ -217,7 +219,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     NSArray *allDocuments = [datastore allDocuments];
     
     NSMutableArray *allQuestions = [NSMutableArray arrayWithCapacity:[allDocuments count]];
-    for (id<IAWPersistenceDocumentProtocol> oneDocument in allDocuments)
+    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocuments)
     {
         [allQuestions addObject:[IAWModelQuestion questionWithDictionary:[oneDocument dictionary]]];
     }

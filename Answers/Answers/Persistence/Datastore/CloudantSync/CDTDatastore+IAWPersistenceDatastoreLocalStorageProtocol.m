@@ -10,20 +10,31 @@
 
 #import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
 
-#import "CDTDocumentRevision+IAWPersistenceDocumentProtocol.h"
+#import "CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.h"
 
 
 
 @implementation CDTDatastore (IAWPersistenceDatastoreLocalStorageProtocol)
 
 #pragma mark - IAWPersistenceDatastoreLocalStorageProtocol methods
-- (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document
-                 error:(NSError **)error
+- (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
+                                                                      error:(NSError **)error
 {
     CDTMutableDocumentRevision *revision = [CDTMutableDocumentRevision revision];
-    revision.body = [document dictionary];
+    revision.body = dictionary;
     
     CDTDocumentRevision *nextRevision = [self createDocumentFromRevision:revision error:error];
+    
+    return nextRevision;
+}
+
+- (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                 error:(NSError **)error
+{
+    NSAssert([document isKindOfClass:[CDTDocumentRevision class]], @"Unexpected class");
+    
+    CDTDocumentRevision *revision = (CDTDocumentRevision *)document;
+    CDTDocumentRevision *nextRevision = [self deleteDocumentFromRevision:revision error:error];
     
     return (nextRevision != nil);
 }

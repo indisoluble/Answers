@@ -11,6 +11,7 @@
 
 
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification";
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification = @"kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification";
 
 
@@ -62,6 +63,27 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 - (void)postDidCreateDocumentNotificationWithSender:(id)sender
 {
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
+                                           object:sender];
+}
+
+- (void)addDidDeleteDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
+{
+    [self.notificationCenter addObserver:observer
+                                selector:aSelector
+                                    name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
+                                  object:sender];
+}
+
+- (void)removeDidDeleteDocumentNotificationObserver:(id)observer sender:(id)sender
+{
+    [self.notificationCenter removeObserver:observer
+                                       name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
+                                     object:sender];
+}
+
+- (void)postDidDeleteDocumentNotificationWithSender:(id)sender
+{
+    [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
                                            object:sender];
 }
 

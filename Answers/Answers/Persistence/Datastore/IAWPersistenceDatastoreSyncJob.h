@@ -8,14 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreSyncJobProtocol.h"
 #import "IAWPersistenceDatastoreReplicatorProtocol.h"
 
 
 
-@interface IAWPersistenceDatastoreSyncJob : NSObject <IAWPersistenceDatastoreSyncJobProtocol>
+typedef void (^iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)(void);
+
+
+
+@interface IAWPersistenceDatastoreSyncJob : NSObject
 
 - (id)initWithReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)replicator;
+
+- (void)startWithCompletionHandler:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler;
 
 + (instancetype)syncJobWithReplicator:(id<IAWPersistenceDatastoreReplicatorProtocol>)replicator;
 

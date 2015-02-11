@@ -67,7 +67,7 @@
 }
 
 
-#pragma mark - IAWPersistenceDatastoreSyncJobProtocol methods
+#pragma mark - Public methods
 - (void)startWithCompletionHandler:(iawPersistenceDatastoreSyncJobCompletionHandlerBlockType)completionHandler
 {
     if (self.alreadyStarted)

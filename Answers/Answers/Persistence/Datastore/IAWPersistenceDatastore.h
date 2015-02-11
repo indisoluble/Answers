@@ -24,7 +24,10 @@
                syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
         notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter;
 
-- (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document error:(NSError **)error;
+- (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
+                                                                      error:(NSError **)error;
+- (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                 error:(NSError **)error;
 - (void)refreshDocuments;
 - (NSArray *)allDocuments;
 

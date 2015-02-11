@@ -9,13 +9,12 @@
 #import "IAWPersistenceDatastore.h"
 
 #import "IAWPersistenceDatastoreSyncJob.h"
+#import "IAWPersistenceDatastoreReplicatorFactoryDummy.h"
 
 #import "IAWCloudantSyncDatabaseURL.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
 #import "IAWCloudantSyncReplicatorFactory.h"
 #import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
-
-#import "IAWPersistenceDatastoreReplicatorFactoryDummy.h"
 
 
 
@@ -88,14 +87,30 @@
 
 
 #pragma mark - Public methods
-- (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document error:(NSError **)error
+- (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
+                                                                      error:(NSError **)error
 {
-    BOOL success = [self.localStorage createDocument:document error:error];
+    id<IAWPersistenceDatastoreDocumentProtocol> doc = [self.localStorage createDocumentWithDictionary:dictionary
+                                                                                                error:error];
+    if (doc)
+    {
+        [self pushChanges];
+        
+        [self.notificationCenter postDidCreateDocumentNotificationWithSender:self];
+    }
+    
+    return doc;
+}
+
+- (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                 error:(NSError **)error
+{
+    BOOL success = [self.localStorage deleteDocument:document error:error];
     if (success)
     {
-        [self.notificationCenter postDidCreateDocumentNotificationWithSender:self];
+        [self pushChanges];
         
-        [self pushDocuments];
+        [self.notificationCenter postDidDeleteDocumentNotificationWithSender:self];
     }
     
     return success;
@@ -103,7 +118,7 @@
 
 - (void)refreshDocuments
 {
-    [self pullDocuments];
+    [self pullChanges];
 }
 
 - (NSArray *)allDocuments
@@ -113,7 +128,7 @@
 
 
 #pragma mark - Private methods
-- (void)pushDocuments
+- (void)pushChanges
 {
     id<IAWPersistenceDatastoreReplicatorProtocol> replicator = [self.replicatorFactory pushReplicator];
     
@@ -122,7 +137,7 @@
     [self.syncManager queueSynchronizationJob:syncJob];
 }
 
-- (void)pullDocuments
+- (void)pullChanges
 {
     __weak IAWPersistenceDatastore *weakSelf = self;
     iawPersistenceDatastoreReplicatorCompletionHandlerType block= ^(BOOL success, NSError *error)

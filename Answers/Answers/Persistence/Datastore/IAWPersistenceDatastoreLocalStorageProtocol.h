@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDocumentProtocol.h"
+#import "IAWPersistenceDatastoreDocumentProtocol.h"
 
 
 
 @protocol IAWPersistenceDatastoreLocalStorageProtocol <NSObject>
 
-- (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document
+- (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
+                                                                      error:(NSError **)error;
+
+- (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error;
 
 - (NSArray *)allDocuments;

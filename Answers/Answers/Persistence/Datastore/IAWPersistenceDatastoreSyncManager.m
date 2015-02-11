@@ -36,7 +36,7 @@
 
 
 #pragma mark - Public methods
-- (void)queueSynchronizationJob:(id<IAWPersistenceDatastoreSyncJobProtocol>)syncJob
+- (void)queueSynchronizationJob:(IAWPersistenceDatastoreSyncJob *)syncJob
 {
     if ([self isStackEmpty])
     {
@@ -54,7 +54,7 @@
 #pragma mark - Private methods
 - (void)startFirstJob
 {
-    id<IAWPersistenceDatastoreSyncJobProtocol> firstJob = [self firstJobInStack];
+    IAWPersistenceDatastoreSyncJob *firstJob = [self firstJobInStack];
     if (!firstJob)
     {
         IAWLogDebug(@"No more jobs in the stack");
@@ -79,12 +79,12 @@
     return ([self.jobStack count] == 0);
 }
 
-- (void)addJobToStack:(id<IAWPersistenceDatastoreSyncJobProtocol>)job
+- (void)addJobToStack:(IAWPersistenceDatastoreSyncJob *)job
 {
     [self.jobStack addObject:job];
 }
 
-- (id<IAWPersistenceDatastoreSyncJobProtocol>)firstJobInStack
+- (IAWPersistenceDatastoreSyncJob *)firstJobInStack
 {
     return [self.jobStack firstObject];
 }
