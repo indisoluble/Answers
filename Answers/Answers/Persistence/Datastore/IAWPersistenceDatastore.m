@@ -8,27 +8,21 @@
 
 #import "IAWPersistenceDatastore.h"
 
-#import "IAWCloudantSyncDatastoreFactory.h"
-#import "IAWCloudantSyncDatabaseURL.h"
-
-#import "IAWCloudantSyncReplicatorPush.h"
-#import "IAWCloudantSyncReplicatorPull.h"
-
-#import "CDTDatastore+IAWPersistenceDatastore.h"
-
 #import "IAWPersistenceDatastoreSyncJob.h"
-#import "IAWPersistenceDatastoreSyncManager.h"
 
-#import "IAWLog.h"
+#import "IAWCloudantSyncDatabaseURL.h"
+#import "IAWCloudantSyncDatastoreFactory.h"
+#import "IAWCloudantSyncReplicatorFactory.h"
+#import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
+
+#import "IAWPersistenceDatastoreReplicatorFactoryDummy.h"
 
 
 
 @interface IAWPersistenceDatastore ()
 
-@property (strong, nonatomic, readonly) CDTDatastore *cloudantDatastore;
-@property (strong, nonatomic, readonly) CDTReplicatorFactory *cloudantReplicatorFactory;
-@property (strong, nonatomic, readonly) NSURL *cloudantURLOrNil;
-
+@property (strong, nonatomic, readonly) id<IAWPersistenceDatastoreLocalStorageProtocol> localStorage;
+@property (strong, nonatomic, readonly) id<IAWPersistenceDatastoreReplicatorFactoryProtocol> replicatorFactory;
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreSyncManager *syncManager;
 
 @end
@@ -40,18 +34,53 @@
 #pragma mark - Init object
 - (id)init
 {
+    CDTDatastoreManager *cloudantDatastoreManager = [IAWCloudantSyncDatastoreFactory datastoreManager];
+    NSURL *cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
+    
+    CDTDatastore *oneLocalStorage = [IAWCloudantSyncDatastoreFactory datastoreWithManager:cloudantDatastoreManager];
+    
+    id<IAWPersistenceDatastoreReplicatorFactoryProtocol> oneReplicatorFactory = nil;
+    if (cloudantURLOrNil)
+    {
+        CDTReplicatorFactory *cloudantFactory = [IAWCloudantSyncDatastoreFactory replicatorFactoryWithManager:cloudantDatastoreManager];
+        
+        oneReplicatorFactory = [IAWCloudantSyncReplicatorFactory factoryWithCloudantFactory:cloudantFactory
+                                                                                  datastore:oneLocalStorage
+                                                                                        url:cloudantURLOrNil];
+    }
+    else
+    {
+        oneReplicatorFactory = [IAWPersistenceDatastoreReplicatorFactoryDummy factory];
+    }
+    
+    IAWPersistenceDatastoreSyncManager *oneSyncManager = [IAWPersistenceDatastoreSyncManager synchronizationManager];
+    IAWPersistenceDatastoreNotificationCenter *oneNotifCenter = [IAWPersistenceDatastoreNotificationCenter notificationCenter];
+    
+    return [self initWithLocalStorage:oneLocalStorage
+                    replicatorFactory:oneReplicatorFactory
+                          syncManager:oneSyncManager
+                   notificationCenter:oneNotifCenter];
+}
+
+- (id)initWithLocalStorage:(id<IAWPersistenceDatastoreLocalStorageProtocol>)localStorage
+         replicatorFactory:(id<IAWPersistenceDatastoreReplicatorFactoryProtocol>)replicatorFactory
+               syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
+        notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter
+{
     self = [super init];
     if (self)
     {
-        CDTDatastoreManager *manager = [IAWCloudantSyncDatastoreFactory datastoreManager];
-        
-        _cloudantDatastore = [IAWCloudantSyncDatastoreFactory datastoreWithManager:manager];
-        _cloudantReplicatorFactory = [IAWCloudantSyncDatastoreFactory replicatorFactoryWithManager:manager];
-        _cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
-        
-        _syncManager = [IAWPersistenceDatastoreSyncManager synchronizationManager];
-        
-        _notificationCenter = [IAWPersistenceDatastoreNotificationCenter notificationCenter];
+        if (!localStorage || !replicatorFactory || !syncManager || !notificationCenter)
+        {
+            self = nil;
+        }
+        else
+        {
+            _localStorage = localStorage;
+            _replicatorFactory = replicatorFactory;
+            _syncManager = syncManager;
+            _notificationCenter = notificationCenter;
+        }
     }
     
     return self;
@@ -61,58 +90,42 @@
 #pragma mark - Public methods
 - (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document error:(NSError **)error
 {
-    BOOL success = [self.cloudantDatastore createDocument:document error:error];
+    BOOL success = [self.localStorage createDocument:document error:error];
     if (success)
     {
         [self.notificationCenter postDidCreateDocumentNotificationWithSender:self];
         
-        [self pushChangesToCloudantDatabase];
+        [self pushDocuments];
     }
     
     return success;
 }
 
-- (BOOL)refreshDocuments
+- (void)refreshDocuments
 {
-    return [self pullChangesFromCloudantDatabase];
+    [self pullDocuments];
 }
 
 - (NSArray *)allDocuments
 {
-    return [self.cloudantDatastore allDocuments];
+    return [self.localStorage allDocuments];
 }
 
 
 #pragma mark - Private methods
-- (void)pushChangesToCloudantDatabase
+- (void)pushDocuments
 {
-    if (!self.cloudantURLOrNil)
-    {
-        IAWLogWarn(@"URL for Cloudant database not informed. Data can not be replicated");
-        
-        return;
-    }
-    
-    IAWCloudantSyncReplicatorPush *replicator = [IAWCloudantSyncReplicatorPush replicatorWithFactory:self.cloudantReplicatorFactory
-                                                                                              source:self.cloudantDatastore
-                                                                                              target:self.cloudantURLOrNil];
+    id<IAWPersistenceDatastoreReplicatorProtocol> replicator = [self.replicatorFactory pushReplicator];
     
     IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithReplicator:replicator];
     
     [self.syncManager queueSynchronizationJob:syncJob];
 }
 
-- (BOOL)pullChangesFromCloudantDatabase
+- (void)pullDocuments
 {
-    if (!self.cloudantURLOrNil)
-    {
-        IAWLogWarn(@"URL for Cloudant database not informed. Data can not be downloaded");
-        
-        return NO;
-    }
-    
     __weak IAWPersistenceDatastore *weakSelf = self;
-    iawCloudantSyncReplicatorPullCompletionHandlerBlockType completionHandler = ^(BOOL success, NSError *error)
+    iawPersistenceDatastoreReplicatorCompletionHandlerType block= ^(BOOL success, NSError *error)
     {
         __strong IAWPersistenceDatastore *strongSelf = weakSelf;
         if (strongSelf && success)
@@ -121,16 +134,11 @@
         }
     };
     
-    IAWCloudantSyncReplicatorPull *replicator = [IAWCloudantSyncReplicatorPull replicatorWithFactory:self.cloudantReplicatorFactory
-                                                                                              source:self.cloudantDatastore
-                                                                                              target:self.cloudantURLOrNil
-                                                                                   completionHandler:completionHandler];
+    id<IAWPersistenceDatastoreReplicatorProtocol> replicator = [self.replicatorFactory pullReplicatorWithCompletionHandler:block];
     
     IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithReplicator:replicator];
     
     [self.syncManager queueSynchronizationJob:syncJob];
-    
-    return YES;
 }
 
 

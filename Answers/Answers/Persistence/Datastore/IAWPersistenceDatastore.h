@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+#import "IAWPersistenceDatastoreLocalStorageProtocol.h"
+#import "IAWPersistenceDatastoreReplicatorFactoryProtocol.h"
+#import "IAWPersistenceDatastoreSyncManager.h"
 #import "IAWPersistenceDatastoreNotificationCenter.h"
-
-#import "IAWPersistenceDocumentProtocol.h"
 
 
 
@@ -18,8 +19,13 @@
 
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreNotificationCenter *notificationCenter;
 
+- (id)initWithLocalStorage:(id<IAWPersistenceDatastoreLocalStorageProtocol>)localStorage
+         replicatorFactory:(id<IAWPersistenceDatastoreReplicatorFactoryProtocol>)replicatorFactory
+               syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
+        notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter;
+
 - (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document error:(NSError **)error;
-- (BOOL)refreshDocuments;
+- (void)refreshDocuments;
 - (NSArray *)allDocuments;
 
 + (instancetype)datastore;

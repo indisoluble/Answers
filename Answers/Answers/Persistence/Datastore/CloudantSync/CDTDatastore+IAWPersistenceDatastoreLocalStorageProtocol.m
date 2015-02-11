@@ -1,22 +1,22 @@
 //
-//  CDTDatastore+IAWPersistenceDatastore.m
+//  CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m
 //  Answers
 //
-//  Created by Enrique de la Torre (dev) on 09/02/2015.
+//  Created by Enrique de la Torre (dev) on 10/02/2015.
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 
 #import <CloudantSync.h>
 
-#import "CDTDatastore+IAWPersistenceDatastore.h"
+#import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
 
 #import "CDTDocumentRevision+IAWPersistenceDocumentProtocol.h"
 
 
 
-@implementation CDTDatastore (IAWPersistenceDatastore)
+@implementation CDTDatastore (IAWPersistenceDatastoreLocalStorageProtocol)
 
-#pragma mark - Public methods
+#pragma mark - IAWPersistenceDatastoreLocalStorageProtocol methods
 - (BOOL)createDocument:(id<IAWPersistenceDocumentProtocol>)document
                  error:(NSError **)error
 {
