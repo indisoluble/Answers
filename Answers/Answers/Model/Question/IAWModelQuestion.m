@@ -10,6 +10,14 @@
 
 
 
+#define IAWMODELQUESTION_NOTDEFINED @"???"
+
+
+
+NSString * const kIAWModelQuestionKeyQuestionText = @"question";
+
+
+
 @interface IAWModelQuestion ()
 
 @end
@@ -18,32 +26,28 @@
 
 @implementation IAWModelQuestion
 
-#pragma mark - Init object
-- (id)init
+#pragma mark - Synthesize properties
+- (NSString *)questionText
 {
-    return [self initWithQuestionText:nil];
+    NSString *txt = [[self.document dictionary] objectForKey:kIAWModelQuestionKeyQuestionText];
+    
+    return (txt ? txt : IAWMODELQUESTION_NOTDEFINED);
 }
 
-- (id)initWithQuestionText:(NSString *)text
+
+#pragma mark - Public class methods
++ (NSDictionary *)dictionaryWithQuestionText:(NSString *)text
 {
-    self = [super init];
-    if (self)
+    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedTextOrNil = (text ? [text stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
+    
+    NSDictionary *dictionary = nil;
+    if (trimmedTextOrNil && ([trimmedTextOrNil length] > 0))
     {
-        NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        NSString *trimmedTextOrNil = (text ?
-                                      [text stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] :
-                                      nil);
-        if (!trimmedTextOrNil || ([trimmedTextOrNil length] == 0))
-        {
-            self = nil;
-        }
-        else
-        {
-            _questionText = trimmedTextOrNil;
-        }
+        dictionary = @{kIAWModelQuestionKeyQuestionText: trimmedTextOrNil};
     }
     
-    return self;
+    return dictionary;
 }
 
 @end

@@ -44,23 +44,14 @@
     XCTAssertNil([[IAWModelQuestion alloc] init], @"'init' should fail");
 }
 
-- (void)testInitWithQuestionTextSetToNilFails
+- (void)testDictionaryWithQuestionTextSetToNilFails
 {
-    XCTAssertNil([[IAWModelQuestion alloc] initWithQuestionText:nil], @"The text is mandatory");
+    XCTAssertNil([IAWModelQuestion dictionaryWithQuestionText:nil], @"The text is mandatory");
 }
 
 - (void)testInitWithEmptyQuestionTextFails
 {
-    XCTAssertNil([[IAWModelQuestion alloc] initWithQuestionText:@""], @"An empty string is not a valid question");
-}
-
-- (void)testQuestionTextIsSetToCorrectValueAfterInit
-{
-    NSString *txt = [NSString stringWithFormat:@"  %@  ", IAWMODELQUESTIONTESTS_QUESTIONTEXT];
-    IAWModelQuestion *oneQuestion = [[IAWModelQuestion alloc] initWithQuestionText:txt];
-    
-    XCTAssertEqualObjects(oneQuestion.questionText, IAWMODELQUESTIONTESTS_QUESTIONTEXT,
-                          @"After a correct initialization, the question text should be set");
+    XCTAssertNil([IAWModelQuestion dictionaryWithQuestionText:@""], @"An empty string is not a valid question");
 }
 
 @end

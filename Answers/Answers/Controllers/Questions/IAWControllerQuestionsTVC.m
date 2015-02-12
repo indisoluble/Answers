@@ -10,8 +10,7 @@
 
 #import "IAWControllerQuestionsTVC.h"
 
-#import "IAWModelQuestion+NSDictionary.h"
-
+#import "IAWModel.h"
 #import "IAWPersistence.h"
 
 #import "IAWLog.h"
@@ -116,6 +115,22 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
+    
+    NSError *error = nil;
+    if (![self.datastore deleteDocument:oneQuestion.document error:&error])
+    {
+        IAWLogError(@"Question %@ not deleted: %@", oneQuestion, error);
+    }
+}
+
 
 #pragma mark - Actions
 - (IBAction)addQuestionButtonPressed:(id)sender
@@ -166,6 +181,9 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     [self.datastore.notificationCenter addDidRefreshDocumentsNotificationObserver:self
                                                                          selector:@selector(manageDidRefreshDocumentsNotification:)
                                                                            sender:self.datastore];
+    [self.datastore.notificationCenter addDidDeleteDocumentNotificationObserver:self
+                                                                       selector:@selector(manageDidDeleteDocumentNotification:)
+                                                                         sender:self.datastore];
 }
 
 - (void)removeDatastoreObservers
@@ -174,6 +192,8 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
                                                                             sender:self.datastore];
     [self.datastore.notificationCenter removeDidRefreshDocumentsNotificationObserver:self
                                                                               sender:self.datastore];
+    [self.datastore.notificationCenter removeDidDeleteDocumentNotificationObserver:self
+                                                                            sender:self.datastore];
 }
 
 - (void)manageDidCreateDocumentNotification:(NSNotification *)notification
@@ -190,18 +210,23 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     [self.refreshControl endRefreshing];
 }
 
+- (void)manageDidDeleteDocumentNotification:(NSNotification *)notification
+{
+    [self manageDidCreateDocumentNotification:nil];
+}
+
 - (void)addQuestionWithText:(NSString *)questionText
 {
-    IAWModelQuestion *oneQuestion = [[IAWModelQuestion alloc] initWithQuestionText:questionText];
-    if (!oneQuestion)
+    NSDictionary *dictionary = [IAWModelQuestion dictionaryWithQuestionText:questionText];
+    if (!dictionary)
     {
-        IAWLogDebug(@"Question instance not created");
+        IAWLogDebug(@"No dictionary created with question <%@>", questionText);
         
         return;
     }
     
     NSError *error = nil;
-    if (![self.datastore createDocumentWithDictionary:[oneQuestion dictionary] error:&error])
+    if (![self.datastore createDocumentWithDictionary:dictionary error:&error])
     {
         IAWLogError(@"Error: %@", error);
     }
@@ -221,7 +246,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     NSMutableArray *allQuestions = [NSMutableArray arrayWithCapacity:[allDocuments count]];
     for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocuments)
     {
-        [allQuestions addObject:[IAWModelQuestion questionWithDictionary:[oneDocument dictionary]]];
+        [allQuestions addObject:[IAWModelQuestion objectWithDocument:oneDocument]];
     }
     
     return allQuestions;

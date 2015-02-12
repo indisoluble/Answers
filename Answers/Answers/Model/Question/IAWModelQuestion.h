@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "IAWModelObject.h"
 
 
-@interface IAWModelQuestion : NSObject
+
+@interface IAWModelQuestion : IAWModelObject
 
 @property (strong, nonatomic, readonly) NSString *questionText;
 
-- (id)initWithQuestionText:(NSString *)text;
++ (NSDictionary *)dictionaryWithQuestionText:(NSString *)text;
 
 @end

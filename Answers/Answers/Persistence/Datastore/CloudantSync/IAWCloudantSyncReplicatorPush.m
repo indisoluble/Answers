@@ -76,6 +76,8 @@
 #pragma mark - IAWPersistenceDatastoreReplicatorProtocol methods
 - (BOOL)startWithError:(NSError **)error
 {
+    IAWLogDebug(@"Replicator started");
+    
     return [self.replicator startWithError:error];
 }
 
