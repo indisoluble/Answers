@@ -25,7 +25,4 @@
 @property (assign, nonatomic, readonly) BOOL didRefreshDocuments;
 @property (strong, nonatomic) NSError *resultDeleteDocumentError;
 
-@property (assign, nonatomic, readonly) BOOL didGetAllDocuments;
-@property (strong, nonatomic) NSArray *resultGetAllDocuments;
-
 @end

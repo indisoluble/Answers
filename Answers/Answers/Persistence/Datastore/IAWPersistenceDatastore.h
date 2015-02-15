@@ -11,6 +11,7 @@
 #import "IAWPersistenceDatastoreProtocol.h"
 
 #import "IAWPersistenceDatastoreLocalStorageProtocol.h"
+#import "IAWPersistenceDatastoreIndexManagerProtocol.h"
 #import "IAWPersistenceDatastoreReplicatorFactoryProtocol.h"
 #import "IAWPersistenceDatastoreSyncManager.h"
 #import "IAWPersistenceDatastoreNotificationCenter.h"
@@ -19,9 +20,11 @@
 
 @interface IAWPersistenceDatastore : NSObject <IAWPersistenceDatastoreProtocol>
 
+@property (strong, nonatomic, readonly) id<IAWPersistenceDatastoreIndexManagerProtocol> indexManager;
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreNotificationCenter *notificationCenter;
 
 - (id)initWithLocalStorage:(id<IAWPersistenceDatastoreLocalStorageProtocol>)localStorage
+              indexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
          replicatorFactory:(id<IAWPersistenceDatastoreReplicatorFactoryProtocol>)replicatorFactory
                syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
         notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter;

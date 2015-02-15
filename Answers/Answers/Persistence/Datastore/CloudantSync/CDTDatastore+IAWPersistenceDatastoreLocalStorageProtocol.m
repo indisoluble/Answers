@@ -39,9 +39,4 @@
     return (nextRevision != nil);
 }
 
-- (NSArray *)allDocuments
-{
-    return [self getAllDocuments];
-}
-
 @end

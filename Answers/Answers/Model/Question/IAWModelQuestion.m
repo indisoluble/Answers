@@ -13,7 +13,7 @@
 
 
 NSString * const kIAWModelQuestionObjectType = @"question";
-NSString * const kIAWModelQuestionKeyQuestionText = @"question";
+NSString * const kIAWModelQuestionKeyQuestionText = @"question_text";
 
 
 
@@ -54,6 +54,24 @@ NSString * const kIAWModelQuestionKeyQuestionText = @"question";
                                          data:dictionary
                                   inDatastore:datastore
                                         error:error];
+}
+
++ (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    id<NSFastEnumeration> allDocumentsOrNil = [IAWModelObject allObjectsWithType:kIAWModelQuestionObjectType
+                                                                  inIndexManager:indexManager];
+    if (!allDocumentsOrNil)
+    {
+        return @[];
+    }
+    
+    NSMutableArray *allQuestions = [NSMutableArray array];
+    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocumentsOrNil)
+    {
+        [allQuestions addObject:[IAWModelQuestion objectWithDocument:oneDocument]];
+    }
+    
+    return allQuestions;
 }
 
 

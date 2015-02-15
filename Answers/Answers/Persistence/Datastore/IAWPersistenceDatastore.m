@@ -27,10 +27,15 @@
 #pragma mark - Init object
 - (id)init
 {
-    return [self initWithLocalStorage:nil replicatorFactory:nil syncManager:nil notificationCenter:nil];
+    return [self initWithLocalStorage:nil
+                         indexManager:nil
+                    replicatorFactory:nil
+                          syncManager:nil
+                   notificationCenter:nil];
 }
 
 - (id)initWithLocalStorage:(id<IAWPersistenceDatastoreLocalStorageProtocol>)localStorage
+              indexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
          replicatorFactory:(id<IAWPersistenceDatastoreReplicatorFactoryProtocol>)replicatorFactory
                syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
         notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter
@@ -38,13 +43,14 @@
     self = [super init];
     if (self)
     {
-        if (!localStorage || !replicatorFactory || !syncManager || !notificationCenter)
+        if (!localStorage || !indexManager || !replicatorFactory || !syncManager || !notificationCenter)
         {
             self = nil;
         }
         else
         {
             _localStorage = localStorage;
+            _indexManager = indexManager;
             _replicatorFactory = replicatorFactory;
             _syncManager = syncManager;
             _notificationCenter = notificationCenter;
@@ -88,11 +94,6 @@
 - (void)refreshDocuments
 {
     [self pullChanges];
-}
-
-- (NSArray *)allDocuments
-{
-    return [self.localStorage allDocuments];
 }
 
 

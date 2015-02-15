@@ -29,4 +29,9 @@ extern NSString * const kIAWModelObjectKeyType;
                          inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                                error:(NSError **)error;
 
++ (NSSet *)indexableFieldnames;
+
++ (id<NSFastEnumeration>)allObjectsWithType:(NSString *)type
+                             inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
+
 @end

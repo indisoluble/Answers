@@ -11,4 +11,6 @@
 
 #import "IAWModelQuestion.h"
 
+#import "IAWPersistenceDatastore+IAWModel.h"
+
 #endif

@@ -12,6 +12,6 @@
 
 @interface IAWPersistenceDatastore (CloudantSync)
 
-+ (instancetype)datastore;
++ (instancetype)datastoreWithIndexesForFieldnames:(NSSet *)fieldnames;
 
 @end

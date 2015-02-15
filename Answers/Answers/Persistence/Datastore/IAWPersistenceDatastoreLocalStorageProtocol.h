@@ -20,6 +20,4 @@
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error;
 
-- (NSArray *)allDocuments;
-
 @end

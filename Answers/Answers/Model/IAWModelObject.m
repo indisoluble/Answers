@@ -10,9 +10,11 @@
 
 #import "IAWModelObject+ErrorBuilder.h"
 
+#import "IAWLog.h"
 
 
-NSString * const kIAWModelObjectKeyType = @"type";
+
+NSString * const kIAWModelObjectKeyType = @"object_type";
 
 
 
@@ -102,21 +104,54 @@ NSString * const kIAWModelObjectKeyType = @"type";
     return [[[self class] alloc] initWithDocument:document];
 }
 
++ (NSSet *)indexableFieldnames
+{
+    return [NSSet setWithObject:kIAWModelObjectKeyType];
+}
+
++ (id<NSFastEnumeration>)allObjectsWithType:(NSString *)type
+                             inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    NSDictionary *dictionaryOrNil = [IAWModelObject dictionaryWithObjectType:type];
+    if (!dictionaryOrNil)
+    {
+        IAWLogError(@"Type <%@> is not valid", type);
+        
+        return nil;
+    }
+    
+    NSError *error = nil;
+    id<NSFastEnumeration> result = [indexManager queryWithDictionary:dictionaryOrNil error:&error];
+    if (!result)
+    {
+        IAWLogError(@"No objects retrived with dictionary %@: %@", dictionaryOrNil, error);
+    }
+    
+    return result;
+}
+
 
 #pragma mark - Private class methods
 + (NSMutableDictionary *)dictionaryWithObjectType:(NSString *)type
 {
-    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *trimmedTypeOrNil = (type ? [type stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
+    NSString *normalizedTypeOrNil = [IAWModelObject normalizeType:type];
     
     NSMutableDictionary *dictionary = nil;
-    if (trimmedTypeOrNil && ([trimmedTypeOrNil length] > 0))
+    if (normalizedTypeOrNil)
     {
-        dictionary = [NSMutableDictionary dictionaryWithObject:trimmedTypeOrNil
+        dictionary = [NSMutableDictionary dictionaryWithObject:normalizedTypeOrNil
                                                         forKey:kIAWModelObjectKeyType];
     }
     
     return dictionary;
+}
+
++ (NSString *)normalizeType:(NSString *)type
+{
+    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedTypeOrNil = (type ? [type stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
+    
+    return (trimmedTypeOrNil && ([trimmedTypeOrNil length] > 0) ? trimmedTypeOrNil : nil);
 }
 
 @end

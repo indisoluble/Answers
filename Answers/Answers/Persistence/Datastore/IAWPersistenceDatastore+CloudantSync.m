@@ -12,6 +12,7 @@
 
 #import "IAWCloudantSyncDatabaseURL.h"
 #import "IAWCloudantSyncDatastoreFactory.h"
+#import "IAWCloudantSyncIndexManager.h"
 #import "IAWCloudantSyncReplicatorFactory.h"
 #import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
 
@@ -20,12 +21,14 @@
 @implementation IAWPersistenceDatastore (CloudantSync)
 
 #pragma mark - Public class methods
-+ (instancetype)datastore
++ (instancetype)datastoreWithIndexesForFieldnames:(NSSet *)fieldnames
 {
     CDTDatastoreManager *cloudantDatastoreManager = [IAWCloudantSyncDatastoreFactory datastoreManager];
     NSURL *cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
     
     CDTDatastore *oneLocalStorage = [IAWCloudantSyncDatastoreFactory datastoreWithManager:cloudantDatastoreManager];
+    IAWCloudantSyncIndexManager *oneIndexManager = [IAWCloudantSyncIndexManager indexManagerWithIndexesForFieldNames:fieldnames
+                                                                                                         inDatastore:oneLocalStorage];
     
     id<IAWPersistenceDatastoreReplicatorFactoryProtocol> oneReplicatorFactory = nil;
     if (cloudantURLOrNil)
@@ -45,6 +48,7 @@
     IAWPersistenceDatastoreNotificationCenter *oneNotifCenter = [IAWPersistenceDatastoreNotificationCenter notificationCenter];
     
     return [[[self class] alloc] initWithLocalStorage:oneLocalStorage
+                                         indexManager:oneIndexManager
                                     replicatorFactory:oneReplicatorFactory
                                           syncManager:oneSyncManager
                                    notificationCenter:oneNotifCenter];

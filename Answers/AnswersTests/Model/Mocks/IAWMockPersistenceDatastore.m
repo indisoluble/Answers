@@ -19,8 +19,6 @@
 
 @property (assign, nonatomic) BOOL didRefreshDocuments;
 
-@property (assign, nonatomic) BOOL didGetAllDocuments;
-
 @end
 
 
@@ -36,15 +34,12 @@
         _didCreateDocument = NO;
         _didDeleteDocument = NO;
         _didRefreshDocuments = NO;
-        _didGetAllDocuments = NO;
         
         _resultCreateDocument = nil;
         _resultCreateDocumentError = nil;
         
         _resultDeleteDocument = NO;
         _resultDeleteDocumentError = nil;
-        
-        _resultGetAllDocuments = nil;
     }
     
     return self;
@@ -82,13 +77,6 @@
 - (void)refreshDocuments
 {
     self.didRefreshDocuments = YES;
-}
-
-- (NSArray *)allDocuments
-{
-    self.didGetAllDocuments = YES;
-    
-    return self.resultGetAllDocuments;
 }
 
 @end

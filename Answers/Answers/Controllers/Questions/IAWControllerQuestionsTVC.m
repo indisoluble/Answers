@@ -50,7 +50,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 {
     if (!_allQuestions)
     {
-        _allQuestions = [IAWControllerQuestionsTVC allQuestionsInDatastore:self.datastore];
+        _allQuestions = [IAWModelQuestion allQuestionsInIndexManager:self.datastore.indexManager];
     }
     
     return _allQuestions;
@@ -229,21 +229,6 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 - (void)releaseAllQuestions
 {
     _allQuestions = nil;
-}
-
-
-#pragma mark - Private class methods
-+ (NSArray *)allQuestionsInDatastore:(IAWPersistenceDatastore *)datastore
-{
-    NSArray *allDocuments = [datastore allDocuments];
-    
-    NSMutableArray *allQuestions = [NSMutableArray arrayWithCapacity:[allDocuments count]];
-    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocuments)
-    {
-        [allQuestions addObject:[IAWModelQuestion objectWithDocument:oneDocument]];
-    }
-    
-    return allQuestions;
 }
 
 @end

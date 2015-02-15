@@ -17,6 +17,8 @@
 		FF0F5F501A9023E300143020 /* IAWModelObject+ErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = FF0F5F4F1A9023E300143020 /* IAWModelObject+ErrorBuilder.m */; };
 		FF1379F81A87DBFB003BBDCA /* IAWPersistenceDatastoreSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1379F71A87DBFB003BBDCA /* IAWPersistenceDatastoreSyncManager.m */; };
 		FF1379FB1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1379FA1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m */; };
+		FF13FA271A90F92300634ED6 /* IAWCloudantSyncIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF13FA261A90F92300634ED6 /* IAWCloudantSyncIndexManager.m */; };
+		FF13FA2A1A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */; };
 		FF2F99DE1A8D6331002AABEC /* IAWModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */; };
 		FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF383D291A7D5EA000415B52 /* IAWControllerQuestionsTVC.m */; };
 		FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF383D311A7D6B3200415B52 /* Localizable.strings */; };
@@ -74,6 +76,11 @@
 		FF1379F91A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreSyncJob.h; sourceTree = "<group>"; };
 		FF1379FA1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreSyncJob.m; sourceTree = "<group>"; };
 		FF1379FC1A87E141003BBDCA /* IAWPersistenceDatastoreReplicatorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreReplicatorProtocol.h; sourceTree = "<group>"; };
+		FF13FA241A90F89200634ED6 /* IAWPersistenceDatastoreIndexManagerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreIndexManagerProtocol.h; sourceTree = "<group>"; };
+		FF13FA251A90F92300634ED6 /* IAWCloudantSyncIndexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncIndexManager.h; sourceTree = "<group>"; };
+		FF13FA261A90F92300634ED6 /* IAWCloudantSyncIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncIndexManager.m; sourceTree = "<group>"; };
+		FF13FA281A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWPersistenceDatastore+IAWModel.h"; sourceTree = "<group>"; };
+		FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWPersistenceDatastore+IAWModel.m"; sourceTree = "<group>"; };
 		FF2F99DC1A8D6331002AABEC /* IAWModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelObject.h; sourceTree = "<group>"; };
 		FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelObject.m; sourceTree = "<group>"; };
 		FF2F99DF1A8D683C002AABEC /* IAWModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAWModel.h; sourceTree = "<group>"; };
@@ -208,6 +215,8 @@
 				FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */,
 				FF0F5F4E1A9023E300143020 /* IAWModelObject+ErrorBuilder.h */,
 				FF0F5F4F1A9023E300143020 /* IAWModelObject+ErrorBuilder.m */,
+				FF13FA281A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.h */,
+				FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -264,6 +273,8 @@
 				FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */,
 				FF88D57F1A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.h */,
 				FF88D5801A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m */,
+				FF13FA251A90F92300634ED6 /* IAWCloudantSyncIndexManager.h */,
+				FF13FA261A90F92300634ED6 /* IAWCloudantSyncIndexManager.m */,
 				FFC65FCB1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.h */,
 				FFC65FCC1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.m */,
 				FFA4809C1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.h */,
@@ -385,6 +396,7 @@
 				FF0F5F3A1A90001900143020 /* IAWPersistenceDatastore+CloudantSync.h */,
 				FF0F5F3B1A90001900143020 /* IAWPersistenceDatastore+CloudantSync.m */,
 				FF5B269C1A8C142200228C06 /* IAWPersistenceDatastoreDocumentProtocol.h */,
+				FF13FA241A90F89200634ED6 /* IAWPersistenceDatastoreIndexManagerProtocol.h */,
 				FFC65FD41A8ACBB9009B83B1 /* IAWPersistenceDatastoreLocalStorageProtocol.h */,
 				FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */,
 				FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */,
@@ -548,9 +560,11 @@
 				FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */,
 				FF0F5F3C1A90001900143020 /* IAWPersistenceDatastore+CloudantSync.m in Sources */,
 				FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */,
+				FF13FA2A1A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m in Sources */,
 				FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */,
 				FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */,
 				FFC65FD71A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m in Sources */,
+				FF13FA271A90F92300634ED6 /* IAWCloudantSyncIndexManager.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FF88D57E1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,

@@ -22,6 +22,4 @@
 
 - (void)refreshDocuments;
 
-- (NSArray *)allDocuments;
-
 @end

@@ -20,4 +20,6 @@
                            inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                                  error:(NSError **)error;
 
++ (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
+
 @end
