@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "IAWPersistenceDatastoreProtocol.h"
+
 #import "IAWPersistenceDatastoreLocalStorageProtocol.h"
 #import "IAWPersistenceDatastoreReplicatorFactoryProtocol.h"
 #import "IAWPersistenceDatastoreSyncManager.h"
@@ -15,7 +17,7 @@
 
 
 
-@interface IAWPersistenceDatastore : NSObject
+@interface IAWPersistenceDatastore : NSObject <IAWPersistenceDatastoreProtocol>
 
 @property (strong, nonatomic, readonly) IAWPersistenceDatastoreNotificationCenter *notificationCenter;
 
@@ -23,14 +25,5 @@
          replicatorFactory:(id<IAWPersistenceDatastoreReplicatorFactoryProtocol>)replicatorFactory
                syncManager:(IAWPersistenceDatastoreSyncManager *)syncManager
         notificationCenter:(IAWPersistenceDatastoreNotificationCenter *)notificationCenter;
-
-- (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
-                                                                      error:(NSError **)error;
-- (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
-                 error:(NSError **)error;
-- (void)refreshDocuments;
-- (NSArray *)allDocuments;
-
-+ (instancetype)datastore;
 
 @end

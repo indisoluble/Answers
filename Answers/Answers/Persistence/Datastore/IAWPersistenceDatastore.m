@@ -9,12 +9,6 @@
 #import "IAWPersistenceDatastore.h"
 
 #import "IAWPersistenceDatastoreSyncJob.h"
-#import "IAWPersistenceDatastoreReplicatorFactoryDummy.h"
-
-#import "IAWCloudantSyncDatabaseURL.h"
-#import "IAWCloudantSyncDatastoreFactory.h"
-#import "IAWCloudantSyncReplicatorFactory.h"
-#import "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"
 
 
 
@@ -33,32 +27,7 @@
 #pragma mark - Init object
 - (id)init
 {
-    CDTDatastoreManager *cloudantDatastoreManager = [IAWCloudantSyncDatastoreFactory datastoreManager];
-    NSURL *cloudantURLOrNil = [IAWCloudantSyncDatabaseURL cloudantDatabaseURLOrNil];
-    
-    CDTDatastore *oneLocalStorage = [IAWCloudantSyncDatastoreFactory datastoreWithManager:cloudantDatastoreManager];
-    
-    id<IAWPersistenceDatastoreReplicatorFactoryProtocol> oneReplicatorFactory = nil;
-    if (cloudantURLOrNil)
-    {
-        CDTReplicatorFactory *cloudantFactory = [IAWCloudantSyncDatastoreFactory replicatorFactoryWithManager:cloudantDatastoreManager];
-        
-        oneReplicatorFactory = [IAWCloudantSyncReplicatorFactory factoryWithCloudantFactory:cloudantFactory
-                                                                                  datastore:oneLocalStorage
-                                                                                        url:cloudantURLOrNil];
-    }
-    else
-    {
-        oneReplicatorFactory = [IAWPersistenceDatastoreReplicatorFactoryDummy factory];
-    }
-    
-    IAWPersistenceDatastoreSyncManager *oneSyncManager = [IAWPersistenceDatastoreSyncManager synchronizationManager];
-    IAWPersistenceDatastoreNotificationCenter *oneNotifCenter = [IAWPersistenceDatastoreNotificationCenter notificationCenter];
-    
-    return [self initWithLocalStorage:oneLocalStorage
-                    replicatorFactory:oneReplicatorFactory
-                          syncManager:oneSyncManager
-                   notificationCenter:oneNotifCenter];
+    return [self initWithLocalStorage:nil replicatorFactory:nil syncManager:nil notificationCenter:nil];
 }
 
 - (id)initWithLocalStorage:(id<IAWPersistenceDatastoreLocalStorageProtocol>)localStorage
@@ -86,7 +55,7 @@
 }
 
 
-#pragma mark - Public methods
+#pragma mark - IAWPersistenceDatastoreProtocol methods
 - (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
                                                                       error:(NSError **)error
 {
@@ -154,13 +123,6 @@
     IAWPersistenceDatastoreSyncJob *syncJob = [IAWPersistenceDatastoreSyncJob syncJobWithReplicator:replicator];
     
     [self.syncManager queueSynchronizationJob:syncJob];
-}
-
-
-#pragma mark - Public class methods
-+ (instancetype)datastore
-{
-    return [[[self class] alloc] init];
 }
 
 @end

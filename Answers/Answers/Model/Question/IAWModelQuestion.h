@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic, readonly) NSString *questionText;
 
-+ (NSDictionary *)dictionaryWithQuestionText:(NSString *)text;
++ (instancetype)createQuestionWithText:(NSString *)text
+                           inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                 error:(NSError **)error;
 
 @end

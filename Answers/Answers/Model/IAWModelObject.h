@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreDocumentProtocol.h"
+#import "IAWPersistence.h"
+
+
+
+extern NSString * const kIAWModelObjectKeyType;
 
 
 
@@ -19,5 +23,10 @@
 - (id)initWithDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document;
 
 + (instancetype)objectWithDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document;
+
++ (instancetype)createObjectWithType:(NSString *)type
+                                data:(NSDictionary *)data
+                         inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                               error:(NSError **)error;
 
 @end

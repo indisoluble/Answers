@@ -11,7 +11,6 @@
 #import "IAWControllerQuestionsTVC.h"
 
 #import "IAWModel.h"
-#import "IAWPersistence.h"
 
 #import "IAWLog.h"
 
@@ -217,16 +216,11 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 - (void)addQuestionWithText:(NSString *)questionText
 {
-    NSDictionary *dictionary = [IAWModelQuestion dictionaryWithQuestionText:questionText];
-    if (!dictionary)
-    {
-        IAWLogDebug(@"No dictionary created with question <%@>", questionText);
-        
-        return;
-    }
-    
     NSError *error = nil;
-    if (![self.datastore createDocumentWithDictionary:dictionary error:&error])
+    IAWModelQuestion *oneQuestion = [IAWModelQuestion createQuestionWithText:questionText
+                                                                 inDatastore:self.datastore
+                                                                       error:&error];
+    if (!oneQuestion)
     {
         IAWLogError(@"Error: %@", error);
     }

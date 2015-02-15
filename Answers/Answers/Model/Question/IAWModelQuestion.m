@@ -8,12 +8,11 @@
 
 #import "IAWModelQuestion.h"
 
-
-
-#define IAWMODELQUESTION_NOTDEFINED @"???"
+#import "IAWModelQuestion+ErrorBuilder.h"
 
 
 
+NSString * const kIAWModelQuestionObjectType = @"question";
 NSString * const kIAWModelQuestionKeyQuestionText = @"question";
 
 
@@ -31,11 +30,34 @@ NSString * const kIAWModelQuestionKeyQuestionText = @"question";
 {
     NSString *txt = [[self.document dictionary] objectForKey:kIAWModelQuestionKeyQuestionText];
     
-    return (txt ? txt : IAWMODELQUESTION_NOTDEFINED);
+    return (txt ? txt : NSLocalizedString(@"Question text not defined", @"Question text not defined"));
 }
 
 
 #pragma mark - Public class methods
++ (instancetype)createQuestionWithText:(NSString *)text
+                           inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                 error:(NSError **)error
+{
+    NSDictionary *dictionary = [IAWModelQuestion dictionaryWithQuestionText:text];
+    if (!dictionary)
+    {
+        if (error)
+        {
+            *error = [IAWModelQuestion errorQuestionTextNotValid];
+        }
+        
+        return nil;
+    }
+    
+    return [[self class] createObjectWithType:kIAWModelQuestionObjectType
+                                         data:dictionary
+                                  inDatastore:datastore
+                                        error:error];
+}
+
+
+#pragma mark - Private class methods
 + (NSDictionary *)dictionaryWithQuestionText:(NSString *)text
 {
     NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];

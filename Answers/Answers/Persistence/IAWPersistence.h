@@ -9,6 +9,6 @@
 #ifndef Answers_IAWPersistence_h
 #define Answers_IAWPersistence_h
 
-#import "IAWPersistenceDatastore.h"
+#import "IAWPersistenceDatastore+CloudantSync.h"
 
 #endif
