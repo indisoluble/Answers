@@ -19,6 +19,7 @@
 		FF1379FB1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1379FA1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m */; };
 		FF13FA271A90F92300634ED6 /* IAWCloudantSyncIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FF13FA261A90F92300634ED6 /* IAWCloudantSyncIndexManager.m */; };
 		FF13FA2A1A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */; };
+		FF2731811A99097C00429500 /* IAWControllerAddAnswerTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2731801A99097C00429500 /* IAWControllerAddAnswerTVC.m */; };
 		FF2F99DE1A8D6331002AABEC /* IAWModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */; };
 		FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF383D291A7D5EA000415B52 /* IAWControllerQuestionsTVC.m */; };
 		FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF383D311A7D6B3200415B52 /* Localizable.strings */; };
@@ -81,6 +82,9 @@
 		FF13FA261A90F92300634ED6 /* IAWCloudantSyncIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncIndexManager.m; sourceTree = "<group>"; };
 		FF13FA281A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWPersistenceDatastore+IAWModel.h"; sourceTree = "<group>"; };
 		FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWPersistenceDatastore+IAWModel.m"; sourceTree = "<group>"; };
+		FF27317F1A99097C00429500 /* IAWControllerAddAnswerTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWControllerAddAnswerTVC.h; sourceTree = "<group>"; };
+		FF2731801A99097C00429500 /* IAWControllerAddAnswerTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWControllerAddAnswerTVC.m; sourceTree = "<group>"; };
+		FF2731831A99122D00429500 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF2F99DC1A8D6331002AABEC /* IAWModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelObject.h; sourceTree = "<group>"; };
 		FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelObject.m; sourceTree = "<group>"; };
 		FF2F99DF1A8D683C002AABEC /* IAWModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAWModel.h; sourceTree = "<group>"; };
@@ -90,7 +94,6 @@
 		FF383D301A7D6B3200415B52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF383D321A7D6B3800415B52 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF4932141A7EC7BC004E0800 /* IAWPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistence.h; sourceTree = "<group>"; };
-		FF550D0B1A8168B1004346B9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF5B268F1A8C09B200228C06 /* IAWModelQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelQuestion.h; sourceTree = "<group>"; };
 		FF5B26901A8C09B200228C06 /* IAWModelQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelQuestion.m; sourceTree = "<group>"; };
 		FF5B26961A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreReplicatorDummy.h; sourceTree = "<group>"; };
@@ -197,6 +200,15 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		FF27317E1A99094000429500 /* AddAnswer */ = {
+			isa = PBXGroup;
+			children = (
+				FF27317F1A99097C00429500 /* IAWControllerAddAnswerTVC.h */,
+				FF2731801A99097C00429500 /* IAWControllerAddAnswerTVC.m */,
+			);
+			path = AddAnswer;
+			sourceTree = "<group>";
+		};
 		FF383D271A7D5CB200415B52 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,6 +300,7 @@
 		FFB270F71A7C23A00066B81F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FF27317E1A99094000429500 /* AddAnswer */,
 				FF383D271A7D5CB200415B52 /* Questions */,
 				FFD78B5B1A7995350059CB68 /* Main.storyboard */,
 			);
@@ -567,6 +580,7 @@
 				FF13FA271A90F92300634ED6 /* IAWCloudantSyncIndexManager.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
 				FF88D57E1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m in Sources */,
+				FF2731811A99097C00429500 /* IAWControllerAddAnswerTVC.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,
 				FF0F5F501A9023E300143020 /* IAWModelObject+ErrorBuilder.m in Sources */,
 				FF5B269B1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.m in Sources */,
@@ -612,7 +626,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FFD78B5C1A7995350059CB68 /* Base */,
-				FF550D0B1A8168B1004346B9 /* es */,
+				FF2731831A99122D00429500 /* es */,
 			);
 			name = Main.storyboard;
 			path = ..;

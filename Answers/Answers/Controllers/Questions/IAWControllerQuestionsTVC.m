@@ -10,6 +10,8 @@
 
 #import "IAWControllerQuestionsTVC.h"
 
+#import "IAWControllerAddAnswerTVC.h"
+
 #import "IAWModel.h"
 
 #import "IAWLog.h"
@@ -65,35 +67,31 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    [IAWControllerQuestionsTVC removeDatastoreObserver:self usingDatastore:_datastore];
+}
+
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self addRefreshControl];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
     [self addDatastoreObservers];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
     
-    [self removeDatastoreObservers];
+    [self addRefreshControl];
 }
 
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[UITableViewCell class]] &&
+        [segue.destinationViewController isKindOfClass:[IAWControllerAddAnswerTVC class]])
+    {
+        [self prepareForSegueAddAnswerTVC:segue.destinationViewController withCell:sender];
+    }
 }
 
 
@@ -174,25 +172,17 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 - (void)addDatastoreObservers
 {
-    [self.datastore.notificationCenter addDidCreateDocumentNotificationObserver:self
-                                                                       selector:@selector(manageDidCreateDocumentNotification:)
-                                                                         sender:self.datastore];
-    [self.datastore.notificationCenter addDidRefreshDocumentsNotificationObserver:self
-                                                                         selector:@selector(manageDidRefreshDocumentsNotification:)
-                                                                           sender:self.datastore];
-    [self.datastore.notificationCenter addDidDeleteDocumentNotificationObserver:self
-                                                                       selector:@selector(manageDidDeleteDocumentNotification:)
-                                                                         sender:self.datastore];
-}
-
-- (void)removeDatastoreObservers
-{
-    [self.datastore.notificationCenter removeDidCreateDocumentNotificationObserver:self
-                                                                            sender:self.datastore];
-    [self.datastore.notificationCenter removeDidRefreshDocumentsNotificationObserver:self
-                                                                              sender:self.datastore];
-    [self.datastore.notificationCenter removeDidDeleteDocumentNotificationObserver:self
-                                                                            sender:self.datastore];
+    IAWPersistenceDatastoreNotificationCenter *notificationCenter = self.datastore.notificationCenter;
+    
+    [notificationCenter addDidCreateDocumentNotificationObserver:self
+                                                        selector:@selector(manageDidCreateDocumentNotification:)
+                                                          sender:self.datastore];
+    [notificationCenter addDidRefreshDocumentsNotificationObserver:self
+                                                          selector:@selector(manageDidRefreshDocumentsNotification:)
+                                                            sender:self.datastore];
+    [notificationCenter addDidDeleteDocumentNotificationObserver:self
+                                                        selector:@selector(manageDidDeleteDocumentNotification:)
+                                                          sender:self.datastore];
 }
 
 - (void)manageDidCreateDocumentNotification:(NSNotification *)notification
@@ -214,6 +204,11 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     [self manageDidCreateDocumentNotification:nil];
 }
 
+- (void)releaseAllQuestions
+{
+    _allQuestions = nil;
+}
+
 - (void)addQuestionWithText:(NSString *)questionText
 {
     NSError *error = nil;
@@ -226,9 +221,24 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     }
 }
 
-- (void)releaseAllQuestions
+- (void)prepareForSegueAddAnswerTVC:(IAWControllerAddAnswerTVC *)addAnswerTVC
+                           withCell:(UITableViewCell *)cell
 {
-    _allQuestions = nil;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
+    
+    [addAnswerTVC useQuestion:oneQuestion];
+}
+
+
+#pragma mark - Private methods
++ (void)removeDatastoreObserver:(id)observer usingDatastore:(IAWPersistenceDatastore *)datastore
+{
+    IAWPersistenceDatastoreNotificationCenter *notificationCenter = datastore.notificationCenter;
+    
+    [notificationCenter removeDidCreateDocumentNotificationObserver:observer sender:datastore];
+    [notificationCenter removeDidRefreshDocumentsNotificationObserver:observer sender:datastore];
+    [notificationCenter removeDidDeleteDocumentNotificationObserver:observer sender:datastore];
 }
 
 @end
