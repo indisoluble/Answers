@@ -17,6 +17,10 @@
 - (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
                                                                       error:(NSError **)error;
 
+- (id<IAWPersistenceDatastoreDocumentProtocol>)replaceDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                                                withDictionary:(NSDictionary *)dictionary
+                                                         error:(NSError **)error;
+
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error;
 

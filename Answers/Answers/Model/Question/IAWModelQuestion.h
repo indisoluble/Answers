@@ -15,10 +15,16 @@
 @interface IAWModelQuestion : IAWModelObject
 
 @property (strong, nonatomic, readonly) NSString *questionText;
+@property (strong, nonatomic, readonly) NSSet *options;
 
 + (instancetype)createQuestionWithText:(NSString *)text
                            inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                                  error:(NSError **)error;
+
++ (instancetype)replaceQuestion:(IAWModelQuestion *)question
+                 byAddingOption:(NSString *)option
+                    inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                          error:(NSError **)error;
 
 + (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
 

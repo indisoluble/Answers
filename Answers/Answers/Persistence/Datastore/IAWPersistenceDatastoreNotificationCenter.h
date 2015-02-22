@@ -11,6 +11,7 @@
 
 
 extern NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification;
+extern NSString * const kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification;
 extern NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification;
 extern NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification;
 
@@ -23,6 +24,10 @@ extern NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocu
 - (void)addDidCreateDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender;
 - (void)removeDidCreateDocumentNotificationObserver:(id)observer sender:(id)sender;
 - (void)postDidCreateDocumentNotificationWithSender:(id)sender;
+
+- (void)addDidReplaceDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender;
+- (void)removeDidReplaceDocumentNotificationObserver:(id)observer sender:(id)sender;
+- (void)postDidReplaceDocumentNotificationWithSender:(id)sender;
 
 - (void)addDidDeleteDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender;
 - (void)removeDidDeleteDocumentNotificationObserver:(id)observer sender:(id)sender;

@@ -20,11 +20,22 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
 
 @interface IAWModelObject ()
 
+@property (strong, nonatomic, readonly) NSString *objectType;
+
 @end
 
 
 
 @implementation IAWModelObject
+
+#pragma mark - Synthesize properties
+- (NSString *)objectType
+{
+    NSDictionary *dic = [self.document dictionary];
+    
+    return dic[kIAWModelObjectKeyType];
+}
+
 
 #pragma mark - Init object
 - (id)init
@@ -62,40 +73,40 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
                          inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                                error:(NSError **)error
 {
-    if (!data)
-    {
-        if (error)
-        {
-            *error = [IAWModelObject errorNoDataProvided];
-        }
-        
-        return nil;
-    }
-    
-    if ([data objectForKey:kIAWModelObjectKeyType])
-    {
-        if (error)
-        {
-            *error = [IAWModelObject errorDataNotValid];
-        }
-        
-        return nil;
-    }
-    
-    NSMutableDictionary *dictionary = [IAWModelObject dictionaryWithObjectType:type];
+    NSDictionary *dictionary = [IAWModelObject dictionaryWithObjectType:type
+                                                                   data:data
+                                                                  error:error];
     if (!dictionary)
     {
-        if (error)
-        {
-            *error = [IAWModelObject errorObjectTypeNotValid];
-        }
-        
         return nil;
     }
-    [dictionary addEntriesFromDictionary:data];
     
     id<IAWPersistenceDatastoreDocumentProtocol> document = [datastore createDocumentWithDictionary:dictionary
                                                                                              error:error];
+    if (!document)
+    {
+        return nil;
+    }
+    
+    return [[[self class] alloc] initWithDocument:document];
+}
+
++ (instancetype)replaceObject:(IAWModelObject *)object
+                    usingData:(NSDictionary *)data
+                  inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                        error:(NSError **)error
+{
+    NSDictionary *dictionary = [IAWModelObject dictionaryWithObjectType:object.objectType
+                                                                   data:data
+                                                                  error:error];
+    if (!dictionary)
+    {
+        return nil;
+    }
+    
+    id<IAWPersistenceDatastoreDocumentProtocol> document = [datastore replaceDocument:object.document
+                                                                       withDictionary:dictionary
+                                                                                error:error];
     if (!document)
     {
         return nil;
@@ -132,18 +143,55 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
 
 
 #pragma mark - Private class methods
-+ (NSMutableDictionary *)dictionaryWithObjectType:(NSString *)type
++ (NSDictionary *)dictionaryWithObjectType:(NSString *)type
+                                      data:(NSDictionary *)data
+                                     error:(NSError **)error
 {
-    NSString *normalizedTypeOrNil = [IAWModelObject normalizeType:type];
-    
-    NSMutableDictionary *dictionary = nil;
-    if (normalizedTypeOrNil)
+    if (!data)
     {
-        dictionary = [NSMutableDictionary dictionaryWithObject:normalizedTypeOrNil
-                                                        forKey:kIAWModelObjectKeyType];
+        if (error)
+        {
+            *error = [IAWModelObject errorNoDataProvided];
+        }
+        
+        return nil;
     }
     
+    if ([data objectForKey:kIAWModelObjectKeyType])
+    {
+        if (error)
+        {
+            *error = [IAWModelObject errorDataNotValid];
+        }
+        
+        return nil;
+    }
+    
+    NSMutableDictionary *dictionary = [IAWModelObject dictionaryWithObjectType:type];
+    if (!dictionary)
+    {
+        if (error)
+        {
+            *error = [IAWModelObject errorObjectTypeNotValid];
+        }
+        
+        return nil;
+    }
+    
+    [dictionary addEntriesFromDictionary:data];
+    
     return dictionary;
+}
+
++ (NSMutableDictionary *)dictionaryWithObjectType:(NSString *)type
+{
+    NSString *normalizedType = [IAWModelObject normalizeType:type];
+    if (!normalizedType)
+    {
+        return nil;
+    }
+    
+    return [NSMutableDictionary dictionaryWithObject:normalizedType forKey:kIAWModelObjectKeyType];
 }
 
 + (NSString *)normalizeType:(NSString *)type

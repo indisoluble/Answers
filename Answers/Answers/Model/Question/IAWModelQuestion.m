@@ -14,6 +14,7 @@
 
 NSString * const kIAWModelQuestionObjectType = @"question";
 NSString * const kIAWModelQuestionKeyQuestionText = @"question_text";
+NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
 
 
 
@@ -28,9 +29,18 @@ NSString * const kIAWModelQuestionKeyQuestionText = @"question_text";
 #pragma mark - Synthesize properties
 - (NSString *)questionText
 {
-    NSString *txt = [[self.document dictionary] objectForKey:kIAWModelQuestionKeyQuestionText];
+    NSDictionary *dic = [self.document dictionary];
+    NSString *txt = dic[kIAWModelQuestionKeyQuestionText];
     
     return (txt ? txt : NSLocalizedString(@"Question text not defined", @"Question text not defined"));
+}
+
+- (NSSet *)options
+{
+    NSDictionary *dic = [self.document dictionary];
+    NSSet *set = dic[kIAWModelQuestionKeyQuestionOptions];
+    
+    return (set ? set : [NSSet set]);
 }
 
 
@@ -54,6 +64,29 @@ NSString * const kIAWModelQuestionKeyQuestionText = @"question_text";
                                          data:dictionary
                                   inDatastore:datastore
                                         error:error];
+}
+
++ (instancetype)replaceQuestion:(IAWModelQuestion *)question
+                 byAddingOption:(NSString *)option
+                    inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                          error:(NSError **)error
+{
+    NSDictionary *dictionary = [IAWModelQuestion dictionaryBasedOnQuestion:question
+                                                                withOption:option];
+    if (!dictionary)
+    {
+        if (error)
+        {
+            *error = [IAWModelQuestion errorOptionNotValid];
+        }
+        
+        return nil;
+    }
+    
+    return [[self class] replaceObject:question
+                             usingData:dictionary
+                           inDatastore:datastore
+                                 error:error];
 }
 
 + (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
@@ -85,6 +118,25 @@ NSString * const kIAWModelQuestionKeyQuestionText = @"question_text";
     if (trimmedTextOrNil && ([trimmedTextOrNil length] > 0))
     {
         dictionary = @{kIAWModelQuestionKeyQuestionText: trimmedTextOrNil};
+    }
+    
+    return dictionary;
+}
+
++ (NSDictionary *)dictionaryBasedOnQuestion:(IAWModelQuestion *)question
+                                 withOption:(NSString *)option
+{
+    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedOptionOrNil = (option ? [option stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
+    
+    NSDictionary *dictionary = nil;
+    if (question && trimmedOptionOrNil && ([trimmedOptionOrNil length] > 0))
+    {
+        NSMutableSet *allOptions = [NSMutableSet setWithSet:question.options];
+        [allOptions addObject:option];
+        
+        dictionary = @{kIAWModelQuestionKeyQuestionText: question.questionText,
+                       kIAWModelQuestionKeyQuestionOptions: allOptions};
     }
     
     return dictionary;

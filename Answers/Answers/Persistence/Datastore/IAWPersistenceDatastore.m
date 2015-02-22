@@ -77,6 +77,23 @@
     return doc;
 }
 
+- (id<IAWPersistenceDatastoreDocumentProtocol>)replaceDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                                                withDictionary:(NSDictionary *)dictionary
+                                                         error:(NSError **)error
+{
+    id<IAWPersistenceDatastoreDocumentProtocol> nextDoc = [self.localStorage replaceDocument:document
+                                                                              withDictionary:dictionary
+                                                                                       error:error];
+    if (nextDoc)
+    {
+        [self pushChanges];
+        
+        [self.notificationCenter postDidReplaceDocumentNotificationWithSender:self];
+    }
+    
+    return nextDoc;
+}
+
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error
 {

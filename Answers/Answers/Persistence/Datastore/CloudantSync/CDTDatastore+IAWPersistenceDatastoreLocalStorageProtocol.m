@@ -28,6 +28,22 @@
     return nextRevision;
 }
 
+- (id<IAWPersistenceDatastoreDocumentProtocol>)replaceDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                                                withDictionary:(NSDictionary *)dictionary
+                                                         error:(NSError **)error
+{
+    NSAssert([document isKindOfClass:[CDTDocumentRevision class]], @"Unexpected class");
+    
+    CDTDocumentRevision *revision = (CDTDocumentRevision *)document;
+    
+    CDTMutableDocumentRevision *update = [revision mutableCopy];
+    update.body = dictionary;
+    
+    CDTDocumentRevision *nextRevision = [self updateDocumentFromRevision:update error:error];
+    
+    return nextRevision;
+}
+
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error
 {

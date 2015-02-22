@@ -24,4 +24,11 @@ NSString * const kIAWModelQuestionErrorDomain = @"kIAWModelQuestionErrorDomain";
                            userInfo:nil];
 }
 
++ (NSError *)errorOptionNotValid
+{
+    return [NSError errorWithDomain:kIAWModelQuestionErrorDomain
+                               code:IAWModelQuestion_errorCodeType_optionNotValid
+                           userInfo:nil];
+}
+
 @end

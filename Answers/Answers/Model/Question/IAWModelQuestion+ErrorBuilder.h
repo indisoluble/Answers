@@ -11,7 +11,8 @@
 
 
 typedef enum {
-    IAWModelQuestion_errorCodeType_questionTextNotValid = 0
+    IAWModelQuestion_errorCodeType_questionTextNotValid = 0,
+    IAWModelQuestion_errorCodeType_optionNotValid
 } IAWModelQuestion_errorCodeType;
 
 
@@ -23,5 +24,6 @@ extern NSString * const kIAWModelQuestionErrorDomain;
 @interface IAWModelQuestion (ErrorBuilder)
 
 + (NSError *)errorQuestionTextNotValid;
++ (NSError *)errorOptionNotValid;
 
 @end

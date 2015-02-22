@@ -15,9 +15,14 @@
 @interface IAWMockPersistenceDatastore : NSObject <IAWPersistenceDatastoreProtocol>
 
 @property (assign, nonatomic, readonly) BOOL didCreateDocument;
-@property (strong, nonatomic, readonly) NSDictionary *dictionaryForDocument;
+@property (strong, nonatomic, readonly) NSDictionary *dictionaryForCreatedDocument;
 @property (strong, nonatomic) id<IAWPersistenceDatastoreDocumentProtocol> resultCreateDocument;
 @property (strong, nonatomic) NSError *resultCreateDocumentError;
+
+@property (assign, nonatomic, readonly) BOOL didReplaceDocument;
+@property (strong, nonatomic, readonly) NSDictionary *dictionaryForReplacedDocument;
+@property (strong, nonatomic) id<IAWPersistenceDatastoreDocumentProtocol> resultReplaceDocument;
+@property (strong, nonatomic) NSError *resultReplaceDocumentError;
 
 @property (assign, nonatomic, readonly) BOOL didDeleteDocument;
 @property (assign, nonatomic) BOOL resultDeleteDocument;

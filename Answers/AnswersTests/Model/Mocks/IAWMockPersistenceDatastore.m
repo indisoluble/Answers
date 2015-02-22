@@ -13,7 +13,10 @@
 @interface IAWMockPersistenceDatastore ()
 
 @property (assign, nonatomic) BOOL didCreateDocument;
-@property (strong, nonatomic) NSDictionary *dictionaryForDocument;
+@property (strong, nonatomic) NSDictionary *dictionaryForCreatedDocument;
+
+@property (assign, nonatomic) BOOL didReplaceDocument;
+@property (strong, nonatomic) NSDictionary *dictionaryForReplacedDocument;
 
 @property (assign, nonatomic) BOOL didDeleteDocument;
 
@@ -32,8 +35,12 @@
     if (self)
     {
         _didCreateDocument = NO;
+        _didReplaceDocument = NO;
         _didDeleteDocument = NO;
         _didRefreshDocuments = NO;
+        
+        _resultReplaceDocument = nil;
+        _resultReplaceDocumentError = nil;
         
         _resultCreateDocument = nil;
         _resultCreateDocumentError = nil;
@@ -51,7 +58,7 @@
 {
     self.didCreateDocument = YES;
     
-    self.dictionaryForDocument = dictionary;
+    self.dictionaryForCreatedDocument = dictionary;
     
     if (!self.resultCreateDocument && error)
     {
@@ -59,6 +66,22 @@
     }
     
     return self.resultCreateDocument;
+}
+
+- (id<IAWPersistenceDatastoreDocumentProtocol>)replaceDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
+                                                withDictionary:(NSDictionary *)dictionary
+                                                         error:(NSError **)error;
+{
+    self.didReplaceDocument = YES;
+    
+    self.dictionaryForReplacedDocument = dictionary;
+    
+    if (!self.resultReplaceDocument && error)
+    {
+        *error = self.resultReplaceDocumentError;
+    }
+    
+    return self.resultReplaceDocument;
 }
 
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
