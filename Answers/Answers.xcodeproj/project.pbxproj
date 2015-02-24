@@ -32,6 +32,7 @@
 		FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */ = {isa = PBXBuildFile; fileRef = FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */; };
 		FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */; };
 		FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */; };
+		FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */; };
 		FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */; };
 		FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */; };
 		FFB91BE91A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BE81A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m */; };
@@ -113,6 +114,8 @@
 		FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = cloudantAnswersDatabaseURL.plist; path = ../../../cloudantAnswersDatabaseURL.plist; sourceTree = "<group>"; };
 		FF8D9D361A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreDocument.h; sourceTree = "<group>"; };
 		FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreDocument.m; sourceTree = "<group>"; };
+		FF9D5A291A9D32E6001096BA /* IAWPersistenceDatastoreDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDummy.h; sourceTree = "<group>"; };
+		FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreDummy.m; sourceTree = "<group>"; };
 		FFA4809C1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPull.h; sourceTree = "<group>"; };
 		FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPull.m; sourceTree = "<group>"; };
 		FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreSyncJobTests.m; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 		FF5B26951A8C0EF800228C06 /* Dummy */ = {
 			isa = PBXGroup;
 			children = (
+				FF9D5A291A9D32E6001096BA /* IAWPersistenceDatastoreDummy.h */,
+				FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */,
 				FF5B26961A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.h */,
 				FF5B26971A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m */,
 				FF5B26981A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.h */,
@@ -573,6 +578,7 @@
 				FFC65FCD1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.m in Sources */,
 				FF88D5811A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m in Sources */,
 				FF5B269A1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m in Sources */,
+				FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */,
 				FF5B269F1A8C14F700228C06 /* CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.m in Sources */,
 				FF0F5F3F1A900B4300143020 /* IAWModelQuestion+ErrorBuilder.m in Sources */,
 				FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */,

@@ -77,7 +77,13 @@
                             <outlet property="delegate" destination="CeC-gO-rm2" id="M6m-Fd-Zmz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Answer" id="9Z8-Bb-NUv"/>
+                    <navigationItem key="navigationItem" title="Add Answer" id="9Z8-Bb-NUv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="JCI-YB-ljU">
+                            <connections>
+                                <action selector="addOptionButtonPressed:" destination="CeC-gO-rm2" id="vYZ-3b-mWk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZKQ-Hb-zDT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

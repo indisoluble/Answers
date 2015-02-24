@@ -8,6 +8,8 @@
 
 #import "IAWPersistenceDatastoreNotificationCenter.h"
 
+#import "IAWLog.h"
+
 
 
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification";
@@ -48,6 +50,8 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 #pragma mark - Public methods
 - (void)addDidCreateDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
 {
+    IAWLogInfo(@"Add observer: %@", observer);
+    
     [self.notificationCenter addObserver:observer
                                 selector:aSelector
                                     name:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
@@ -56,6 +60,8 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)removeDidCreateDocumentNotificationObserver:(id)observer sender:(id)sender
 {
+    IAWLogInfo(@"Remove observer: %@", observer);
+    
     [self.notificationCenter removeObserver:observer
                                        name:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
                                      object:sender];
@@ -63,20 +69,26 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)postDidCreateDocumentNotificationWithSender:(id)sender
 {
+    IAWLogInfo(@"Post with sender: %@", sender);
+    
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification
                                            object:sender];
 }
 
 - (void)addDidReplaceDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
 {
+    IAWLogInfo(@"Add observer: %@", observer);
+    
     [self.notificationCenter addObserver:observer
                                 selector:aSelector
                                     name:kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification
-                                  object:self];
+                                  object:sender];
 }
 
 - (void)removeDidReplaceDocumentNotificationObserver:(id)observer sender:(id)sender
 {
+    IAWLogInfo(@"Remove observer: %@", observer);
+    
     [self.notificationCenter removeObserver:observer
                                        name:kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification
                                      object:sender];
@@ -84,12 +96,16 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)postDidReplaceDocumentNotificationWithSender:(id)sender
 {
+    IAWLogInfo(@"Post with sender: %@", sender);
+    
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification
                                            object:sender];
 }
 
 - (void)addDidDeleteDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
 {
+    IAWLogInfo(@"Add observer: %@", observer);
+    
     [self.notificationCenter addObserver:observer
                                 selector:aSelector
                                     name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
@@ -98,6 +114,8 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)removeDidDeleteDocumentNotificationObserver:(id)observer sender:(id)sender
 {
+    IAWLogInfo(@"Remove observer: %@", observer);
+    
     [self.notificationCenter removeObserver:observer
                                        name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
                                      object:sender];
@@ -105,12 +123,16 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)postDidDeleteDocumentNotificationWithSender:(id)sender
 {
+    IAWLogInfo(@"Post with sender: %@", sender);
+    
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
                                            object:sender];
 }
 
 - (void)addDidRefreshDocumentsNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
 {
+    IAWLogInfo(@"Add observer: %@", observer);
+    
     [self.notificationCenter addObserver:observer
                                 selector:aSelector
                                     name:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
@@ -119,6 +141,8 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)removeDidRefreshDocumentsNotificationObserver:(id)observer sender:(id)sender
 {
+    IAWLogInfo(@"Remove observer: %@", observer);
+    
     [self.notificationCenter removeObserver:observer
                                        name:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
                                      object:sender];
@@ -126,6 +150,8 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 
 - (void)postDidRefreshDocumentsNotificationWithSender:(id)sender
 {
+    IAWLogInfo(@"Post with sender: %@", sender);
+    
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification
                                            object:sender];
 }

@@ -177,16 +177,21 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     [notificationCenter addDidCreateDocumentNotificationObserver:self
                                                         selector:@selector(manageDidCreateDocumentNotification:)
                                                           sender:self.datastore];
+    [notificationCenter addDidReplaceDocumentNotificationObserver:self
+                                                         selector:@selector(manageDidCreateDocumentNotification:)
+                                                           sender:self.datastore];
+    [notificationCenter addDidDeleteDocumentNotificationObserver:self
+                                                        selector:@selector(manageDidCreateDocumentNotification:)
+                                                          sender:self.datastore];
     [notificationCenter addDidRefreshDocumentsNotificationObserver:self
                                                           selector:@selector(manageDidRefreshDocumentsNotification:)
                                                             sender:self.datastore];
-    [notificationCenter addDidDeleteDocumentNotificationObserver:self
-                                                        selector:@selector(manageDidDeleteDocumentNotification:)
-                                                          sender:self.datastore];
 }
 
 - (void)manageDidCreateDocumentNotification:(NSNotification *)notification
 {
+    IAWLogDebug(@"Received notification: %@", notification);
+    
     [self releaseAllQuestions];
     
     [self.tableView reloadData];
@@ -194,14 +199,11 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
 
 - (void)manageDidRefreshDocumentsNotification:(NSNotification *)notification
 {
+    IAWLogDebug(@"Received notification: %@", notification);
+    
     [self manageDidCreateDocumentNotification:nil];
     
     [self.refreshControl endRefreshing];
-}
-
-- (void)manageDidDeleteDocumentNotification:(NSNotification *)notification
-{
-    [self manageDidCreateDocumentNotification:nil];
 }
 
 - (void)releaseAllQuestions
@@ -227,7 +229,7 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
     
-    [addAnswerTVC useQuestion:oneQuestion];
+    [addAnswerTVC useQuestion:oneQuestion inDatastore:self.datastore];
 }
 
 
@@ -237,8 +239,9 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     IAWPersistenceDatastoreNotificationCenter *notificationCenter = datastore.notificationCenter;
     
     [notificationCenter removeDidCreateDocumentNotificationObserver:observer sender:datastore];
-    [notificationCenter removeDidRefreshDocumentsNotificationObserver:observer sender:datastore];
+    [notificationCenter removeDidReplaceDocumentNotificationObserver:observer sender:datastore];
     [notificationCenter removeDidDeleteDocumentNotificationObserver:observer sender:datastore];
+    [notificationCenter removeDidRefreshDocumentsNotificationObserver:observer sender:datastore];
 }
 
 @end

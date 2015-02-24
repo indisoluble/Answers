@@ -38,9 +38,9 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
 - (NSSet *)options
 {
     NSDictionary *dic = [self.document dictionary];
-    NSSet *set = dic[kIAWModelQuestionKeyQuestionOptions];
+    NSArray *array = dic[kIAWModelQuestionKeyQuestionOptions];
     
-    return (set ? set : [NSSet set]);
+    return (array ? [NSSet setWithArray:array] : [NSSet set]);
 }
 
 
@@ -132,11 +132,10 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
     NSDictionary *dictionary = nil;
     if (question && trimmedOptionOrNil && ([trimmedOptionOrNil length] > 0))
     {
-        NSMutableSet *allOptions = [NSMutableSet setWithSet:question.options];
-        [allOptions addObject:option];
+        NSArray *allOptions = [[question.options setByAddingObject:option] allObjects];
         
         dictionary = @{kIAWModelQuestionKeyQuestionText: question.questionText,
-                       kIAWModelQuestionKeyQuestionOptions: allOptions};
+                       kIAWModelQuestionKeyQuestionOptions:allOptions};
     }
     
     return dictionary;

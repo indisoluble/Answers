@@ -11,4 +11,6 @@
 
 #import "IAWPersistenceDatastore+CloudantSync.h"
 
+#import "IAWPersistenceDatastoreDummy.h"
+
 #endif

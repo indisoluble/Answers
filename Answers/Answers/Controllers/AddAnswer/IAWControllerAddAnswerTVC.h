@@ -14,6 +14,7 @@
 
 @interface IAWControllerAddAnswerTVC : UITableViewController
 
-- (void)useQuestion:(IAWModelQuestion *)question;
+- (void)useQuestion:(IAWModelQuestion *)question
+        inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore;
 
 @end
