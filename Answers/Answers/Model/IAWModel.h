@@ -10,6 +10,7 @@
 #define Answers_IAWModel_h
 
 #import "IAWModelQuestion.h"
+#import "IAWModelAnswer.h"
 
 #import "IAWPersistenceDatastore+IAWModel.h"
 

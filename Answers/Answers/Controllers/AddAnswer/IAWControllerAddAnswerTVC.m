@@ -94,11 +94,7 @@ NSString * const kIAWControllerAddAnswerTVCCellID = @"OptionCell";
 {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self addRightBarButtonItems];
 }
 
 
@@ -120,8 +116,60 @@ NSString * const kIAWControllerAddAnswerTVCCellID = @"OptionCell";
 }
 
 
-#pragma mark - Actions
-- (IBAction)addOptionButtonPressed:(id)sender
+#pragma mark - Public methods
+- (void)useQuestion:(IAWModelQuestion *)question
+        inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+{
+    self.datastore = datastore;
+    
+    self.questionOrNil = question;
+    
+    self.title = (self.questionOrNil ? self.questionOrNil.questionText : self.orgTitle);
+    if ([self isViewLoaded])
+    {
+        [self.tableView reloadData];
+    }
+}
+
+
+#pragma mark - Private methods
+- (void)addRightBarButtonItems
+{
+    self.navigationItem.rightBarButtonItems = @[[self addBarButtonItem], [self saveBarButtonItem]];
+}
+
+- (UIBarButtonItem *)saveBarButtonItem
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave
+                                                                          target:self
+                                                                          action:@selector(saveAnswerButtonPressed)];
+    
+    return item;
+}
+
+- (UIBarButtonItem *)addBarButtonItem
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                          target:self
+                                                                          action:@selector(addOptionButtonPressed)];
+    
+    return item;
+}
+
+- (void)saveAnswerButtonPressed
+{
+    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    
+    NSMutableArray *selectedOptions = [NSMutableArray arrayWithCapacity:[selectedRows count]];
+    for (NSIndexPath *oneIndexPath in selectedRows)
+    {
+        [selectedOptions addObject:self.allOptions[oneIndexPath.row]];
+    }
+    
+    [self createAnswerWithOptions:[NSSet setWithArray:selectedOptions]];
+}
+
+- (void)addOptionButtonPressed
 {
     __block UIAlertView *alertView = nil;
     __weak IAWControllerAddAnswerTVC *weakSelf = self;
@@ -149,24 +197,6 @@ NSString * const kIAWControllerAddAnswerTVCCellID = @"OptionCell";
     [alertView show];
 }
 
-
-#pragma mark - Public methods
-- (void)useQuestion:(IAWModelQuestion *)question
-        inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
-{
-    self.datastore = datastore;
-    
-    self.questionOrNil = question;
-    
-    self.title = (self.questionOrNil ? self.questionOrNil.questionText : self.orgTitle);
-    if ([self isViewLoaded])
-    {
-        [self.tableView reloadData];
-    }
-}
-
-
-#pragma mark - Private methods
 - (void)addOptionWithText:(NSString *)optionText
 {
     if (!self.questionOrNil)
@@ -184,11 +214,42 @@ NSString * const kIAWControllerAddAnswerTVCCellID = @"OptionCell";
     if (!oneQuestion)
     {
         IAWLogError(@"Error: %@", error);
+        
+        return;
     }
     
     self.questionOrNil = oneQuestion;
     
     [self.tableView reloadData];
+}
+
+- (void)createAnswerWithOptions:(NSSet *)options
+{
+    if (!self.questionOrNil)
+    {
+        IAWLogError(@"No question informed");
+        
+        return;
+    }
+    
+    NSError *error = nil;
+    IAWModelAnswer *oneAnswer = [IAWModelAnswer createAnswerWithText:self.questionOrNil.questionText
+                                                             options:options
+                                                         inDatastore:self.datastore
+                                                               error:&error];
+    if (!oneAnswer)
+    {
+        IAWLogError(@"Error: %@", error);
+        
+        return;
+    }
+    
+    [self popThisViewController];
+}
+
+- (void)popThisViewController
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

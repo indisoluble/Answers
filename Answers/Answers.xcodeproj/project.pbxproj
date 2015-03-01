@@ -23,6 +23,7 @@
 		FF2F99DE1A8D6331002AABEC /* IAWModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */; };
 		FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF383D291A7D5EA000415B52 /* IAWControllerQuestionsTVC.m */; };
 		FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF383D311A7D6B3200415B52 /* Localizable.strings */; };
+		FF5498051AA28CC90037311F /* IAWModelAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5498041AA28CC90037311F /* IAWModelAnswer.m */; };
 		FF5B26911A8C09B200228C06 /* IAWModelQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5B26901A8C09B200228C06 /* IAWModelQuestion.m */; };
 		FF5B269A1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5B26971A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m */; };
 		FF5B269B1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5B26991A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.m */; };
@@ -39,11 +40,13 @@
 		FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */; };
 		FFC65FCD1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC65FCC1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.m */; };
 		FFC65FD71A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC65FD61A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m */; };
+		FFC70C9F1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC70C9E1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m */; };
 		FFD78B541A7995350059CB68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B531A7995350059CB68 /* main.m */; };
 		FFD78B571A7995350059CB68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FFD78B561A7995350059CB68 /* AppDelegate.m */; };
 		FFD78B5D1A7995350059CB68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5B1A7995350059CB68 /* Main.storyboard */; };
 		FFD78B5F1A7995350059CB68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5E1A7995350059CB68 /* Images.xcassets */; };
 		FFD78B621A7995350059CB68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B601A7995350059CB68 /* LaunchScreen.xib */; };
+		FFDBDA7B1AA3C91F002650A1 /* IAWModelAnswerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */; };
 		FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +99,8 @@
 		FF383D301A7D6B3200415B52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF383D321A7D6B3800415B52 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF4932141A7EC7BC004E0800 /* IAWPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistence.h; sourceTree = "<group>"; };
+		FF5498031AA28CC90037311F /* IAWModelAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelAnswer.h; sourceTree = "<group>"; };
+		FF5498041AA28CC90037311F /* IAWModelAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelAnswer.m; sourceTree = "<group>"; };
 		FF5B268F1A8C09B200228C06 /* IAWModelQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelQuestion.h; sourceTree = "<group>"; };
 		FF5B26901A8C09B200228C06 /* IAWModelQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelQuestion.m; sourceTree = "<group>"; };
 		FF5B26961A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreReplicatorDummy.h; sourceTree = "<group>"; };
@@ -130,6 +135,8 @@
 		FFC65FD41A8ACBB9009B83B1 /* IAWPersistenceDatastoreLocalStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreLocalStorageProtocol.h; sourceTree = "<group>"; };
 		FFC65FD51A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.h"; sourceTree = "<group>"; };
 		FFC65FD61A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m"; sourceTree = "<group>"; };
+		FFC70C9D1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IAWModelAnswer+ErrorBuilder.h"; sourceTree = "<group>"; };
+		FFC70C9E1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWModelAnswer+ErrorBuilder.m"; sourceTree = "<group>"; };
 		FFD78B4E1A7995350059CB68 /* Answers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Answers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B521A7995350059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFD78B531A7995350059CB68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -140,6 +147,7 @@
 		FFD78B611A7995350059CB68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FFD78B671A7995360059CB68 /* AnswersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnswersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B6C1A7995360059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelAnswerTests.m; sourceTree = "<group>"; };
 		FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreNotificationCenter.h; sourceTree = "<group>"; };
 		FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreNotificationCenter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,6 +237,7 @@
 		FF4931FA1A7E97C6004E0800 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FF5498021AA28C540037311F /* Answer */,
 				FF5B268E1A8C06E900228C06 /* Question */,
 				FF2F99DF1A8D683C002AABEC /* IAWModel.h */,
 				FF2F99DC1A8D6331002AABEC /* IAWModelObject.h */,
@@ -244,6 +253,7 @@
 		FF4931FB1A7E9F27004E0800 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FFDBDA791AA3C8F0002650A1 /* Answer */,
 				FF0F5F441A90116100143020 /* Mocks */,
 				FF0F5F411A9010DB00143020 /* Question */,
 				FF0F5F4C1A90206B00143020 /* IAWModelObjectTests.m */,
@@ -258,6 +268,17 @@
 				FF4932141A7EC7BC004E0800 /* IAWPersistence.h */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		FF5498021AA28C540037311F /* Answer */ = {
+			isa = PBXGroup;
+			children = (
+				FF5498031AA28CC90037311F /* IAWModelAnswer.h */,
+				FF5498041AA28CC90037311F /* IAWModelAnswer.m */,
+				FFC70C9D1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.h */,
+				FFC70C9E1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m */,
+			);
+			path = Answer;
 			sourceTree = "<group>";
 		};
 		FF5B268E1A8C06E900228C06 /* Question */ = {
@@ -407,6 +428,14 @@
 				FFD78B6C1A7995360059CB68 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FFDBDA791AA3C8F0002650A1 /* Answer */ = {
+			isa = PBXGroup;
+			children = (
+				FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */,
+			);
+			path = Answer;
 			sourceTree = "<group>";
 		};
 		FFED55F41A80250600F96AA1 /* Datastore */ = {
@@ -587,6 +616,7 @@
 				FF13FA2A1A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m in Sources */,
 				FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */,
 				FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */,
+				FF5498051AA28CC90037311F /* IAWModelAnswer.m in Sources */,
 				FFC65FD71A8ACC18009B83B1 /* CDTDatastore+IAWPersistenceDatastoreLocalStorageProtocol.m in Sources */,
 				FF13FA271A90F92300634ED6 /* IAWCloudantSyncIndexManager.m in Sources */,
 				FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */,
@@ -597,6 +627,7 @@
 				FF5B269B1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.m in Sources */,
 				FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */,
 				FF5B26911A8C09B200228C06 /* IAWModelQuestion.m in Sources */,
+				FFC70C9F1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m in Sources */,
 				FF1379F81A87DBFB003BBDCA /* IAWPersistenceDatastoreSyncManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,6 +636,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFDBDA7B1AA3C91F002650A1 /* IAWModelAnswerTests.m in Sources */,
 				FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */,
 				FF0F5F431A90114000143020 /* IAWModelQuestionTests.m in Sources */,
 				FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */,
