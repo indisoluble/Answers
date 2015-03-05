@@ -16,9 +16,7 @@
 
 #import "IAWLog.h"
 
-
-
-NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
+#import "UITableViewCell+ControllerQuestionsCell.h"
 
 
 
@@ -107,7 +105,8 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
                                                             forIndexPath:indexPath];
     
     IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
-    cell.textLabel.text = oneQuestion.questionText;
+    
+    [cell configureWithQuestion:oneQuestion inIndexManager:self.datastore.indexManager];
     
     return cell;
 }

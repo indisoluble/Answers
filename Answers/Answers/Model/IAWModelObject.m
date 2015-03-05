@@ -141,6 +141,30 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
     return result;
 }
 
++ (id<NSFastEnumeration>)allObjectsWithType:(NSString *)type
+                                       data:(NSDictionary *)data
+                             inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    NSDictionary *dictionaryOrNil = [IAWModelObject dictionaryWithObjectType:type
+                                                                        data:data
+                                                                       error:nil];
+    if (!dictionaryOrNil)
+    {
+        IAWLogError(@"Type <%@> is not valid", type);
+        
+        return nil;
+    }
+    
+    NSError *error = nil;
+    id<NSFastEnumeration> result = [indexManager queryWithDictionary:dictionaryOrNil error:&error];
+    if (!result)
+    {
+        IAWLogError(@"No objects retrived with dictionary %@: %@", dictionaryOrNil, error);
+    }
+    
+    return result;
+}
+
 
 #pragma mark - Private class methods
 + (NSDictionary *)dictionaryWithObjectType:(NSString *)type

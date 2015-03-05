@@ -23,6 +23,7 @@
 		FF2F99DE1A8D6331002AABEC /* IAWModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */; };
 		FF383D2A1A7D5EA000415B52 /* IAWControllerQuestionsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = FF383D291A7D5EA000415B52 /* IAWControllerQuestionsTVC.m */; };
 		FF383D2F1A7D6B3200415B52 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF383D311A7D6B3200415B52 /* Localizable.strings */; };
+		FF47F2001AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF47F1FF1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m */; };
 		FF5498051AA28CC90037311F /* IAWModelAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5498041AA28CC90037311F /* IAWModelAnswer.m */; };
 		FF5B26911A8C09B200228C06 /* IAWModelQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5B26901A8C09B200228C06 /* IAWModelQuestion.m */; };
 		FF5B269A1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5B26971A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorDummy.m */; };
@@ -89,7 +90,6 @@
 		FF13FA291A91047500634ED6 /* IAWPersistenceDatastore+IAWModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IAWPersistenceDatastore+IAWModel.m"; sourceTree = "<group>"; };
 		FF27317F1A99097C00429500 /* IAWControllerAddAnswerTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWControllerAddAnswerTVC.h; sourceTree = "<group>"; };
 		FF2731801A99097C00429500 /* IAWControllerAddAnswerTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWControllerAddAnswerTVC.m; sourceTree = "<group>"; };
-		FF2731831A99122D00429500 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF2F99DC1A8D6331002AABEC /* IAWModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelObject.h; sourceTree = "<group>"; };
 		FF2F99DD1A8D6331002AABEC /* IAWModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelObject.m; sourceTree = "<group>"; };
 		FF2F99DF1A8D683C002AABEC /* IAWModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IAWModel.h; sourceTree = "<group>"; };
@@ -98,7 +98,10 @@
 		FF383D2C1A7D6AB200415B52 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FF383D301A7D6B3200415B52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FF383D321A7D6B3800415B52 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FF47F1FE1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ControllerQuestionsCell.h"; sourceTree = "<group>"; };
+		FF47F1FF1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ControllerQuestionsCell.m"; sourceTree = "<group>"; };
 		FF4932141A7EC7BC004E0800 /* IAWPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistence.h; sourceTree = "<group>"; };
+		FF4D51801AA8A9D2004EEC7C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF5498031AA28CC90037311F /* IAWModelAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelAnswer.h; sourceTree = "<group>"; };
 		FF5498041AA28CC90037311F /* IAWModelAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelAnswer.m; sourceTree = "<group>"; };
 		FF5B268F1A8C09B200228C06 /* IAWModelQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelQuestion.h; sourceTree = "<group>"; };
@@ -228,10 +231,20 @@
 		FF383D271A7D5CB200415B52 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
+				FF47F1FD1AA8CB8F00B8921B /* Cells */,
 				FF383D281A7D5EA000415B52 /* IAWControllerQuestionsTVC.h */,
 				FF383D291A7D5EA000415B52 /* IAWControllerQuestionsTVC.m */,
 			);
 			path = Questions;
+			sourceTree = "<group>";
+		};
+		FF47F1FD1AA8CB8F00B8921B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FF47F1FE1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.h */,
+				FF47F1FF1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		FF4931FA1A7E97C6004E0800 /* Model */ = {
@@ -624,6 +637,7 @@
 				FF2731811A99097C00429500 /* IAWControllerAddAnswerTVC.m in Sources */,
 				FFD78B541A7995350059CB68 /* main.m in Sources */,
 				FF0F5F501A9023E300143020 /* IAWModelObject+ErrorBuilder.m in Sources */,
+				FF47F2001AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m in Sources */,
 				FF5B269B1A8C0F7B00228C06 /* IAWPersistenceDatastoreReplicatorFactoryDummy.m in Sources */,
 				FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */,
 				FF5B26911A8C09B200228C06 /* IAWModelQuestion.m in Sources */,
@@ -670,7 +684,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FFD78B5C1A7995350059CB68 /* Base */,
-				FF2731831A99122D00429500 /* es */,
+				FF4D51801AA8A9D2004EEC7C /* es */,
 			);
 			name = Main.storyboard;
 			path = ..;

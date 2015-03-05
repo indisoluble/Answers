@@ -10,6 +10,8 @@
 
 #import "IAWModelAnswer+ErrorBuilder.h"
 
+#import "IAWLog.h"
+
 
 
 NSString * const kIAWModelAnswerObjectType = @"answer";
@@ -64,8 +66,53 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
                                         error:error];
 }
 
++ (NSSet *)indexableFieldnames
+{
+    return [NSSet setWithObject:kIAWModelAnswerKeyQuestionText];
+}
+
++ (NSArray *)allAnswersWithText:(NSString *)text
+                 inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    NSDictionary *dictionaryOrNil = [IAWModelAnswer dictionaryWithQuestionText:text];
+    if (!dictionaryOrNil)
+    {
+        IAWLogError(@"Text <%@> is not valid", text);
+        
+        return @[];
+    }
+    
+    id<NSFastEnumeration> allDocumentsOrNil = [IAWModelObject allObjectsWithType:kIAWModelAnswerObjectType
+                                                                            data:dictionaryOrNil
+                                                                  inIndexManager:indexManager];
+    if (!allDocumentsOrNil)
+    {
+        return @[];
+    }
+    
+    NSMutableArray *allAnswers = [NSMutableArray array];
+    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocumentsOrNil)
+    {
+        [allAnswers addObject:[IAWModelAnswer objectWithDocument:oneDocument]];
+    }
+    
+    return allAnswers;
+}
+
 
 #pragma mark - Private class methods
++ (NSMutableDictionary *)dictionaryWithQuestionText:(NSString *)text
+{
+    NSString *normalizeText = [IAWModelAnswer normalizeText:text];
+    if (!normalizeText)
+    {
+        return nil;
+    }
+    
+    return [NSMutableDictionary dictionaryWithObject:normalizeText
+                                              forKey:kIAWModelAnswerKeyQuestionText];
+}
+
 + (NSDictionary *)dictionaryWithQuestionText:(NSString *)text
                                      options:(NSSet *)options
                                        error:(NSError **)error
@@ -81,9 +128,8 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
         return nil;
     }
     
-    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *trimmedText= (text ? [text stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
-    if (!trimmedText || ([trimmedText length] == 0))
+    NSMutableDictionary *dictionary = [IAWModelAnswer dictionaryWithQuestionText:text];
+    if (!dictionary)
     {
         if (error)
         {
@@ -93,20 +139,20 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
         return nil;
     }
     
-    NSMutableArray *trimmedOptions = [NSMutableArray arrayWithCapacity:count];
+    NSMutableArray *normalizedOptions = [NSMutableArray arrayWithCapacity:count];
     for (NSString *oneOption in options)
     {
-        NSString *oneTrimmedOption = [oneOption stringByTrimmingCharactersInSet:whiteSpacesAndNewLines];
-        if ([oneTrimmedOption length] > 0)
+        NSString *oneNormalizedOption = [IAWModelAnswer normalizeText:oneOption];
+        if (oneNormalizedOption)
         {
-            [trimmedOptions addObject:oneTrimmedOption];
+            [normalizedOptions addObject:oneNormalizedOption];
         }
         else
         {
             break;
         }
     }
-    if ([trimmedOptions count] != count)
+    if ([normalizedOptions count] != count)
     {
         if (error)
         {
@@ -116,10 +162,17 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
         return nil;
     }
     
-    NSDictionary *dictionary = @{kIAWModelAnswerKeyQuestionText: trimmedText,
-                                 kIAWModelAnswerKeyOptions: trimmedOptions};
+    [dictionary setObject:normalizedOptions forKey:kIAWModelAnswerKeyOptions];
     
     return dictionary;
+}
+
++ (NSString *)normalizeText:(NSString *)text
+{
+    NSCharacterSet *whiteSpacesAndNewLines = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedTextOrNil = (text ? [text stringByTrimmingCharactersInSet:whiteSpacesAndNewLines] : nil);
+    
+    return (trimmedTextOrNil && ([trimmedTextOrNil length] > 0) ? trimmedTextOrNil : nil);
 }
 
 @end

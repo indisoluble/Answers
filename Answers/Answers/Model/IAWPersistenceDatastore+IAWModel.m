@@ -11,6 +11,7 @@
 #import "IAWPersistence.h"
 
 #import "IAWModelObject.h"
+#import "IAWModelAnswer.h"
 
 
 
@@ -19,7 +20,8 @@
 #pragma mark - Public class methods
 + (instancetype)datastore
 {
-    NSSet *fieldnames = [IAWModelObject indexableFieldnames];
+    NSMutableSet *fieldnames = [NSMutableSet setWithSet:[IAWModelObject indexableFieldnames]];
+    [fieldnames unionSet:[IAWModelAnswer indexableFieldnames]];
     
     return [IAWPersistenceDatastore datastoreWithIndexesForFieldnames:fieldnames];
 }
