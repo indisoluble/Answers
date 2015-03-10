@@ -17,7 +17,7 @@ So far, you can:
 
 ## Synchronization
 
-After every action, the app tries to synchronize changes with a [Cloudant](https://cloudant.com/) database. You can also 'Pull to refresh' to trigger a synchronization. However the app is still able to work if there is not a remote database.
+After every action, the app tries to synchronize changes with a [Cloudant](https://cloudant.com/) database. You can also 'Pull to refresh' to trigger a synchronization.
 
 To provide a [Cloudant](https://cloudant.com/) database, first you have to create it:
 
@@ -40,6 +40,8 @@ Then you have to add to the Xcode project a plist file called 'cloudantAnswersDa
 </dict>
 </plist>
 ```
+
+If you try to run the app before adding this file, Xcode will not be able to build the app.
 
 ## License
 
