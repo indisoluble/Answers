@@ -1,9 +1,9 @@
 PODS:
-  - CDTDatastore (0.13.0):
-    - CDTDatastore/no-arc (= 0.13.0)
+  - CDTDatastore (0.14.0):
+    - CDTDatastore/no-arc (= 0.14.0)
     - CocoaLumberjack (= 2.0.0-rc)
     - FMDB (= 2.3)
-  - CDTDatastore/no-arc (0.13.0):
+  - CDTDatastore/no-arc (0.14.0):
     - CocoaLumberjack (= 2.0.0-rc)
     - FMDB (= 2.3)
   - CocoaLumberjack (2.0.0-rc):
@@ -26,7 +26,7 @@ DEPENDENCIES:
   - UIAlertView-Blocks
 
 SPEC CHECKSUMS:
-  CDTDatastore: 272c5e384064d6b8406d06408af72799fce52eab
+  CDTDatastore: 8a6936cc365e465eaed9695353049d1d65687695
   CocoaLumberjack: 6186e27827fc574b50b16c10102fcc591437f06c
   FMDB: 31ec26773c7f7b7890a6038235a1f2bbd933a7cb
   UIAlertView-Blocks: f3271e84372beb97aea115cd1fb26ae66457f12f
