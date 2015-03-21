@@ -32,6 +32,20 @@ NSString * const kIAWModelQuestionErrorDomain = @"kIAWModelQuestionErrorDomain";
                            userInfo:nil];
 }
 
++ (BOOL)isErrorQuestionTextInUse:(NSError *)error
+{
+    return (error &&
+            [error.domain isEqualToString:kIAWModelQuestionErrorDomain] &&
+            (error.code == IAWModelQuestion_errorCodeType_questionTextInUse));
+}
+
++ (NSError *)errorQuestionTextInUse
+{
+    return [NSError errorWithDomain:kIAWModelQuestionErrorDomain
+                               code:IAWModelQuestion_errorCodeType_questionTextInUse
+                           userInfo:nil];
+}
+
 + (NSError *)errorOptionNotValid
 {
     return [NSError errorWithDomain:kIAWModelQuestionErrorDomain

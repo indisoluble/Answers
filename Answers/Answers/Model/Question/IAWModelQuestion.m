@@ -55,6 +55,7 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
 #pragma mark - Public class methods
 + (instancetype)createQuestionWithText:(NSString *)text
                            inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                     usingIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
                                  error:(NSError **)error
 {
     NSDictionary *dictionary = [IAWModelQuestion dictionaryWithQuestionText:text];
@@ -63,6 +64,18 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
         if (error)
         {
             *error = [IAWModelQuestion errorQuestionTextNotValid];
+        }
+        
+        return nil;
+    }
+    
+    NSUInteger counter = [IAWModelQuestion countQuestionsWithData:dictionary
+                                                   inIndexManager:indexManager];
+    if (counter > 0)
+    {
+        if (error)
+        {
+            *error = [IAWModelQuestion errorQuestionTextInUse];
         }
         
         return nil;
@@ -95,6 +108,11 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
                              usingData:dictionary
                            inDatastore:datastore
                                  error:error];
+}
+
++ (NSSet *)indexableFieldnames
+{
+    return [NSSet setWithObject:kIAWModelQuestionKeyQuestionText];
 }
 
 + (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
@@ -147,6 +165,16 @@ NSString * const kIAWModelQuestionKeyQuestionOptions = @"question_options";
     }
     
     return dictionary;
+}
+
++ (NSUInteger)countQuestionsWithData:(NSDictionary *)data
+                      inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    NSUInteger counter = [IAWModelObject countObjectsWithType:kIAWModelQuestionObjectType
+                                                         data:data
+                                               inIndexManager:indexManager];
+    
+    return counter;
 }
 
 @end

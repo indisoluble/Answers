@@ -19,6 +19,7 @@
 #import "IAWPersistence.h"
 
 #import "IAWModelObject.h"
+#import "IAWModelQuestion.h"
 #import "IAWModelAnswer.h"
 
 
@@ -29,6 +30,7 @@
 + (instancetype)datastore
 {
     NSMutableSet *fieldnames = [NSMutableSet setWithSet:[IAWModelObject indexableFieldnames]];
+    [fieldnames unionSet:[IAWModelQuestion indexableFieldnames]];
     [fieldnames unionSet:[IAWModelAnswer indexableFieldnames]];
     
     return [IAWPersistenceDatastore datastoreWithIndexesForFieldnames:fieldnames];

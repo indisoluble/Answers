@@ -32,14 +32,13 @@ NSString * const kIAWControllerQuestionsTVCCellID = @"QuestionCell";
     self.textLabel.text = question.questionText;
     
     // Detail text
-    NSArray *allAnswers = [IAWModelAnswer allAnswersWithText:question.questionText
-                                              inIndexManager:indexManager];
-    NSUInteger count = [allAnswers count];
+    NSUInteger counter = [IAWModelAnswer countAnswersWithText:question.questionText
+                                               inIndexManager:indexManager];
     
     NSString *detailText = [NSString stringWithFormat:
                             @"%lu %@",
-                            (unsigned long)count,
-                            (count == 1 ?
+                            (unsigned long)counter,
+                            (counter == 1 ?
                              NSLocalizedString(@"answer", @"answer") :
                              NSLocalizedString(@"answers", @"answers"))];
     self.detailTextLabel.text = detailText;

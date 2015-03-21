@@ -49,5 +49,8 @@ extern NSString * const kIAWModelObjectKeyType;
 + (id<NSFastEnumeration>)allObjectsWithType:(NSString *)type
                                        data:(NSDictionary *)data
                              inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
++ (NSUInteger)countObjectsWithType:(NSString *)type
+                              data:(NSDictionary *)data
+                    inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
 
 @end

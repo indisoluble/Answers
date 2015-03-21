@@ -1,8 +1,8 @@
 //
-//  IAWModelQuestion+ErrorBuilder.h
+//  IAWMockPersistenceDatastoreIndexManager.h
 //  Answers
 //
-//  Created by Enrique de la Torre (dev) on 14/02/2015.
+//  Created by Enrique de la Torre (dev) on 21/03/2015.
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -14,29 +14,15 @@
 //  and limitations under the License.
 //
 
-#import "IAWModelQuestion.h"
+#import <Foundation/Foundation.h>
+
+#import "IAWPersistenceDatastoreIndexManagerProtocol.h"
 
 
 
-typedef enum {
-    IAWModelQuestion_errorCodeType_questionTextNotValid = 0,
-    IAWModelQuestion_errorCodeType_questionTextInUse,
-    IAWModelQuestion_errorCodeType_optionNotValid
-} IAWModelQuestion_errorCodeType;
+@interface IAWMockPersistenceDatastoreIndexManager : NSObject <IAWPersistenceDatastoreIndexManagerProtocol>
 
-
-
-extern NSString * const kIAWModelQuestionErrorDomain;
-
-
-
-@interface IAWModelQuestion (ErrorBuilder)
-
-+ (NSError *)errorQuestionTextNotValid;
-
-+ (BOOL)isErrorQuestionTextInUse:(NSError *)error;
-+ (NSError *)errorQuestionTextInUse;
-
-+ (NSError *)errorOptionNotValid;
+@property (strong, nonatomic) NSArray *resultQuery;
+@property (strong, nonatomic) NSError *resultQueryError;
 
 @end

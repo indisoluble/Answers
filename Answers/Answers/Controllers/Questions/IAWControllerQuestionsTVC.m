@@ -223,6 +223,7 @@
     NSError *error = nil;
     IAWModelQuestion *oneQuestion = [IAWModelQuestion createQuestionWithText:questionText
                                                                  inDatastore:self.datastore
+                                                           usingIndexManager:self.datastore.indexManager
                                                                        error:&error];
     if (!oneQuestion)
     {

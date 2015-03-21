@@ -27,12 +27,15 @@
 
 + (instancetype)createQuestionWithText:(NSString *)text
                            inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                     usingIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
                                  error:(NSError **)error;
 
 + (instancetype)replaceQuestion:(IAWModelQuestion *)question
                  byAddingOption:(NSString *)option
                     inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                           error:(NSError **)error;
+
++ (NSSet *)indexableFieldnames;
 
 + (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
 

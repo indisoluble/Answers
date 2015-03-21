@@ -173,6 +173,27 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
     return result;
 }
 
++ (NSUInteger)countObjectsWithType:(NSString *)type
+                              data:(NSDictionary *)data
+                    inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    id<NSFastEnumeration> allObjectsOrNil = [IAWModelObject allObjectsWithType:type
+                                                                          data:data
+                                                                inIndexManager:indexManager];
+    if (!allObjectsOrNil)
+    {
+        return 0;
+    }
+    
+    NSUInteger counter = 0;
+    for (__unused id oneObject in allObjectsOrNil)
+    {
+        counter++;
+    }
+    
+    return counter;
+}
+
 
 #pragma mark - Private class methods
 + (NSDictionary *)dictionaryWithObjectType:(NSString *)type

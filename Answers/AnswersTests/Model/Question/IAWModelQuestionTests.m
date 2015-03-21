@@ -17,9 +17,10 @@
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
 
-#import "IAWModelQuestion.h"
+#import "IAWModelQuestion+ErrorBuilder.h"
 
 #import "IAWMockPersistenceDatastore.h"
+#import "IAWMockPersistenceDatastoreIndexManager.h"
 #import "IAWMockPersistenceDatastoreDocument.h"
 
 
@@ -33,6 +34,7 @@
 
 @property (strong, nonatomic) IAWModelQuestion *mockQuestion;
 @property (strong, nonatomic) IAWMockPersistenceDatastore *mockDatastore;
+@property (strong, nonatomic) IAWMockPersistenceDatastoreIndexManager *mockIndexManager;
 
 @end
 
@@ -46,8 +48,10 @@
     
     // Put setup code here. This method is called before the invocation of each test method in the class.
     IAWMockPersistenceDatastore *otherMockDatastore = [[IAWMockPersistenceDatastore alloc] init];
+    IAWMockPersistenceDatastoreIndexManager *otherIndexManager = [[IAWMockPersistenceDatastoreIndexManager alloc] init];
     [IAWModelQuestion createQuestionWithText:IAWMODELQUESTIONTESTS_QUESTIONTEXT
                                  inDatastore:otherMockDatastore
+                           usingIndexManager:otherIndexManager
                                        error:nil];
     IAWMockPersistenceDatastoreDocument *mockDocument = [[IAWMockPersistenceDatastoreDocument alloc] init];
     mockDocument.mockDictionary = otherMockDatastore.dictionaryForCreatedDocument;
@@ -57,11 +61,14 @@
     self.mockDatastore = [[IAWMockPersistenceDatastore alloc] init];
     self.mockDatastore.resultCreateDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"document";
     self.mockDatastore.resultReplaceDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"document";
+    
+    self.mockIndexManager = [[IAWMockPersistenceDatastoreIndexManager alloc] init];
 }
 
 - (void)tearDown
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.mockIndexManager = nil;
     self.mockDatastore = nil;
     self.mockQuestion = nil;
     
@@ -77,6 +84,7 @@
 {
     IAWModelQuestion *question = [IAWModelQuestion createQuestionWithText:nil
                                                               inDatastore:self.mockDatastore
+                                                        usingIndexManager:self.mockIndexManager
                                                                     error:nil];
     
     XCTAssertTrue((question == nil) && !self.mockDatastore.didCreateDocument,
@@ -87,10 +95,28 @@
 {
     IAWModelQuestion *question = [IAWModelQuestion createQuestionWithText:@""
                                                               inDatastore:self.mockDatastore
+                                                        usingIndexManager:self.mockIndexManager
                                                                     error:nil];
     
     XCTAssertTrue((question == nil) && !self.mockDatastore.didCreateDocument,
                   @"An empty string is not a valid question. No document should be created");
+}
+
+- (void)testCreateFailsIfQuestionAlreadyExists
+{
+    self.mockIndexManager.resultQuery = @[self.mockQuestion];
+    
+    NSError *error = nil;
+    IAWModelQuestion *question = [IAWModelQuestion createQuestionWithText:IAWMODELQUESTIONTESTS_QUESTIONTEXT
+                                                              inDatastore:self.mockDatastore
+                                                        usingIndexManager:self.mockIndexManager
+                                                                    error:&error];
+    
+    XCTAssertTrue((question == nil) &&
+                  [IAWModelQuestion isErrorQuestionTextInUse:error] &&
+                  !self.mockDatastore.didCreateDocument,
+                  @"A new question can not be created if the index manager returns that "
+                  "there is a document with the same text already");
 }
 
 - (void)testCreateReturnNilIfDocumentIsNotCreated
@@ -99,6 +125,7 @@
     
     IAWModelQuestion *question = [IAWModelQuestion createQuestionWithText:IAWMODELQUESTIONTESTS_QUESTIONTEXT
                                                               inDatastore:self.mockDatastore
+                                                        usingIndexManager:self.mockIndexManager
                                                                     error:nil];
     
     XCTAssertTrue((question == nil) && self.mockDatastore.didCreateDocument,

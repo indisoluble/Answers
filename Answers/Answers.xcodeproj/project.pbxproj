@@ -35,6 +35,7 @@
 		FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */; };
 		FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */; };
 		FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */; };
+		FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */; };
 		FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */; };
 		FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */; };
 		FFB91BE91A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BE81A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m */; };
@@ -124,6 +125,8 @@
 		FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreDocument.m; sourceTree = "<group>"; };
 		FF9D5A291A9D32E6001096BA /* IAWPersistenceDatastoreDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDummy.h; sourceTree = "<group>"; };
 		FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreDummy.m; sourceTree = "<group>"; };
+		FFA475C71ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreIndexManager.h; sourceTree = "<group>"; };
+		FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreIndexManager.m; sourceTree = "<group>"; };
 		FFA4809C1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPull.h; sourceTree = "<group>"; };
 		FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPull.m; sourceTree = "<group>"; };
 		FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreSyncJobTests.m; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				FF0F5F4A1A90131600143020 /* IAWMockPersistenceDatastore.m */,
 				FF8D9D361A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.h */,
 				FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */,
+				FFA475C71ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.h */,
+				FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 				FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */,
 				FF0F5F4D1A90206B00143020 /* IAWModelObjectTests.m in Sources */,
 				FF0F5F481A90125600143020 /* IAWMockPersistenceDatastoreReplicator.m in Sources */,
+				FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */,
 				FF0F5F4B1A90131600143020 /* IAWMockPersistenceDatastore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
