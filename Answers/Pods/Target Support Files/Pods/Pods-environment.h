@@ -9,13 +9,13 @@
 // CDTDatastore
 #define COCOAPODS_POD_AVAILABLE_CDTDatastore
 #define COCOAPODS_VERSION_MAJOR_CDTDatastore 0
-#define COCOAPODS_VERSION_MINOR_CDTDatastore 14
+#define COCOAPODS_VERSION_MINOR_CDTDatastore 15
 #define COCOAPODS_VERSION_PATCH_CDTDatastore 0
 
 // CDTDatastore/no-arc
 #define COCOAPODS_POD_AVAILABLE_CDTDatastore_no_arc
 #define COCOAPODS_VERSION_MAJOR_CDTDatastore_no_arc 0
-#define COCOAPODS_VERSION_MINOR_CDTDatastore_no_arc 14
+#define COCOAPODS_VERSION_MINOR_CDTDatastore_no_arc 15
 #define COCOAPODS_VERSION_PATCH_CDTDatastore_no_arc 0
 
 // CocoaLumberjack

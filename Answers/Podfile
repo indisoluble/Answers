@@ -1,7 +1,7 @@
 platform :ios, '8.1'
 
 # CDTDatastore
-pod "CDTDatastore"
+pod 'CDTDatastore', '~> 0.15.0'
 
 # UIAlertView-Blocks
-pod 'UIAlertView-Blocks'
+pod 'UIAlertView-Blocks', '~> 1.0'
