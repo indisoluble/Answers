@@ -34,6 +34,7 @@
 		FF89B7821A856E050007248A /* IAWPersistenceDatastore.m in Sources */ = {isa = PBXBuildFile; fileRef = FF89B7811A856E050007248A /* IAWPersistenceDatastore.m */; };
 		FF89B7841A857D310007248A /* cloudantAnswersDatabaseURL.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */; };
 		FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */; };
+		FF9C741F1AD05C3400430759 /* ControllerAnswersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */; };
 		FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */; };
 		FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */; };
 		FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */; };
@@ -102,7 +103,6 @@
 		FF47F1FE1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+ControllerQuestionsCell.h"; sourceTree = "<group>"; };
 		FF47F1FF1AA8CBC800B8921B /* UITableViewCell+ControllerQuestionsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+ControllerQuestionsCell.m"; sourceTree = "<group>"; };
 		FF4932141A7EC7BC004E0800 /* IAWPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistence.h; sourceTree = "<group>"; };
-		FF4D51801AA8A9D2004EEC7C /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF5498031AA28CC90037311F /* IAWModelAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelAnswer.h; sourceTree = "<group>"; };
 		FF5498041AA28CC90037311F /* IAWModelAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelAnswer.m; sourceTree = "<group>"; };
 		FF5B268F1A8C09B200228C06 /* IAWModelQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWModelQuestion.h; sourceTree = "<group>"; };
@@ -114,6 +114,7 @@
 		FF5B269C1A8C142200228C06 /* IAWPersistenceDatastoreDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDocumentProtocol.h; sourceTree = "<group>"; };
 		FF5B269D1A8C14F700228C06 /* CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.h"; sourceTree = "<group>"; };
 		FF5B269E1A8C14F700228C06 /* CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.m"; sourceTree = "<group>"; };
+		FF7278381AD09D4D00B90296 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF88D57C1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncDatastoreFactory.h; sourceTree = "<group>"; };
 		FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncDatastoreFactory.m; sourceTree = "<group>"; };
 		FF88D57F1A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncDatabaseURL.h; sourceTree = "<group>"; };
@@ -123,6 +124,8 @@
 		FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = cloudantAnswersDatabaseURL.plist; path = ../../../cloudantAnswersDatabaseURL.plist; sourceTree = "<group>"; };
 		FF8D9D361A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreDocument.h; sourceTree = "<group>"; };
 		FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreDocument.m; sourceTree = "<group>"; };
+		FF9C741D1AD055AB00430759 /* Answers-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Answers-Bridging-Header.h"; sourceTree = "<group>"; };
+		FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerAnswersTVC.swift; sourceTree = "<group>"; };
 		FF9D5A291A9D32E6001096BA /* IAWPersistenceDatastoreDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDummy.h; sourceTree = "<group>"; };
 		FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreDummy.m; sourceTree = "<group>"; };
 		FFA475C71ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreIndexManager.h; sourceTree = "<group>"; };
@@ -346,10 +349,19 @@
 			path = CloudantSync;
 			sourceTree = "<group>";
 		};
+		FF9C74191AD053B100430759 /* Answers */ = {
+			isa = PBXGroup;
+			children = (
+				FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */,
+			);
+			path = Answers;
+			sourceTree = "<group>";
+		};
 		FFB270F71A7C23A00066B81F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				FF27317E1A99094000429500 /* AddAnswer */,
+				FF9C74191AD053B100430759 /* Answers */,
 				FF383D271A7D5CB200415B52 /* Questions */,
 				FFD78B5B1A7995350059CB68 /* Main.storyboard */,
 			);
@@ -419,6 +431,7 @@
 		FFD78B511A7995350059CB68 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FF9C741D1AD055AB00430759 /* Answers-Bridging-Header.h */,
 				FFD78B551A7995350059CB68 /* AppDelegate.h */,
 				FFD78B561A7995350059CB68 /* AppDelegate.m */,
 				FF89B7831A857D310007248A /* cloudantAnswersDatabaseURL.plist */,
@@ -621,6 +634,7 @@
 			files = (
 				FF2F99DE1A8D6331002AABEC /* IAWModelObject.m in Sources */,
 				FF1379FB1A87E047003BBDCA /* IAWPersistenceDatastoreSyncJob.m in Sources */,
+				FF9C741F1AD05C3400430759 /* ControllerAnswersTVC.swift in Sources */,
 				FFB91BE91A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m in Sources */,
 				FFC65FCD1A8ABD96009B83B1 /* IAWCloudantSyncReplicatorFactory.m in Sources */,
 				FF88D5811A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.m in Sources */,
@@ -690,7 +704,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FFD78B5C1A7995350059CB68 /* Base */,
-				FF4D51801AA8A9D2004EEC7C /* es */,
+				FF7278381AD09D4D00B90296 /* es */,
 			);
 			name = Main.storyboard;
 			path = ..;
@@ -789,9 +803,12 @@
 			baseConfigurationReference = 58DA49CFCDDAEEE57D706310 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Answers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Answers/Answers-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -800,9 +817,11 @@
 			baseConfigurationReference = 135BF83CD7B7AAA342D1AAC9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Answers/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Answers/Answers-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -1,15 +1,18 @@
 
-/* Class = "IBUILabel"; text = "X answers"; ObjectID = "0WF-xm-6BD"; */
+/* Class = "UILabel"; text = "X answers"; ObjectID = "0WF-xm-6BD"; */
 "0WF-xm-6BD.text" = "X respuestas";
 
-/* Class = "IBUILabel"; text = "Question"; ObjectID = "7w8-Dp-PMN"; */
+/* Class = "UILabel"; text = "Question"; ObjectID = "7w8-Dp-PMN"; */
 "7w8-Dp-PMN.text" = "Pregunta";
 
-/* Class = "IBUINavigationItem"; title = "Add Answer"; ObjectID = "9Z8-Bb-NUv"; */
+/* Class = "UINavigationItem"; title = "Add Answer"; ObjectID = "9Z8-Bb-NUv"; */
 "9Z8-Bb-NUv.title" = "Añadir respuesta";
 
-/* Class = "IBUILabel"; text = "Option"; ObjectID = "Rqw-av-G3f"; */
+/* Class = "UILabel"; text = "Option"; ObjectID = "Rqw-av-G3f"; */
 "Rqw-av-G3f.text" = "Opción";
 
-/* Class = "IBUINavigationItem"; title = "Questions"; ObjectID = "yJa-CJ-NOb"; */
+/* Class = "UINavigationItem"; title = "Questions"; ObjectID = "yJa-CJ-NOb"; */
 "yJa-CJ-NOb.title" = "Preguntas";
+
+/* Class = "UINavigationItem"; title = "Answers"; ObjectID = "yLC-nZ-Ko9"; */
+"yLC-nZ-Ko9.title" = "Respuestas";

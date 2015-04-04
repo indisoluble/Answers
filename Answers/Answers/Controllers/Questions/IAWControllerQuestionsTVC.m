@@ -18,13 +18,13 @@
 
 #import "IAWControllerQuestionsTVC.h"
 
-#import "IAWControllerAddAnswerTVC.h"
-
 #import "IAWModel.h"
 
 #import "IAWLog.h"
 
 #import "UITableViewCell+ControllerQuestionsCell.h"
+
+#import "Answers-Swift.h"
 
 
 
@@ -94,7 +94,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([sender isKindOfClass:[UITableViewCell class]] &&
-        [segue.destinationViewController isKindOfClass:[IAWControllerAddAnswerTVC class]])
+        [segue.destinationViewController isKindOfClass:[ControllerAnswersTVC class]])
     {
         [self prepareForSegueAddAnswerTVC:segue.destinationViewController withCell:sender];
     }
@@ -231,13 +231,13 @@
     }
 }
 
-- (void)prepareForSegueAddAnswerTVC:(IAWControllerAddAnswerTVC *)addAnswerTVC
+- (void)prepareForSegueAddAnswerTVC:(ControllerAnswersTVC *)answersTVC
                            withCell:(UITableViewCell *)cell
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
     
-    [addAnswerTVC useQuestion:oneQuestion inDatastore:self.datastore];
+    [answersTVC useQuestion:oneQuestion inDatastore:self.datastore];
 }
 
 
