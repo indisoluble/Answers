@@ -5,15 +5,16 @@ So far, you can:
 
 * Create/delete a question
 * Add options to a question
-* Create answers
+* Create/delete an answer
 * Pull to refresh to manually trigger a synchronization
 
 ## HOWTO create an answer
 
 1. Press + to create a question
 2. Select a question
-3. Press + to create an option
-4. Select one or multiple options and press Save
+3. Press + to create an answer
+4. Press + to create an option
+5. Select one or multiple options and press Save
 
 ## Synchronization
 
