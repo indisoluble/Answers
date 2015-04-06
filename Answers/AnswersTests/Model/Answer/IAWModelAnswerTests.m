@@ -121,4 +121,19 @@
                   @"It tries to create a document but it fails and no answer is returned at the end");
 }
 
+- (void)testDeleteWithAnswerSetToNilFails
+{
+    BOOL result = [IAWModelAnswer deleteAnswer:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(result, @"No answer can be deleted if the answer is not supplied");
+}
+
+- (void)testDeleteWithAnswerSetToNilDoesNotCallDatastore
+{
+    [IAWModelAnswer deleteAnswer:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(self.mockDatastore.didDeleteDocument,
+                   @"If no answer is informed, it should not try to delete anything");
+}
+
 @end

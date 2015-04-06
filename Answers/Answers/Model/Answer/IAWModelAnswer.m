@@ -74,6 +74,13 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
                                         error:error];
 }
 
++ (BOOL)deleteAnswer:(IAWModelAnswer *)answer
+         inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+               error:(NSError **)error
+{
+    return [[self class] deleteObject:answer inDatastore:datastore error:error];
+}
+
 + (NSSet *)indexableFieldnames
 {
     return [NSSet setWithObject:kIAWModelAnswerKeyQuestionText];

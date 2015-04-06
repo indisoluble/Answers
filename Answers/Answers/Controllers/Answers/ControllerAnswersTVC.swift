@@ -91,7 +91,8 @@ class ControllerAnswersTVC: UITableViewController
     }
     
     override func tableView (tableView: UITableView,
-        cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+        cellForRowAtIndexPath indexPath: NSIndexPath)
+        -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(kControllerAnswersTVCCellID,
             forIndexPath: indexPath)
@@ -100,6 +101,26 @@ class ControllerAnswersTVC: UITableViewController
         cell.configureWithAnswer(allAnswers[indexPath.row])
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView,
+        canEditRowAtIndexPath indexPath: NSIndexPath)
+        -> Bool
+    {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView,
+        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let oneAnswer = allAnswers[indexPath.row]
+        
+        var error: NSError?
+        if !IAWModelAnswer.deleteAnswer(oneAnswer, inDatastore: datastore, error: &error)
+        {
+            // #warning Show log
+        }
     }
     
     
@@ -146,6 +167,9 @@ class ControllerAnswersTVC: UITableViewController
             notificationCenter.addDidCreateDocumentNotificationObserver(self,
                 selector: "manageDidCreateDocumentNotification:",
                 sender: datastore)
+            notificationCenter.addDidDeleteDocumentNotificationObserver(self,
+                selector: "manageDidCreateDocumentNotification:",
+                sender: datastore)
         }
     }
     
@@ -154,6 +178,7 @@ class ControllerAnswersTVC: UITableViewController
         if let notificationCenter = notificationCenter
         {
             notificationCenter.removeDidCreateDocumentNotificationObserver(self, sender: datastore)
+            notificationCenter.removeDidDeleteDocumentNotificationObserver(self, sender: datastore)
         }
     }
     
@@ -161,6 +186,8 @@ class ControllerAnswersTVC: UITableViewController
     // NotificationCenter calls it because it is private
     dynamic private func manageDidCreateDocumentNotification(notification: NSNotification)
     {
+        // #warning Show log
+        
         allAnswers = ControllerAnswersTVC.allAnswersForQuestion(self.question,
             inIndexManager: self.indexManager)
         

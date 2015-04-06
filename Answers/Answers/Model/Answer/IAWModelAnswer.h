@@ -30,6 +30,10 @@
                          inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                                error:(NSError **)error;
 
++ (BOOL)deleteAnswer:(IAWModelAnswer *)answer
+         inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+               error:(NSError **)error;
+
 + (NSSet *)indexableFieldnames;
 
 + (NSArray *)allAnswersWithText:(NSString *)text

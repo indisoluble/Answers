@@ -61,6 +61,7 @@
     self.mockDatastore = [[IAWMockPersistenceDatastore alloc] init];
     self.mockDatastore.resultCreateDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"document";
     self.mockDatastore.resultReplaceDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"document";
+    self.mockDatastore.resultDeleteDocument = NO;
 }
 
 - (void)tearDown
@@ -208,6 +209,21 @@
                   [self.mockDatastore.dictionaryForReplacedDocument objectForKey:IAWMODELOBJECTTESTS_EXTRAKEY],
                   @"The new document must include the type as well as the values in the data: %@",
                   self.mockDatastore.dictionaryForReplacedDocument);
+}
+
+- (void)testDeleteWithObjectSetToNilFails
+{
+    BOOL result = [IAWModelObject deleteObject:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(result, @"No object can be deleted if the object is supplied");
+}
+
+- (void)testDeleteWithObjectSetToNilDoesNotCallDatastore
+{
+    [IAWModelObject deleteObject:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(self.mockDatastore.didDeleteDocument,
+                   @"If no object is informed, it should not try to delete anything");
 }
 
 @end

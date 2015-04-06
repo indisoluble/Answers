@@ -123,6 +123,20 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
     return [[[self class] alloc] initWithDocument:document];
 }
 
++ (BOOL)deleteObject:(IAWModelObject *)object
+         inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+               error:(NSError **)error
+{
+    if (!object)
+    {
+        IAWLogError(@"Object not informed. Abort");
+        
+        return NO;
+    }
+    
+    return [datastore deleteDocument:object.document error:error];
+}
+
 + (NSSet *)indexableFieldnames
 {
     return [NSSet setWithObject:kIAWModelObjectKeyType];
