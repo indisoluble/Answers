@@ -2,6 +2,9 @@
 /* Class = "UILabel"; text = "X answers"; ObjectID = "0WF-xm-6BD"; */
 "0WF-xm-6BD.text" = "X respuestas";
 
+/* Class = "UILabel"; text = "Option1, Option2, ..."; ObjectID = "32z-Dx-W3e"; */
+"32z-Dx-W3e.text" = "Opción1, Opción2, ...";
+
 /* Class = "UILabel"; text = "Question"; ObjectID = "7w8-Dp-PMN"; */
 "7w8-Dp-PMN.text" = "Pregunta";
 

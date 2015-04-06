@@ -32,6 +32,8 @@
 
 + (NSSet *)indexableFieldnames;
 
++ (NSArray *)allAnswersWithText:(NSString *)text
+                 inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
 + (NSUInteger)countAnswersWithText:(NSString *)text
                     inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;
 

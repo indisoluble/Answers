@@ -79,6 +79,34 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
     return [NSSet setWithObject:kIAWModelAnswerKeyQuestionText];
 }
 
++ (NSArray *)allAnswersWithText:(NSString *)text
+                 inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
+{
+    NSDictionary *dictionaryOrNil = [IAWModelAnswer dictionaryWithQuestionText:text];
+    if (!dictionaryOrNil)
+    {
+        IAWLogError(@"Text <%@> is not valid", text);
+        
+        return @[];
+    }
+    
+    id<NSFastEnumeration> allDocumentsOrNil = [IAWModelObject allObjectsWithType:kIAWModelAnswerObjectType
+                                                                            data:dictionaryOrNil
+                                                                  inIndexManager:indexManager];
+    if (!allDocumentsOrNil)
+    {
+        return @[];
+    }
+    
+    NSMutableArray *allAnswers = [NSMutableArray array];
+    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in allDocumentsOrNil)
+    {
+        [allAnswers addObject:[IAWModelAnswer objectWithDocument:oneDocument]];
+    }
+    
+    return allAnswers;
+}
+
 + (NSUInteger)countAnswersWithText:(NSString *)text
                     inIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager
 {

@@ -38,6 +38,7 @@
 		FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */; };
 		FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */; };
 		FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */; };
+		FFA4D4341AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D4331AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift */; };
 		FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */; };
 		FFB91BE91A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BE81A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m */; };
 		FFC080F31A82B94000C02FDE /* IAWLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFC080F21A82B94000C02FDE /* IAWLogFormatter.m */; };
@@ -114,7 +115,6 @@
 		FF5B269C1A8C142200228C06 /* IAWPersistenceDatastoreDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDocumentProtocol.h; sourceTree = "<group>"; };
 		FF5B269D1A8C14F700228C06 /* CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.h"; sourceTree = "<group>"; };
 		FF5B269E1A8C14F700228C06 /* CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CDTDocumentRevision+IAWPersistenceDatastoreDocumentProtocol.m"; sourceTree = "<group>"; };
-		FF7278381AD09D4D00B90296 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FF88D57C1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncDatastoreFactory.h; sourceTree = "<group>"; };
 		FF88D57D1A86ADEC0057EEFB /* IAWCloudantSyncDatastoreFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncDatastoreFactory.m; sourceTree = "<group>"; };
 		FF88D57F1A86B1FF0057EEFB /* IAWCloudantSyncDatabaseURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncDatabaseURL.h; sourceTree = "<group>"; };
@@ -132,6 +132,8 @@
 		FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreIndexManager.m; sourceTree = "<group>"; };
 		FFA4809C1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPull.h; sourceTree = "<group>"; };
 		FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPull.m; sourceTree = "<group>"; };
+		FFA4D4331AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ControllerAnswersCell.swift"; sourceTree = "<group>"; };
+		FFA4D4361AD1FAC1009CAC53 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreSyncJobTests.m; sourceTree = "<group>"; };
 		FFB91BE71A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPush.h; sourceTree = "<group>"; };
 		FFB91BE81A881E7900D563A2 /* IAWCloudantSyncReplicatorPush.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPush.m; sourceTree = "<group>"; };
@@ -352,9 +354,18 @@
 		FF9C74191AD053B100430759 /* Answers */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4D4321AD1F215009CAC53 /* Cells */,
 				FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */,
 			);
 			path = Answers;
+			sourceTree = "<group>";
+		};
+		FFA4D4321AD1F215009CAC53 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D4331AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		FFB270F71A7C23A00066B81F /* Controllers */ = {
@@ -662,6 +673,7 @@
 				FF5B26911A8C09B200228C06 /* IAWModelQuestion.m in Sources */,
 				FFC70C9F1AA29CEA00DB6BB6 /* IAWModelAnswer+ErrorBuilder.m in Sources */,
 				FF1379F81A87DBFB003BBDCA /* IAWPersistenceDatastoreSyncManager.m in Sources */,
+				FFA4D4341AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,7 +716,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				FFD78B5C1A7995350059CB68 /* Base */,
-				FF7278381AD09D4D00B90296 /* es */,
+				FFA4D4361AD1FAC1009CAC53 /* es */,
 			);
 			name = Main.storyboard;
 			path = ..;

@@ -23,10 +23,38 @@ class ControllerAnswersTVC: UITableViewController
     // MARK: - Properties
     
     private var question: IAWModelQuestion?
-    private var datastore: IAWPersistenceDatastoreProtocol?
+    private var datastore: IAWPersistenceDatastoreProtocol
+    private var indexManager: IAWPersistenceDatastoreIndexManagerProtocol?
+    private var notificationCenter: IAWPersistenceDatastoreNotificationCenter?
+    
+    private var allAnswers: [IAWModelAnswer]
+    
+    
+    // MARK: - Init object
+    
+    override init(style: UITableViewStyle)
+    {
+        self.datastore = IAWPersistenceDatastoreDummy()
+        self.allAnswers = []
+        
+        super.init(style: style)
+    }
+
+    required init(coder aDecoder: NSCoder)
+    {
+        self.datastore = IAWPersistenceDatastoreDummy.datastore()
+        self.allAnswers = []
+        
+        super.init(coder: aDecoder)
+    }
     
     
     // MARK: - Memory management
+    
+    deinit
+    {
+        self.removeDatastoreObservers()
+    }
     
     override func didReceiveMemoryWarning()
     {
@@ -41,13 +69,6 @@ class ControllerAnswersTVC: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar
-        // for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     
@@ -62,36 +83,111 @@ class ControllerAnswersTVC: UITableViewController
     }
     
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource methods
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        
-        return 0
+        return allAnswers.count
     }
     
     override func tableView (tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        // #warning Incomplete method implementation.
+        let cell = tableView.dequeueReusableCellWithIdentifier(kControllerAnswersTVCCellID,
+            forIndexPath: indexPath)
+            as UITableViewCell
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier",
-            forIndexPath: indexPath) as UITableViewCell
-        
-        // Configure the cell...
+        cell.configureWithAnswer(allAnswers[indexPath.row])
         
         return cell
     }
     
     
-    // MARK: - Public methods
+    // MARK: - Internal methods
     
-    func useQuestion(question: IAWModelQuestion,
-        inDatastore datastore: IAWPersistenceDatastoreProtocol)
+    func useQuestion(question: IAWModelQuestion?,
+        inDatastore datastore: IAWPersistenceDatastoreProtocol?,
+        indexedWith indexManager: IAWPersistenceDatastoreIndexManagerProtocol?,
+        listenNotificationsWith notificationCenter: IAWPersistenceDatastoreNotificationCenter?)
     {
+        // Remove observers on previous datastore
+        self.removeDatastoreObservers()
+        
+        // Update properties with new values
         self.question = question
-        self.datastore = datastore
+        self.datastore = (datastore != nil ? datastore! : IAWPersistenceDatastoreDummy())
+        self.indexManager = indexManager
+        self.notificationCenter = notificationCenter
+        
+        allAnswers = ControllerAnswersTVC.allAnswersForQuestion(self.question,
+            inIndexManager: self.indexManager)
+        
+        // Refresh UI
+        title = (question != nil ?
+            question!.questionText :
+            NSLocalizedString("Answers", comment: "Answers"))
+        
+        if isViewLoaded()
+        {
+            tableView.reloadData()
+        }
+        
+        // Add observers to new datastore
+        self.addDatastoreObservers()
+    }
+    
+    
+    // MARK: - Private methods
+    
+    private func addDatastoreObservers()
+    {
+        if let notificationCenter = notificationCenter
+        {
+            notificationCenter.addDidCreateDocumentNotificationObserver(self,
+                selector: "manageDidCreateDocumentNotification:",
+                sender: datastore)
+        }
+    }
+    
+    private func removeDatastoreObservers()
+    {
+        if let notificationCenter = notificationCenter
+        {
+            notificationCenter.removeDidCreateDocumentNotificationObserver(self, sender: datastore)
+        }
+    }
+    
+    // Next method has to be dynamic (visible to objc runtime), otherwise the app will crash when
+    // NotificationCenter calls it because it is private
+    dynamic private func manageDidCreateDocumentNotification(notification: NSNotification)
+    {
+        allAnswers = ControllerAnswersTVC.allAnswersForQuestion(self.question,
+            inIndexManager: self.indexManager)
+        
+        if isViewLoaded()
+        {
+            tableView.reloadData()
+        }
+    }
+    
+    
+    // MARK: - Private type methods
+    private class func allAnswersForQuestion(question: IAWModelQuestion?,
+        inIndexManager indexManager: IAWPersistenceDatastoreIndexManagerProtocol?)
+        -> [IAWModelAnswer]
+    {
+        var result = [] as [IAWModelAnswer]
+        
+        if let question = question
+        {
+            if let indexManager = indexManager
+            {
+                result = IAWModelAnswer.allAnswersWithText(question.questionText,
+                    inIndexManager: indexManager)
+                    as [IAWModelAnswer]
+            }
+        }
+        
+        return result
     }
 }

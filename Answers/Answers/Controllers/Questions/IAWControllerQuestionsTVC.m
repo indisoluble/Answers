@@ -237,7 +237,10 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
     
-    [answersTVC useQuestion:oneQuestion inDatastore:self.datastore];
+    [answersTVC useQuestion:oneQuestion
+                inDatastore:self.datastore
+                indexedWith:self.datastore.indexManager
+    listenNotificationsWith:self.datastore.notificationCenter];
 }
 
 
