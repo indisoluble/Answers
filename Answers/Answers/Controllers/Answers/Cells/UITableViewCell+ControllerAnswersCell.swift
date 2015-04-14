@@ -30,15 +30,20 @@ extension UITableViewCell
     {
         var cellText = ""
         
-        var options = answer.options.allObjects as [String]
-        if (!options.isEmpty)
+        if (!answer.options.isEmpty)
         {
-            options.sort { return $0 < $1 }
+            var optionList = [String]()
+            for oneOption in answer.options as! Set<String>
+            {
+                optionList.append(oneOption)
+            }
             
-            cellText = options[0]
-            options.removeAtIndex(0)
+            optionList.sort { return $0 < $1 }
             
-            for oneOption in options
+            cellText = optionList[0]
+            optionList.removeAtIndex(0)
+            
+            for oneOption in optionList
             {
                 cellText += (", " + oneOption)
             }

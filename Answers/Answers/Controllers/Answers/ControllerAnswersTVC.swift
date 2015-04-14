@@ -96,7 +96,7 @@ class ControllerAnswersTVC: UITableViewController
     {
         let cell = tableView.dequeueReusableCellWithIdentifier(kControllerAnswersTVCCellID,
             forIndexPath: indexPath)
-            as UITableViewCell
+            as! UITableViewCell
         
         cell.configureWithAnswer(allAnswers[indexPath.row])
         
@@ -211,7 +211,7 @@ class ControllerAnswersTVC: UITableViewController
             {
                 result = IAWModelAnswer.allAnswersWithText(question.questionText,
                     inIndexManager: indexManager)
-                    as [IAWModelAnswer]
+                    as! [IAWModelAnswer]
             }
         }
         
