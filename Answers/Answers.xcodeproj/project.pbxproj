@@ -36,7 +36,6 @@
 		FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */; };
 		FF9C741F1AD05C3400430759 /* ControllerAnswersTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */; };
 		FF9D5A2B1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */; };
-		FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */; };
 		FFA4809E1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */; };
 		FFA4D4341AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D4331AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift */; };
 		FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */; };
@@ -51,6 +50,9 @@
 		FFD78B5F1A7995350059CB68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B5E1A7995350059CB68 /* Images.xcassets */; };
 		FFD78B621A7995350059CB68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFD78B601A7995350059CB68 /* LaunchScreen.xib */; };
 		FFDBDA7B1AA3C91F002650A1 /* IAWModelAnswerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */; };
+		FFDF46C91AE3129000C24E0B /* IAWPersistenceDatastoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDF46C81AE3129000C24E0B /* IAWPersistenceDatastoreTests.m */; };
+		FFDF46D21AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDF46D11AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.m */; };
+		FFDF46D61AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FFDF46D51AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.m */; };
 		FFED55FD1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */; };
 /* End PBXBuildFile section */
 
@@ -128,8 +130,6 @@
 		FF9C741E1AD05C3400430759 /* ControllerAnswersTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllerAnswersTVC.swift; sourceTree = "<group>"; };
 		FF9D5A291A9D32E6001096BA /* IAWPersistenceDatastoreDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreDummy.h; sourceTree = "<group>"; };
 		FF9D5A2A1A9D32E6001096BA /* IAWPersistenceDatastoreDummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreDummy.m; sourceTree = "<group>"; };
-		FFA475C71ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreIndexManager.h; sourceTree = "<group>"; };
-		FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreIndexManager.m; sourceTree = "<group>"; };
 		FFA4809C1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWCloudantSyncReplicatorPull.h; sourceTree = "<group>"; };
 		FFA4809D1A8956A700DD3F58 /* IAWCloudantSyncReplicatorPull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWCloudantSyncReplicatorPull.m; sourceTree = "<group>"; };
 		FFA4D4331AD1F4F2009CAC53 /* UITableViewCell+ControllerAnswersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ControllerAnswersCell.swift"; sourceTree = "<group>"; };
@@ -159,6 +159,11 @@
 		FFD78B671A7995360059CB68 /* AnswersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnswersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD78B6C1A7995360059CB68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWModelAnswerTests.m; sourceTree = "<group>"; };
+		FFDF46C81AE3129000C24E0B /* IAWPersistenceDatastoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreTests.m; sourceTree = "<group>"; };
+		FFDF46D01AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreLocalStorage.h; sourceTree = "<group>"; };
+		FFDF46D11AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreLocalStorage.m; sourceTree = "<group>"; };
+		FFDF46D41AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWMockPersistenceDatastoreIndexManager.h; sourceTree = "<group>"; };
+		FFDF46D51AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWMockPersistenceDatastoreIndexManager.m; sourceTree = "<group>"; };
 		FFED55FB1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAWPersistenceDatastoreNotificationCenter.h; sourceTree = "<group>"; };
 		FFED55FC1A80268100F96AA1 /* IAWPersistenceDatastoreNotificationCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAWPersistenceDatastoreNotificationCenter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -214,8 +219,6 @@
 				FF0F5F4A1A90131600143020 /* IAWMockPersistenceDatastore.m */,
 				FF8D9D361A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.h */,
 				FF8D9D371A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m */,
-				FFA475C71ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.h */,
-				FFA475C81ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -223,6 +226,8 @@
 		FF0F5F451A9011C400143020 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				FFDF46D01AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.h */,
+				FFDF46D11AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.m */,
 				FF0F5F461A90125600143020 /* IAWMockPersistenceDatastoreReplicator.h */,
 				FF0F5F471A90125600143020 /* IAWMockPersistenceDatastoreReplicator.m */,
 			);
@@ -391,6 +396,7 @@
 		FFB91BD71A8804B600D563A2 /* Datastore */ = {
 			isa = PBXGroup;
 			children = (
+				FFDF46C81AE3129000C24E0B /* IAWPersistenceDatastoreTests.m */,
 				FFB91BD81A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m */,
 			);
 			path = Datastore;
@@ -457,6 +463,7 @@
 		FFD78B6A1A7995360059CB68 /* AnswersTests */ = {
 			isa = PBXGroup;
 			children = (
+				FFDF46D31AE3267200C24E0B /* Mock */,
 				FF4931FB1A7E9F27004E0800 /* Model */,
 				FFB91BD61A88048A00D563A2 /* Persistence */,
 				FFD78B6B1A7995360059CB68 /* Supporting Files */,
@@ -478,6 +485,15 @@
 				FFDBDA7A1AA3C91F002650A1 /* IAWModelAnswerTests.m */,
 			);
 			path = Answer;
+			sourceTree = "<group>";
+		};
+		FFDF46D31AE3267200C24E0B /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				FFDF46D41AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.h */,
+				FFDF46D51AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.m */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		FFED55F41A80250600F96AA1 /* Datastore */ = {
@@ -681,13 +697,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFDF46C91AE3129000C24E0B /* IAWPersistenceDatastoreTests.m in Sources */,
+				FFDF46D21AE31F2B00C24E0B /* IAWMockPersistenceDatastoreLocalStorage.m in Sources */,
 				FFDBDA7B1AA3C91F002650A1 /* IAWModelAnswerTests.m in Sources */,
 				FF8D9D381A9A8BFC00320CE8 /* IAWMockPersistenceDatastoreDocument.m in Sources */,
 				FF0F5F431A90114000143020 /* IAWModelQuestionTests.m in Sources */,
+				FFDF46D61AE3272700C24E0B /* IAWMockPersistenceDatastoreIndexManager.m in Sources */,
 				FFB91BD91A8804E400D563A2 /* IAWPersistenceDatastoreSyncJobTests.m in Sources */,
 				FF0F5F4D1A90206B00143020 /* IAWModelObjectTests.m in Sources */,
 				FF0F5F481A90125600143020 /* IAWMockPersistenceDatastoreReplicator.m in Sources */,
-				FFA475C91ABE305800A37452 /* IAWMockPersistenceDatastoreIndexManager.m in Sources */,
 				FF0F5F4B1A90131600143020 /* IAWMockPersistenceDatastore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

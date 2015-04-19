@@ -63,4 +63,32 @@
     return (nextRevision != nil);
 }
 
+- (IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType)deleteDocumentList:(NSArray *)documents
+                                                                                  error:(NSError **)error
+{
+    NSUInteger deletionCount = 0;
+    
+    for (id<IAWPersistenceDatastoreDocumentProtocol> oneDocument in documents)
+    {
+        if ([self deleteDocument:oneDocument error:error])
+        {
+            deletionCount++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    
+    IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType result = IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_success;
+    if (deletionCount != [documents count])
+    {
+        result = (deletionCount == 0 ?
+                  IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_noDocumentDeleted :
+                  IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_someDocumentsDeleted);
+    }
+    
+    return result;
+}
+
 @end

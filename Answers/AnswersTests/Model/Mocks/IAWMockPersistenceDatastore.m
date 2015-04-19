@@ -28,6 +28,8 @@
 
 @property (assign, nonatomic) BOOL didDeleteDocument;
 
+@property (assign, nonatomic) BOOL didDeleteDocumentList;
+
 @property (assign, nonatomic) BOOL didRefreshDocuments;
 
 @end
@@ -103,6 +105,19 @@
     }
     
     return self.resultDeleteDocument;
+}
+
+- (IAWPersistenceDatastore_deleteDocumentList_resultType)deleteDocumentList:(NSArray *)documents
+                                                                      error:(NSError **)error
+{
+    self.didDeleteDocumentList = YES;
+    
+    if ((self.resultDeleteDocumentList != IAWPersistenceDatastore_deleteDocumentList_resultType_success) && error)
+    {
+        *error = self.resultDeleteDocumentListError;
+    }
+    
+    return self.resultDeleteDocumentList;
 }
 
 - (void)refreshDocuments

@@ -1,8 +1,8 @@
 //
-//  IAWMockPersistenceDatastore.h
+//  IAWMockPersistenceDatastoreLocalStorage.h
 //  Answers
 //
-//  Created by Enrique de la Torre (dev) on 14/02/2015.
+//  Created by Enrique de la Torre (dev) on 19/04/2015.
 //  Copyright (c) 2015 Enrique de la Torre. All rights reserved.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
@@ -16,30 +16,22 @@
 
 #import <Foundation/Foundation.h>
 
-#import "IAWPersistenceDatastoreProtocol.h"
+#import "IAWPersistenceDatastoreLocalStorageProtocol.h"
 
 
 
-@interface IAWMockPersistenceDatastore : NSObject <IAWPersistenceDatastoreProtocol>
+@interface IAWMockPersistenceDatastoreLocalStorage : NSObject <IAWPersistenceDatastoreLocalStorageProtocol>
 
-@property (assign, nonatomic, readonly) BOOL didCreateDocument;
-@property (strong, nonatomic, readonly) NSDictionary *dictionaryForCreatedDocument;
 @property (strong, nonatomic) id<IAWPersistenceDatastoreDocumentProtocol> resultCreateDocument;
 @property (strong, nonatomic) NSError *resultCreateDocumentError;
 
-@property (assign, nonatomic, readonly) BOOL didReplaceDocument;
-@property (strong, nonatomic, readonly) NSDictionary *dictionaryForReplacedDocument;
 @property (strong, nonatomic) id<IAWPersistenceDatastoreDocumentProtocol> resultReplaceDocument;
 @property (strong, nonatomic) NSError *resultReplaceDocumentError;
 
-@property (assign, nonatomic, readonly) BOOL didDeleteDocument;
 @property (assign, nonatomic) BOOL resultDeleteDocument;
 @property (strong, nonatomic) NSError *resultDeleteDocumentError;
 
-@property (assign, nonatomic, readonly) BOOL didDeleteDocumentList;
-@property (assign, nonatomic) IAWPersistenceDatastore_deleteDocumentList_resultType resultDeleteDocumentList;
+@property (assign, nonatomic) IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType resultDeleteDocumentList;
 @property (strong, nonatomic) NSError *resultDeleteDocumentListError;
-
-@property (assign, nonatomic, readonly) BOOL didRefreshDocuments;
 
 @end

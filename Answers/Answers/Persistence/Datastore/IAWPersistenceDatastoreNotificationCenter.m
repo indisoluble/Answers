@@ -23,6 +23,7 @@
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification";
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification";
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification = @"kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification";
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification = @"kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification";
 
 
@@ -134,6 +135,33 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
     IAWLogInfo(@"Post with sender: %@", sender);
     
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification
+                                           object:sender];
+}
+
+- (void)addDidDeleteDocumentListNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender
+{
+    IAWLogInfo(@"Add observer: %@", observer);
+    
+    [self.notificationCenter addObserver:observer
+                                selector:aSelector
+                                    name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification
+                                  object:sender];
+}
+
+- (void)removeDidDeleteDocumentListNotificationObserver:(id)observer sender:(id)sender
+{
+    IAWLogInfo(@"Remove observer: %@", observer);
+    
+    [self.notificationCenter removeObserver:observer
+                                       name:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification
+                                     object:sender];
+}
+
+- (void)postDidDeleteDocumentListNotificationWithSender:(id)sender
+{
+    IAWLogInfo(@"Post with sender: %@", sender);
+    
+    [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification
                                            object:sender];
 }
 

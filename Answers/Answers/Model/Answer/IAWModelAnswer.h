@@ -20,6 +20,14 @@
 
 
 
+typedef NS_ENUM(NSInteger, IAWModelAnswer_deleteAnswerList_resultType) {
+    IAWModelAnswer_deleteAnswerList_resultType_noAnswerDeleted,
+    IAWModelAnswer_deleteAnswerList_resultType_someAnswersDeleted,
+    IAWModelAnswer_deleteAnswerList_resultType_success
+};
+
+
+
 @interface IAWModelAnswer : IAWModelObject
 
 @property (strong, nonatomic, readonly) NSString *questionText;
@@ -33,6 +41,10 @@
 + (BOOL)deleteAnswer:(IAWModelAnswer *)answer
          inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                error:(NSError **)error;
+
++ (IAWModelAnswer_deleteAnswerList_resultType)deleteAnswerList:(NSArray *)answers
+                                                   inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                                         error:(NSError **)error;
 
 + (NSSet *)indexableFieldnames;
 

@@ -20,6 +20,14 @@
 
 
 
+typedef NS_ENUM(NSInteger, IAWModelObject_deleteObjectList_resultType) {
+    IAWModelObject_deleteObjectList_resultType_noObjectDeleted,
+    IAWModelObject_deleteObjectList_resultType_someObjectsDeleted,
+    IAWModelObject_deleteObjectList_resultType_success
+};
+
+
+
 extern NSString * const kIAWModelObjectKeyType;
 
 
@@ -45,6 +53,10 @@ extern NSString * const kIAWModelObjectKeyType;
 + (BOOL)deleteObject:(IAWModelObject *)object
          inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                error:(NSError **)error;
+
++ (IAWModelObject_deleteObjectList_resultType)deleteObjectList:(NSArray *)objects
+                                                   inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                                         error:(NSError **)error;
 
 + (NSSet *)indexableFieldnames;
 

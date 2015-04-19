@@ -116,6 +116,47 @@
     return success;
 }
 
+- (IAWPersistenceDatastore_deleteDocumentList_resultType)deleteDocumentList:(NSArray *)documents
+                                                                      error:(NSError **)error
+{
+    BOOL didDeleteDocuments = YES;
+    IAWPersistenceDatastore_deleteDocumentList_resultType result = IAWPersistenceDatastore_deleteDocumentList_resultType_success;
+    
+    switch ([self.localStorage deleteDocumentList:documents error:error])
+    {
+        case IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_success:
+        {
+            result = IAWPersistenceDatastore_deleteDocumentList_resultType_success;
+            
+            break;
+        }
+        case IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_someDocumentsDeleted:
+        {
+            result = IAWPersistenceDatastore_deleteDocumentList_resultType_someDocumentsDeleted;
+            
+            break;
+        }
+        case IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_noDocumentDeleted:
+        default:
+        {
+            didDeleteDocuments = NO;
+            
+            result = IAWPersistenceDatastore_deleteDocumentList_resultType_noDocumentDeleted;
+            
+            break;
+        }
+    }
+    
+    if (didDeleteDocuments)
+    {
+        [self pushChanges];
+        
+        [self.notificationCenter postDidDeleteDocumentListNotificationWithSender:self];
+    }
+    
+    return result;
+}
+
 - (void)refreshDocuments
 {
     [self pullChanges];

@@ -226,4 +226,58 @@
                    @"If no object is informed, it should not try to delete anything");
 }
 
+- (void)testDeleteObjectListWithListSetToNilFails
+{
+    IAWModelObject_deleteObjectList_resultType result = [IAWModelObject deleteObjectList:nil
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelObject_deleteObjectList_resultType_noObjectDeleted,
+                   @"No object can be deleted if no list is informed");
+}
+
+- (void)testDeleteObjectListWithListSetToNilDoesNotCallDatastore
+{
+    [IAWModelObject deleteObjectList:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(self.mockDatastore.didDeleteDocumentList,
+                   @"If no list is informed, it should not try to delete anything");
+}
+
+- (void)testDeleteObjectListReturnsRightResultIfDatastoreSucceds
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_success;
+    
+    IAWModelObject_deleteObjectList_resultType result = [IAWModelObject deleteObjectList:@[self.mockObject]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelObject_deleteObjectList_resultType_success,
+                   @"Delete List must return the equivalent result");
+}
+
+- (void)testDeleteObjectListReturnsRightResultIfDatastoreDeletesSomeDocuments
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_someDocumentsDeleted;
+    
+    IAWModelObject_deleteObjectList_resultType result = [IAWModelObject deleteObjectList:@[self.mockObject]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelObject_deleteObjectList_resultType_someObjectsDeleted,
+                   @"Delete List must return the equivalent result");
+}
+
+- (void)testDeleteObjectListReturnsRightResultIfDatastoreDoesNotDeleteAnyDocument
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_noDocumentDeleted;
+    
+    IAWModelObject_deleteObjectList_resultType result = [IAWModelObject deleteObjectList:@[self.mockObject]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelObject_deleteObjectList_resultType_noObjectDeleted,
+                   @"Delete List must return the equivalent result");
+}
+
 @end

@@ -20,6 +20,7 @@
 #import "IAWModelAnswer.h"
 
 #import "IAWMockPersistenceDatastore.h"
+#import "IAWMockPersistenceDatastoreDocument.h"
 
 
 
@@ -29,6 +30,8 @@
 @property (strong, nonatomic) NSSet *oneOptionSet;
 
 @property (strong, nonatomic) IAWMockPersistenceDatastore *mockDatastore;
+
+@property (strong, nonatomic) IAWModelAnswer *mockAnswer;
 
 @end
 
@@ -46,11 +49,16 @@
     
     self.mockDatastore = [[IAWMockPersistenceDatastore alloc] init];
     self.mockDatastore.resultCreateDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"document";
+    
+    IAWMockPersistenceDatastoreDocument *mockDocument = [[IAWMockPersistenceDatastoreDocument alloc] init];
+    self.mockAnswer = [[IAWModelAnswer alloc] initWithDocument:mockDocument];
 }
 
 - (void)tearDown
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.mockAnswer = nil;
+    
     self.mockDatastore = nil;
     
     self.oneOptionSet = nil;
@@ -134,6 +142,60 @@
     
     XCTAssertFalse(self.mockDatastore.didDeleteDocument,
                    @"If no answer is informed, it should not try to delete anything");
+}
+
+- (void)testDeleteAnswerListWithListSetToNilFails
+{
+    IAWModelAnswer_deleteAnswerList_resultType result = [IAWModelAnswer deleteAnswerList:nil
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelAnswer_deleteAnswerList_resultType_noAnswerDeleted,
+                   @"No answer can be deleted if no list is informed");
+}
+
+- (void)testDeleteAnswerListWithListSetToNilDoesNotCallDatastore
+{
+    [IAWModelAnswer deleteAnswerList:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(self.mockDatastore.didDeleteDocumentList,
+                   @"If no list is informed, it should not try to delete anything");
+}
+
+- (void)testDeleteAnswerListReturnsRightResultIfDatastoreSucceds
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_success;
+    
+    IAWModelAnswer_deleteAnswerList_resultType result = [IAWModelAnswer deleteAnswerList:@[self.mockAnswer]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelAnswer_deleteAnswerList_resultType_success,
+                   @"Delete List must return the equivalent result");
+}
+
+- (void)testDeleteAnswerListReturnsRightResultIfDatastoreDeletesSomeDocuments
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_someDocumentsDeleted;
+    
+    IAWModelAnswer_deleteAnswerList_resultType result = [IAWModelAnswer deleteAnswerList:@[self.mockAnswer]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelAnswer_deleteAnswerList_resultType_someAnswersDeleted,
+                   @"Delete List must return the equivalent result");
+}
+
+- (void)testDeleteAnswerListReturnsRightResultIfDatastoreDoesNotDeleteAnyDocument
+{
+    self.mockDatastore.resultDeleteDocumentList = IAWPersistenceDatastore_deleteDocumentList_resultType_noDocumentDeleted;
+    
+    IAWModelAnswer_deleteAnswerList_resultType result = [IAWModelAnswer deleteAnswerList:@[self.mockAnswer]
+                                                                             inDatastore:self.mockDatastore
+                                                                                   error:nil];
+    
+    XCTAssertEqual(result, IAWModelAnswer_deleteAnswerList_resultType_noAnswerDeleted,
+                   @"Delete List must return the equivalent result");
 }
 
 @end

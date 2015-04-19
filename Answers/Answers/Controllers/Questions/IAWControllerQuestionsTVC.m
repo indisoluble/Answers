@@ -128,11 +128,7 @@
 {
     IAWModelQuestion *oneQuestion = self.allQuestions[indexPath.row];
     
-    NSError *error = nil;
-    if (![self.datastore deleteDocument:oneQuestion.document error:&error])
-    {
-        IAWLogError(@"Question %@ not deleted: %@", oneQuestion, error);
-    }
+    [self deleteQuestionIncludingAnswers:oneQuestion];
 }
 
 
@@ -190,6 +186,9 @@
     [notificationCenter addDidDeleteDocumentNotificationObserver:self
                                                         selector:@selector(manageDidCreateDocumentNotification:)
                                                           sender:self.datastore];
+    [notificationCenter addDidDeleteDocumentListNotificationObserver:self
+                                                            selector:@selector(manageDidCreateDocumentNotification:)
+                                                              sender:self.datastore];
     [notificationCenter addDidRefreshDocumentsNotificationObserver:self
                                                           selector:@selector(manageDidRefreshDocumentsNotification:)
                                                             sender:self.datastore];
@@ -231,6 +230,28 @@
     }
 }
 
+- (void)deleteQuestionIncludingAnswers:(IAWModelQuestion *)question
+{
+    NSArray *answers = [IAWModelAnswer allAnswersWithText:question.questionText
+                                           inIndexManager:self.datastore.indexManager];
+    
+    NSError *error = nil;
+    IAWModelAnswer_deleteAnswerList_resultType result = [IAWModelAnswer deleteAnswerList:answers
+                                                                             inDatastore:self.datastore
+                                                                                   error:&error];
+    if (result != IAWModelAnswer_deleteAnswerList_resultType_success)
+    {
+        IAWLogError(@"Answers for question %@ not deleted: %@", question, error);
+        
+        return;
+    }
+    
+    if (![IAWModelQuestion deleteQuestion:question inDatastore:self.datastore error:&error])
+    {
+        IAWLogError(@"Question %@ not deleted: %@", question, error);
+    }
+}
+
 - (void)prepareForSegueAddAnswerTVC:(ControllerAnswersTVC *)answersTVC
                            withCell:(UITableViewCell *)cell
 {
@@ -252,6 +273,7 @@
     [notificationCenter removeDidCreateDocumentNotificationObserver:observer sender:datastore];
     [notificationCenter removeDidReplaceDocumentNotificationObserver:observer sender:datastore];
     [notificationCenter removeDidDeleteDocumentNotificationObserver:observer sender:datastore];
+    [notificationCenter removeDidDeleteDocumentListNotificationObserver:observer sender:datastore];
     [notificationCenter removeDidRefreshDocumentsNotificationObserver:observer sender:datastore];
 }
 

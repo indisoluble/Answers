@@ -137,6 +137,50 @@ NSString * const kIAWModelObjectKeyType = @"object_type";
     return [datastore deleteDocument:object.document error:error];
 }
 
++ (IAWModelObject_deleteObjectList_resultType)deleteObjectList:(NSArray *)objects
+                                                   inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                                         error:(NSError **)error
+{
+    if (!objects)
+    {
+        IAWLogError(@"List not informed. Abort");
+        
+        return IAWModelObject_deleteObjectList_resultType_noObjectDeleted;
+    }
+    
+    NSMutableArray *documents = [NSMutableArray arrayWithCapacity:[objects count]];
+    for (IAWModelObject *oneObject in objects)
+    {
+        [documents addObject:oneObject.document];
+    }
+    
+    IAWModelObject_deleteObjectList_resultType result = IAWModelObject_deleteObjectList_resultType_noObjectDeleted;
+    switch ([datastore deleteDocumentList:documents error:error])
+    {
+        case IAWPersistenceDatastore_deleteDocumentList_resultType_success:
+        {
+            result = IAWModelObject_deleteObjectList_resultType_success;
+            
+            break;
+        }
+        case IAWPersistenceDatastore_deleteDocumentList_resultType_someDocumentsDeleted:
+        {
+            result = IAWModelObject_deleteObjectList_resultType_someObjectsDeleted;
+            
+            break;
+        }
+        case IAWPersistenceDatastore_deleteDocumentList_resultType_noDocumentDeleted:
+        default:
+        {
+            result = IAWModelObject_deleteObjectList_resultType_noObjectDeleted;
+            
+            break;
+        }
+    }
+    
+    return result;
+}
+
 + (NSSet *)indexableFieldnames
 {
     return [NSSet setWithObject:kIAWModelObjectKeyType];

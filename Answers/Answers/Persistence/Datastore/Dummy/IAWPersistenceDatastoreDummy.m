@@ -66,6 +66,17 @@ NSInteger const kIAWPersistenceDatastoreDummyErrorCode = 1;
     return NO;
 }
 
+- (IAWPersistenceDatastore_deleteDocumentList_resultType)deleteDocumentList:(NSArray *)documents
+                                                                      error:(NSError **)error
+{
+    if (error)
+    {
+        *error = [IAWPersistenceDatastoreDummy dummyError];
+    }
+    
+    return IAWPersistenceDatastore_deleteDocumentList_resultType_noDocumentDeleted;
+}
+
 - (void)refreshDocuments
 {
     // Do nothing

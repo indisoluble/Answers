@@ -81,6 +81,37 @@ NSString * const kIAWModelAnswerKeyOptions = @"answer_options";
     return [[self class] deleteObject:answer inDatastore:datastore error:error];
 }
 
++ (IAWModelAnswer_deleteAnswerList_resultType)deleteAnswerList:(NSArray *)answers
+                                                   inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                                                         error:(NSError **)error
+{
+    IAWModelAnswer_deleteAnswerList_resultType result = IAWModelAnswer_deleteAnswerList_resultType_noAnswerDeleted;
+    
+    switch ([[self class] deleteObjectList:answers inDatastore:datastore error:error]) {
+        case IAWModelObject_deleteObjectList_resultType_success:
+        {
+            result = IAWModelAnswer_deleteAnswerList_resultType_success;
+            
+            break;
+        }
+        case IAWModelObject_deleteObjectList_resultType_someObjectsDeleted:
+        {
+            result = IAWModelAnswer_deleteAnswerList_resultType_someAnswersDeleted;
+            
+            break;
+        }
+        case IAWModelObject_deleteObjectList_resultType_noObjectDeleted:
+        default:
+        {
+            result = IAWModelAnswer_deleteAnswerList_resultType_noAnswerDeleted;
+            
+            break;
+        }
+    }
+    
+    return result;
+}
+
 + (NSSet *)indexableFieldnames
 {
     return [NSSet setWithObject:kIAWModelAnswerKeyQuestionText];

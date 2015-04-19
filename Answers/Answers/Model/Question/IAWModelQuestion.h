@@ -35,6 +35,10 @@
                     inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
                           error:(NSError **)error;
 
++ (BOOL)deleteQuestion:(IAWModelQuestion *)question
+           inDatastore:(id<IAWPersistenceDatastoreProtocol>)datastore
+                 error:(NSError **)error;
+
 + (NSSet *)indexableFieldnames;
 
 + (NSArray *)allQuestionsInIndexManager:(id<IAWPersistenceDatastoreIndexManagerProtocol>)indexManager;

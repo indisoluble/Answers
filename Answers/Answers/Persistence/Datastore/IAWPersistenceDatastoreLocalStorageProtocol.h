@@ -20,6 +20,14 @@
 
 
 
+typedef NS_ENUM(NSInteger, IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType) {
+    IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_noDocumentDeleted,
+    IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_someDocumentsDeleted,
+    IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType_success
+};
+
+
+
 @protocol IAWPersistenceDatastoreLocalStorageProtocol <NSObject>
 
 - (id<IAWPersistenceDatastoreDocumentProtocol>)createDocumentWithDictionary:(NSDictionary *)dictionary
@@ -31,5 +39,8 @@
 
 - (BOOL)deleteDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)document
                  error:(NSError **)error;
+
+- (IAWPersistenceDatastoreLocalStorage_deleteDocumentList_resultType)deleteDocumentList:(NSArray *)documents
+                                                                                  error:(NSError **)error;
 
 @end

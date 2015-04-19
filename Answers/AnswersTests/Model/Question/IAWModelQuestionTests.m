@@ -178,4 +178,19 @@
                   @"It tries to replace a question but it fails and no new document is created at the end");
 }
 
+- (void)testDeleteWithQuestionSetToNilFails
+{
+    BOOL result = [IAWModelQuestion deleteQuestion:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(result, @"No question can be deleted if the question is not supplied");
+}
+
+- (void)testDeleteWithQuestionSetToNilDoesNotCallDatastore
+{
+    [IAWModelQuestion deleteQuestion:nil inDatastore:self.mockDatastore error:nil];
+    
+    XCTAssertFalse(self.mockDatastore.didDeleteDocument,
+                   @"If no answer is informed, it should not try to delete anything");
+}
+
 @end
