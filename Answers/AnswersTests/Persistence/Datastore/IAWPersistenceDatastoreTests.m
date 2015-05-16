@@ -33,6 +33,9 @@
 
 @property (assign, nonatomic) BOOL didReceiveDeleteDocumentListNotification;
 
+@property (assign, nonatomic) BOOL didReceiveReplaceDocumentNotification;
+@property (strong, nonatomic) NSDictionary *didReceiveReplaceDocumentNotificationUserInfo;
+
 @end
 
 
@@ -59,11 +62,16 @@
                                                         notificationCenter:notificationCenter];
     
     self.didReceiveDeleteDocumentListNotification = NO;
+    
+    self.didReceiveReplaceDocumentNotification = NO;
+    self.didReceiveReplaceDocumentNotificationUserInfo = nil;
 }
 
 - (void)tearDown
 {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.didReceiveReplaceDocumentNotificationUserInfo = nil;
+    
     self.datastore = nil;
     self.mockStorage = nil;
     
@@ -146,11 +154,38 @@
 
 }
 
+- (void)testReplaceDocumentPostNotificationIfSuccess
+{
+    [self.datastore.notificationCenter addDidReplaceDocumentNotificationObserver:self
+                                                                        selector:@selector(manageDidReplaceDocumentNotification:)
+                                                                          sender:self.datastore];
+    
+    self.mockStorage.resultReplaceDocument = (id<IAWPersistenceDatastoreDocumentProtocol>)@"nextDocument";
+    [self.datastore replaceDocument:(id<IAWPersistenceDatastoreDocumentProtocol>)@"document"
+                     withDictionary:nil
+                              error:nil];
+    
+    [self.datastore.notificationCenter removeDidReplaceDocumentNotificationObserver:self
+                                                                             sender:self.datastore];
+    
+    XCTAssertTrue(self.didReceiveReplaceDocumentNotification &&
+                  self.didReceiveReplaceDocumentNotificationUserInfo &&
+                  self.didReceiveReplaceDocumentNotificationUserInfo[kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyNext] &&
+                  self.didReceiveReplaceDocumentNotificationUserInfo[kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyReplaced],
+                  @"If success, send notification & inform replaces doc and next doc");
+}
+
 
 #pragma mark - Private methods
 - (void)manageDidDeleteDocumentListNotification:(NSNotification *)notification
 {
     self.didReceiveDeleteDocumentListNotification = YES;
+}
+
+- (void)manageDidReplaceDocumentNotification:(NSNotification *)notification
+{
+    self.didReceiveReplaceDocumentNotification = YES;
+    self.didReceiveReplaceDocumentNotificationUserInfo = notification.userInfo;
 }
 
 @end

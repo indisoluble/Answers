@@ -144,8 +144,8 @@ class ControllerAnswersTVC: UITableViewController
             inIndexManager: self.indexManager)
         
         // Refresh UI
-        title = (question != nil ?
-            question!.questionText :
+        title = (self.question != nil ?
+            self.question!.questionText :
             NSLocalizedString("Answers", comment: "Answers"))
         
         if isViewLoaded()
@@ -170,6 +170,9 @@ class ControllerAnswersTVC: UITableViewController
             notificationCenter.addDidDeleteDocumentNotificationObserver(self,
                 selector: "manageDidCreateDocumentNotification:",
                 sender: datastore)
+            notificationCenter.addDidReplaceDocumentNotificationObserver(self,
+                selector: "manageDidReplaceDocumentNotification:",
+                sender: datastore)
         }
     }
     
@@ -179,6 +182,7 @@ class ControllerAnswersTVC: UITableViewController
         {
             notificationCenter.removeDidCreateDocumentNotificationObserver(self, sender: datastore)
             notificationCenter.removeDidDeleteDocumentNotificationObserver(self, sender: datastore)
+            notificationCenter.removeDidReplaceDocumentNotificationObserver(self, sender: datastore)
         }
     }
     
@@ -188,12 +192,39 @@ class ControllerAnswersTVC: UITableViewController
     {
         // #warning Show log
         
-        allAnswers = ControllerAnswersTVC.allAnswersForQuestion(self.question,
-            inIndexManager: self.indexManager)
+        allAnswers = ControllerAnswersTVC.allAnswersForQuestion(question, inIndexManager: indexManager)
         
         if isViewLoaded()
         {
             tableView.reloadData()
+        }
+    }
+    
+    dynamic private func manageDidReplaceDocumentNotification(notification: NSNotification)
+    {
+        // #warning Show log
+        
+        let userInfo = notification.userInfo as! Dictionary<String, IAWPersistenceDatastoreDocumentProtocol!>
+        let replacedDoc = userInfo[kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyReplaced]
+        
+        if let questionDocument = question?.document
+        {
+            if questionDocument === replacedDoc
+            {
+                // Update properties
+                let nextDoc = userInfo[kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyNext];
+                question = IAWModelQuestion(document: nextDoc)
+                
+                allAnswers = ControllerAnswersTVC.allAnswersForQuestion(question, inIndexManager: indexManager)
+                
+                // Refresh UI
+                title = question!.questionText
+                
+                if isViewLoaded()
+                {
+                    tableView.reloadData()
+                }
+            }
         }
     }
     

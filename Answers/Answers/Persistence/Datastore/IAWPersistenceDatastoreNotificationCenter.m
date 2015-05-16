@@ -21,9 +21,15 @@
 
 
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidCreateDocumentNotification";
+
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyReplaced = @"kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyReplaced";
+NSString * const kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyNext = @"kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyNext";
+
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification = @"kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentNotification";
+
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification = @"kIAWPersistenceDatastoreNotificationCenterDidDeleteDocumentListNotification";
+
 NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification = @"kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNotification";
 
 
@@ -104,11 +110,19 @@ NSString * const kIAWPersistenceDatastoreNotificationCenterDidRefreshDocumentsNo
 }
 
 - (void)postDidReplaceDocumentNotificationWithSender:(id)sender
+                                    replacedDocument:(id)replacedDocument
+                                        nextDocument:(id)nextDocument
 {
     IAWLogInfo(@"Post with sender: %@", sender);
     
+    NSDictionary *userInfo = @{kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyNext:
+                                   nextDocument,
+                               kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotificationUserInfoKeyReplaced:
+                                   replacedDocument};
+    
     [self.notificationCenter postNotificationName:kIAWPersistenceDatastoreNotificationCenterDidReplaceDocumentNotification
-                                           object:sender];
+                                           object:sender
+                                         userInfo:userInfo];
 }
 
 - (void)addDidDeleteDocumentNotificationObserver:(id)observer selector:(SEL)aSelector sender:(id)sender

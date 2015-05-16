@@ -96,7 +96,9 @@
     {
         [self pushChanges];
         
-        [self.notificationCenter postDidReplaceDocumentNotificationWithSender:self];
+        [self.notificationCenter postDidReplaceDocumentNotificationWithSender:self
+                                                             replacedDocument:document
+                                                                 nextDocument:nextDoc];
     }
     
     return nextDoc;
